@@ -1533,7 +1533,7 @@ body{background:var(--ces-bg)!important;color:var(--ces-text)!important}
 /* ========================================================================== 
    CES Hub V18.1 — Service CSI reference header standard
    --------------------------------------------------------------------------
-   Applied by 005-ui-standard.js to every mounted view (DIV and SECTION).
+   Applied by ui-standard.js to every mounted view (DIV and SECTION).
    Main function headers now share one icon, type, spacing and action scale.
    ========================================================================== */
 :root{
@@ -5101,3 +5101,212 @@ body,input,select,textarea,button,table,th,td,.swal2-container,.swal2-popup,.swa
 #view-inventory .ces69-access-table{min-width:1050px!important}#view-inventory .ces69-access-table th,#view-inventory #siRestockTable th{position:sticky;top:0;background:#edf5ff!important;font-size:11px!important;font-weight:800!important;color:#35577a!important;padding:12px!important}#view-inventory .ces69-access-table td,#view-inventory #siRestockTable td{font-size:11px!important;padding:11px 12px!important;line-height:1.5!important}#view-inventory .ces69-access-table tbody tr:nth-child(even) td{background:#fbfdff}
 #view-inventory #siInventoryDashboardCurrent,#view-inventory #siAccSection,#view-inventory #siRestockSection{min-width:0}#view-inventory .stockpro-card{border:1px solid #e1eaf5;border-radius:16px!important;box-shadow:0 4px 14px rgba(31,74,111,.04)!important}
 @media(max-width:680px){#view-inventory .ces-inventory-mode-tabs .sp-tab{font-size:10px!important}#view-inventory .stockpro-actions{gap:4px}#view-inventory .stockpro-title-wrap h1{font-size:18px}}
+
+/* CES Hub V30.0.29 */
+#view-inventory #siInventoryDashboardCurrent>.stockpro-kpi-grid{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important}
+#view-inventory #siInventoryDashboardCurrent>.stockpro-kpi-grid .stockpro-card{min-height:82px!important;padding:13px 16px!important;border-left:3px solid #2f75ff}
+#view-inventory #siInventoryDashboardCurrent>.stockpro-kpi-grid .text-3xl{font-size:24px!important;line-height:1.1!important}
+#view-inventory #siAccKpiGrid,#view-inventory #siEquipFilters,#view-inventory #siEquipKpiGrid,#view-inventory #siEquipSection{display:none!important}
+.sd-equipment-table-v3029{min-width:1180px!important}.sd-equipment-table-v3029 th:last-child,.sd-equipment-table-v3029 td:last-child{min-width:230px}
+.sd-status-v3029{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border:1px solid transparent;border-radius:999px;font-size:9px;font-weight:900;white-space:nowrap}.sd-status-v3029.ready{background:#ecfdf5;border-color:#a7f3d0;color:#047857}.sd-status-v3029.rental{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}.sd-status-v3029.overdue{background:#fff1f2;border-color:#fecdd3;color:#be123c}.sd-status-v3029.recheck{background:#fffbeb;border-color:#fde68a;color:#b45309}.sd-status-v3029.broken{background:#fef2f2;border-color:#fecaca;color:#b91c1c}.sd-status-v3029.missing{background:#f1f5f9;border-color:#cbd5e1;color:#475569}.sd-status-v3029.neutral{background:#f8fafc;border-color:#e2e8f0;color:#475569}.sd-rental-chip-v3029{font-size:9px;font-weight:800;color:#475569;white-space:nowrap}
+.sd-actions-v3029{display:flex;align-items:center;gap:5px;flex-wrap:wrap}.sd-act-v3029{width:30px;height:30px;display:inline-grid;place-items:center;border:1px solid #d9e4f1;border-radius:9px;background:#f8fbff;color:#526d8a;cursor:pointer;transition:.15s}.sd-act-v3029:hover{transform:translateY(-1px);box-shadow:0 5px 12px rgba(15,39,71,.12)}.sd-act-v3029.edit{color:#2563eb}.sd-act-v3029.ready{background:#ecfdf5;border-color:#a7f3d0;color:#059669}.sd-act-v3029.rent{background:#eff6ff;border-color:#bfdbfe;color:#2563eb}.sd-act-v3029.return{background:#fffbeb;border-color:#fde68a;color:#d97706}.sd-act-v3029.broken{background:#fff7ed;border-color:#fed7aa;color:#ea580c}.sd-act-v3029.delete{background:#fef2f2;border-color:#fecaca;color:#dc2626}
+.sd-page-buttons-v3029 button{min-width:36px;height:34px;padding:0 11px;border:1px solid #d9e4f1;border-radius:9px;background:#fff;color:#35516f;font-size:10px;font-weight:900}.sd-page-buttons-v3029 button.active{background:#0057b8;border-color:#0057b8;color:#fff}.sd-page-buttons-v3029 button:disabled{opacity:.4;cursor:not-allowed}
+.sd-alert-tabs-v3029{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-bottom:12px}.sd-alert-tab-v3029{border:1px solid #d9e4f1;border-radius:10px;background:#f4f8fc;color:#526d8a;padding:9px 6px;font-size:9px;font-weight:900;cursor:pointer}.sd-alert-tab-v3029 b{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:999px;background:#fff;margin-left:4px}.sd-alert-tab-v3029.active{background:#0057b8;border-color:#0057b8;color:#fff}.sd-alert-body-v3029{max-height:560px;overflow:auto;border:1px solid #dbe5f1;border-radius:12px}.sd-alert-body-v3029 table{width:100%;border-collapse:collapse;text-align:left;font-size:10px}.sd-alert-body-v3029 th{position:sticky;top:0;background:#eaf2ff;color:#38526d;padding:10px;z-index:2}.sd-alert-body-v3029 td{padding:10px;border-bottom:1px solid #e6edf5}.sd-alert-body-v3029 small{display:block;color:#64748b;margin-top:3px}.sd-alert-body-v3029 .severity{display:inline-flex;border-radius:999px;padding:5px 8px;font-size:8px;font-weight:900}.sd-alert-body-v3029 .severity.critical{background:#fee2e2;color:#b91c1c}.sd-alert-body-v3029 .severity.warning{background:#fef3c7;color:#a16207}.sd-alert-body-v3029 .severity.info{background:#dbeafe;color:#1d4ed8}.sd-alert-empty-v3029{padding:50px;text-align:center}.sd-alert-empty-v3029 i{display:block;color:#10b981;font-size:28px;margin-bottom:10px}.audit-save-all-icon-v3029{width:38px!important;height:38px!important;padding:0!important;display:inline-grid!important;place-items:center!important}
+@media(max-width:900px){#view-inventory #siInventoryDashboardCurrent>.stockpro-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sd-alert-tabs-v3029{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sc-checkout-grid-v3029{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;text-align:left}.sc-checkout-grid-v3029 label{font-size:10px;font-weight:900;color:#526d8a}.sc-checkout-grid-v3029 .swal2-input{width:100%;margin:5px 0 0;height:40px;font-size:11px}.sc-checkout-grid-v3029 .full{grid-column:1/-1}@media(max-width:680px){.sc-checkout-grid-v3029{grid-template-columns:1fr}}
+
+
+/* CES Hub V31 — central visual theme
+   Primary: blue / red / white / grey
+   Team colors remain available as semantic identifiers. */
+:root {
+  --ces-blue:#003DA5;
+  --ces-blue-2:#1D4ED8;
+  --ces-red:#E4002B;
+  --ces-white:#FFFFFF;
+  --ces-grey-25:#F8FAFC;
+  --ces-grey-50:#F1F5F9;
+  --ces-grey-100:#E2E8F0;
+  --ces-grey-400:#94A3B8;
+  --ces-grey-600:#475569;
+  --ces-grey-800:#1E293B;
+  --ces-team-med:#004AAD;
+  --ces-team-lab:#19A7CE;
+  --ces-team-ehs:#0FC1A1;
+  --ces-team-env:#2E7D32;
+  --ces-team-tes:#F59E0B;
+  --ces-team-mng:#64748B;
+}
+
+html, body { background:var(--ces-grey-25); color:var(--ces-grey-800); }
+body, input, select, textarea, button { font-family:'Prompt',sans-serif; }
+
+/* Shared surfaces */
+.view-section > .bg-white,
+.ces-card,
+.vehicle-card {
+  background:var(--ces-white) !important;
+  border-color:var(--ces-grey-100) !important;
+}
+
+/* Primary actions */
+.ces-btn-primary,
+button[data-ces-action="primary"] {
+  background:var(--ces-blue) !important;
+  color:var(--ces-white) !important;
+  border-color:var(--ces-blue) !important;
+}
+.ces-btn-danger,
+button[data-ces-action="danger"] {
+  background:var(--ces-red) !important;
+  color:var(--ces-white) !important;
+  border-color:var(--ces-red) !important;
+}
+
+/* Inputs */
+.ces-book-input,
+.ces-setting-input {
+  background:var(--ces-white) !important;
+  border-color:#CBD5E1 !important;
+  color:var(--ces-grey-800) !important;
+}
+.ces-book-input:focus,
+.ces-setting-input:focus {
+  border-color:#60A5FA !important;
+  box-shadow:0 0 0 3px rgba(59,130,246,.16) !important;
+}
+
+
+/* Legacy Tailwind palette normalization.
+   Older modules may still emit green/purple/orange utility classes. V31 maps
+   those generic utilities to the system palette. Explicit KPI and team
+   classes below intentionally override these mappings. */
+body [class~="bg-indigo-50"], body [class~="bg-indigo-100"],
+body [class~="bg-purple-50"], body [class~="bg-purple-100"],
+body [class~="bg-violet-50"], body [class~="bg-violet-100"],
+body [class~="bg-cyan-50"], body [class~="bg-cyan-100"],
+body [class~="bg-sky-50"], body [class~="bg-sky-100"],
+body [class~="bg-green-50"], body [class~="bg-green-100"],
+body [class~="bg-emerald-50"], body [class~="bg-emerald-100"],
+body [class~="bg-teal-50"], body [class~="bg-teal-100"] {
+  background-color:#EFF6FF !important;
+}
+body [class~="bg-indigo-500"], body [class~="bg-indigo-600"], body [class~="bg-indigo-700"],
+body [class~="bg-purple-500"], body [class~="bg-purple-600"], body [class~="bg-purple-700"],
+body [class~="bg-violet-500"], body [class~="bg-violet-600"], body [class~="bg-violet-700"],
+body [class~="bg-cyan-500"], body [class~="bg-cyan-600"], body [class~="bg-cyan-700"],
+body [class~="bg-sky-500"], body [class~="bg-sky-600"], body [class~="bg-sky-700"],
+body [class~="bg-green-500"], body [class~="bg-green-600"], body [class~="bg-green-700"],
+body [class~="bg-emerald-500"], body [class~="bg-emerald-600"], body [class~="bg-emerald-700"],
+body [class~="bg-teal-500"], body [class~="bg-teal-600"], body [class~="bg-teal-700"] {
+  background-color:var(--ces-blue) !important;
+}
+body [class~="text-indigo-500"], body [class~="text-indigo-600"], body [class~="text-indigo-700"], body [class~="text-indigo-800"],
+body [class~="text-purple-500"], body [class~="text-purple-600"], body [class~="text-purple-700"], body [class~="text-purple-800"],
+body [class~="text-violet-500"], body [class~="text-violet-600"], body [class~="text-violet-700"], body [class~="text-violet-800"],
+body [class~="text-cyan-500"], body [class~="text-cyan-600"], body [class~="text-cyan-700"], body [class~="text-cyan-800"],
+body [class~="text-sky-500"], body [class~="text-sky-600"], body [class~="text-sky-700"], body [class~="text-sky-800"],
+body [class~="text-green-500"], body [class~="text-green-600"], body [class~="text-green-700"], body [class~="text-green-800"],
+body [class~="text-emerald-500"], body [class~="text-emerald-600"], body [class~="text-emerald-700"], body [class~="text-emerald-800"],
+body [class~="text-teal-500"], body [class~="text-teal-600"], body [class~="text-teal-700"], body [class~="text-teal-800"] {
+  color:var(--ces-blue) !important;
+}
+body [class~="border-indigo-100"], body [class~="border-indigo-200"], body [class~="border-purple-100"], body [class~="border-purple-200"],
+body [class~="border-violet-100"], body [class~="border-violet-200"], body [class~="border-cyan-100"], body [class~="border-cyan-200"],
+body [class~="border-sky-100"], body [class~="border-sky-200"], body [class~="border-green-100"], body [class~="border-green-200"],
+body [class~="border-emerald-100"], body [class~="border-emerald-200"], body [class~="border-teal-100"], body [class~="border-teal-200"] {
+  border-color:#BFDBFE !important;
+}
+body [class~="bg-yellow-50"], body [class~="bg-yellow-100"], body [class~="bg-amber-50"], body [class~="bg-amber-100"],
+body [class~="bg-orange-50"], body [class~="bg-orange-100"] { background-color:var(--ces-grey-50) !important; }
+body [class~="bg-yellow-500"], body [class~="bg-yellow-600"], body [class~="bg-amber-500"], body [class~="bg-amber-600"],
+body [class~="bg-orange-500"], body [class~="bg-orange-600"] { background-color:var(--ces-grey-600) !important; }
+body [class~="text-yellow-500"], body [class~="text-yellow-600"], body [class~="text-yellow-700"],
+body [class~="text-amber-500"], body [class~="text-amber-600"], body [class~="text-amber-700"],
+body [class~="text-orange-500"], body [class~="text-orange-600"], body [class~="text-orange-700"] { color:var(--ces-grey-600) !important; }
+body [class~="border-yellow-100"], body [class~="border-yellow-200"], body [class~="border-amber-100"], body [class~="border-amber-200"],
+body [class~="border-orange-100"], body [class~="border-orange-200"] { border-color:var(--ces-grey-100) !important; }
+
+/* Team semantic badges */
+.ces-team-code,
+.ces-team-label {
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  border:1px solid transparent;
+  padding:.16rem .48rem;
+  font-size:9px;
+  font-weight:900;
+  line-height:1.25;
+  letter-spacing:.03em;
+}
+.ces-team-med,.ces-team-label.med { color:var(--ces-team-med)!important; background:#EFF6FF!important; border-color:#BFDBFE!important; }
+.ces-team-lab,.ces-team-label.lab { color:#087EA4!important; background:#ECFEFF!important; border-color:#A5F3FC!important; }
+.ces-team-ehs,.ces-team-label.ehs { color:#047857!important; background:#ECFDF5!important; border-color:#A7F3D0!important; }
+.ces-team-env,.ces-team-label.env { color:var(--ces-team-env)!important; background:#F0FDF4!important; border-color:#BBF7D0!important; }
+.ces-team-tes,.ces-team-label.tes { color:#B45309!important; background:#FFFBEB!important; border-color:#FDE68A!important; }
+.ces-team-mng,.ces-team-label.mng,.ces-team-default { color:var(--ces-team-mng)!important; background:var(--ces-grey-50)!important; border-color:var(--ces-grey-100)!important; }
+
+/* Vehicle booking theme */
+#view-car_booking .vehicle-mode-btn.active,
+#view-van_booking .vehicle-mode-btn.active { color:var(--ces-blue)!important; }
+#view-car_booking .vehicle-calendar-day.available,
+#view-van_booking .vehicle-calendar-day.available { background:var(--ces-white)!important; border-color:var(--ces-grey-100)!important; }
+#view-car_booking .vehicle-calendar-day.pending,
+#view-van_booking .vehicle-calendar-day.pending { background:#EFF6FF!important; border-color:#93C5FD!important; }
+#view-car_booking .vehicle-calendar-day.unavailable,
+#view-van_booking .vehicle-calendar-day.unavailable { background:#FEF2F2!important; border-color:#FCA5A5!important; }
+#view-car_booking .vehicle-calendar-day.completed,
+#view-van_booking .vehicle-calendar-day.completed { background:#DBEAFE!important; border-color:#60A5FA!important; }
+
+/* SweetAlert follows the same palette */
+.swal2-popup { border-radius:24px!important; color:var(--ces-grey-800)!important; }
+.swal2-confirm { background:var(--ces-blue)!important; }
+.swal2-cancel { background:var(--ces-grey-600)!important; }
+.swal2-deny { background:var(--ces-red)!important; }
+
+/* KPI semantic colors are intentionally limited to four states. */
+.ces-kpi-early { color:#047857!important; background:#ECFDF5!important; border-color:#A7F3D0!important; }
+.ces-kpi-on-time { color:#A16207!important; background:#FEFCE8!important; border-color:#FDE68A!important; }
+.ces-kpi-late { color:#B91C1C!important; background:#FEF2F2!important; border-color:#FCA5A5!important; }
+.ces-kpi-process { color:var(--ces-grey-600)!important; background:var(--ces-grey-50)!important; border-color:var(--ces-grey-100)!important; }
+
+/* V31 semantic override: semantic KPI/team classes must win over generic
+   legacy Tailwind palette normalization when both classes exist. */
+body .ces-team-med, body .ces-team-label.med { color:var(--ces-team-med)!important; background:#EFF6FF!important; border-color:#BFDBFE!important; }
+body .ces-team-lab, body .ces-team-label.lab { color:#087EA4!important; background:#ECFEFF!important; border-color:#A5F3FC!important; }
+body .ces-team-ehs, body .ces-team-label.ehs { color:#047857!important; background:#ECFDF5!important; border-color:#A7F3D0!important; }
+body .ces-team-env, body .ces-team-label.env { color:var(--ces-team-env)!important; background:#F0FDF4!important; border-color:#BBF7D0!important; }
+body .ces-team-tes, body .ces-team-label.tes { color:#B45309!important; background:#FFFBEB!important; border-color:#FDE68A!important; }
+body .ces-team-mng, body .ces-team-label.mng, body .ces-team-default { color:var(--ces-team-mng)!important; background:var(--ces-grey-50)!important; border-color:var(--ces-grey-100)!important; }
+body .ces-kpi-early { color:#047857!important; background:#ECFDF5!important; border-color:#A7F3D0!important; }
+body .ces-kpi-on-time { color:#A16207!important; background:#FEFCE8!important; border-color:#FDE68A!important; }
+body .ces-kpi-late { color:#B91C1C!important; background:#FEF2F2!important; border-color:#FCA5A5!important; }
+body .ces-kpi-process { color:var(--ces-grey-600)!important; background:var(--ces-grey-50)!important; border-color:var(--ces-grey-100)!important; }
+
+
+
+/* Responsive CES workspace */
+#view-car_booking > div:first-child{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+#view-car_booking > div:first-child > div:first-child{flex:1 1 480px;min-width:0}
+#view-car_booking .ces-vehicle-header-actions{flex:0 1 auto;max-width:100%;min-width:0}
+#view-car_booking .ces-vehicle-header-actions a,#view-car_booking .ces-vehicle-header-actions button{flex-shrink:0}
+#view-inventory .ces69-access-table-scroll,#view-inventory .si-accessories-summary-wrap-v3031,#view-inventory #siRestockTable{max-width:100%;overflow-x:auto;scrollbar-width:thin}
+#view-inventory .ces69-access-table,#view-inventory #siRestockTable table{min-width:1080px;width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
+#view-inventory .ces69-access-table th,#view-inventory #siRestockTable th{position:sticky;top:0;background:#ebf3fc;color:#18416b;font-weight:800;padding:12px 10px;white-space:nowrap;z-index:2}
+#view-inventory .ces69-access-table td,#view-inventory #siRestockTable td{padding:11px 9px;vertical-align:middle;border-bottom:1px solid #e2eaf3}
+#view-inventory .ces69-access-table tr:hover,#view-inventory #siRestockTable tr:hover{background:#f3f8ff}
+#view-inventory .ces69-access-table td:first-child{font-weight:700}
+#view-inventory .sp-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+#view-inventory .sp-tab{min-height:40px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#view-pr_gr_dashboard .pr-dashboard-icon{height:36px;width:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #dbe5f0;border-radius:10px;background:#f7fafc;color:#1d4b7c}
+#view-pr_gr_dashboard .pr-dashboard-icon:hover{background:#e6f1ff}
+#view-pr_gr_dashboard button,#view-pr_gr_dashboard a{touch-action:manipulation}
+@media(max-width:1050px){#view-inventory .stockpro-two-col{display:grid;grid-template-columns:1fr}#view-car_booking .ces-vehicle-header-actions{width:100%;justify-content:flex-start}}
+@media(max-width:640px){#app-main-content{max-width:100vw;min-width:0}#view-inventory,#view-car_booking,#view-pr_gr_dashboard,#view-memo_workorder{padding:8px!important}#view-inventory .stockpro-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#view-inventory .stockpro-two-col{grid-template-columns:1fr!important}#view-inventory .si-dash-filter-grid-v3031{grid-template-columns:1fr 1fr!important}#view-car_booking .ces-vehicle-header-actions{gap:6px}#view-car_booking .ces-vehicle-action{min-height:36px}#view-pr_gr_dashboard .pr69-filters,#view-pr_gr_dashboard .pr-dashboard-filters{display:grid;grid-template-columns:1fr 1fr}}
+
+#view-inventory .cesHub-access-table{min-width:1280px;width:100%}#view-inventory .cesHub-row-actions{display:flex;align-items:center;gap:5px;flex-wrap:nowrap}#view-inventory .cesHub-row-actions button{min-width:32px;min-height:32px}#view-inventory .ces-inventory-chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}#view-inventory .ces-inventory-chart-grid>div{border:1px solid #dfe7f1;background:#fbfdff;padding:14px;border-radius:12px;height:255px}#view-inventory .ces-inventory-chart-grid h4{font-size:12px;font-weight:800;margin:0 0 10px}@media(max-width:760px){#view-inventory .ces-inventory-chart-grid{grid-template-columns:1fr}}
+
+#view-notification_config .nc-grid{gap:12px}#view-notification_config .nc-item{box-shadow:none;background:#fff;padding:15px}#view-notification_config .nc-routing-summary{background:#f7fafc;gap:10px}#view-notification_config .nc-fields select,#view-notification_config .nc-fields input{font-size:12px!important;min-height:38px}#view-notification_config .nc-label{font-size:10px!important}#view-notification_config .nc-item-top{gap:8px}#view-notification_config .nc-meta{max-width:100%;overflow:hidden;text-overflow:ellipsis}#view-notification_config .nc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:900px){#view-notification_config .nc-grid{grid-template-columns:1fr!important}}@media(max-width:550px){#view-notification_config .nc-fields{grid-template-columns:1fr 1fr!important}#view-notification_config .nc-routing-summary{grid-template-columns:1fr!important}}
+
+#ces-operation-feedback{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:99998;padding:12px 17px;border-radius:12px;background:#173d6e;color:white;font-size:12px;font-weight:750;box-shadow:0 12px 32px #123b6533;max-width:calc(100vw - 24px);overflow-wrap:anywhere}#ces-operation-feedback[data-state=success]{background:#047857}#ces-operation-feedback[data-state=error]{background:#b91c1c}#ces-operation-feedback[hidden]{display:none}

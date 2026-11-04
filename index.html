@@ -87,9 +87,9 @@
 
 
 
-    <link rel="stylesheet" href="css/app.css?v=CES-HUB-CLEAN-20261029">
-    <link rel="stylesheet" href="css/v3029.css?v=20260902-v3029-infusion-workflow">
-    <link rel="stylesheet" href="css/ai-local-assistant.css?v=20260818-v268-priority-concurrency">
+    <link rel="stylesheet" href="css/app.css?build=clean">
+
+<link rel="stylesheet" href="css/ai-local-assistant.css?build=clean">
 
 
 
@@ -110,12 +110,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="stylesheet" href="css/theme-v31.css?v=20260818-v268-priority-concurrency">
-
-
-
-
-    <script src="js/config.js?v=20260924-api-fix"></script>
+<script src="js/config.js?build=clean"></script>
 
     <!-- LINE LIFF SDK V2 edge. Required for Rich Menu -> LINE identity auto-login. -->
     <script defer src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -123,12 +118,12 @@
 
 
 
-    <script src="js/gas-polyfill.js?v=20260924-api-fix"></script>
+    <script src="js/gas-polyfill.js?build=clean"></script>
 
 
 
 
-    <script defer src="js/core/session-cache.js?v=20260818-v268-priority-concurrency"></script>
+    <script defer src="js/core/session-cache.js?build=clean"></script>
 
 
 
@@ -283,7 +278,7 @@
 
 
 
-    <script src="js/core/include-loader.js?v=20260818-v275-monthly-stock-line"></script>
+    <script src="js/core/include-loader.js?build=clean"></script>
 
 
 
@@ -438,7 +433,6 @@
       // one missing view/script is reported without making the whole system blank.
       window.CES_BOOT_MANIFEST = {
         styles: [
-          { url:'css/theme-v31.css', required:true },
           { url:'css/app.css', required:true },
           { url:'css/ai-local-assistant.css', required:true }
         ],
@@ -480,58 +474,59 @@
           { target:'#app-main-content', url:'views/check_stock.html', viewId:'view-check_stock', optional:true }
         ],
         coreScripts: [
-          { url:'js/modules/000-core-global-helpers.js', required:true },
-          { url:'js/modules/005-ui-standard.js', required:true },
-          { url:'js/modules/006-language-toggle.js', required:true },
-          { url:'js/modules/00-auth-login.js', required:true },
-          { url:'js/modules/15-portal-dashboard.js', required:true },
+          { url:'js/modules/core-global-helpers.js', required:true },
+          { url:'js/modules/ui-standard.js', required:true },
+          { url:'js/modules/language-toggle.js', required:true },
+          { url:'js/modules/auth-login.js', required:true },
+          { url:'js/modules/portal-dashboard.js', required:true },
           { url:'js/data/ces-ai-default-knowledge.js', required:true },
-          { url:'js/modules/200-ai-local-assistant.js', required:true },
-          { url:'js/modules/900-app-controller.js', required:true }
+          { url:'js/modules/ai-local-assistant.js', required:true },
+          { url:'js/modules/app-controller.js', required:true },
+ { url:'js/modules/api-operation-feedback.js', required:true }
         ],
         deferredScripts: [
-          { url:'js/modules/10-management-overview-dashboard.js', optional:true },
-          { url:'js/modules/20-service-csi.js', optional:true },
-          { url:'js/modules/30-report-csi.js', optional:true },
-          { url:'js/modules/40-yearly-dashboard.js', optional:true },
-          { url:'js/modules/50-revenue-dashboard.js', optional:true },
-          { url:'js/modules/60-calendar-master.js', optional:true },
-          { url:'js/modules/70-checkin.js', optional:true },
-          { url:'js/modules/80-report-management.js', optional:true },
-          { url:'js/modules/90-weekly-report.js', optional:true },
-          { url:'js/modules/100-ot-dashboard.js', optional:true },
-          { url:'js/modules/110-users-management.js', optional:true },
-          { url:'js/modules/120-settings.js', optional:true },
-          { url:'js/modules/130-kpi-dashboard.js', optional:true },
-          { url:'js/modules/131-lab-kpi-dashboard.js', optional:true },
-          { url:'js/modules/140-stock-dashboard.js', optional:true },
-          { url:'js/modules/150-stock-inventory.js', optional:true },
-          { url:'js/modules/160-stock-check.js', optional:true },
-          { url:'js/modules/170-vehicle-booking.js', optional:true },
-          { url:'js/modules/180-team-information.js', optional:true },
-          { url:'js/modules/185-memo-workorder.js', optional:true },
-          { url:'js/modules/186-monthly-report.js', optional:true },
-          { url:'js/modules/187-master-cal-pm-plan.js', optional:true },
-          { url:'js/modules/188-audit-log.js', optional:true },
-          { url:'js/modules/189-notification-config.js', optional:true },
-          { url:'js/modules/195-ces-hub-evaluation.js', optional:true },
-          { url:'js/modules/196-ces-ai-knowledge.js', optional:true },
-          { url:'js/modules/990-runtime-system-final.js', optional:true },
-          { url:'js/modules/991-runtime-stock-final.js', optional:true },
-          { url:'js/modules/992-frontend-reference-fix.js', optional:true },
-          { url:'js/modules/995-report-csi.js', optional:true },
-          { url:'js/modules/996-report-csi-upload.js', optional:true },
-          { url:'js/modules/997-stock-inventory-settings-kpi.js', optional:true },
-          { url:'js/modules/998-operations-settings-permissions.js', optional:true },
-          { url:'js/modules/206-global-header-actions.js', optional:true },
-          { url:'js/modules/207-ui-consistency.js', optional:true },
-          { url:'js/modules/208-ui-refinement.js', optional:true },
-          { url:'js/modules/209-stability-access-line-readiness.js', optional:true },
-          { url:'js/modules/210-line-oa.js', optional:true },
-          { url:'js/modules/latest-fixes.js', optional:true },
-          { url:'js/modules/211-infusion-rental-current.js', optional:true }
-          ,{ url:'js/modules/213-infusion-dashboard-current.js', optional:true }
-          ,{ url:'js/modules/212-user-log-dashboard.js', optional:true }
+          { url:'js/modules/management-overview-dashboard.js', optional:true },
+          { url:'js/modules/service-csi.js', optional:true },
+          { url:'js/modules/report-csi.js', optional:true },
+          { url:'js/modules/yearly-dashboard.js', optional:true },
+          { url:'js/modules/revenue-dashboard.js', optional:true },
+          { url:'js/modules/calendar-master.js', optional:true },
+          { url:'js/modules/checkin.js', optional:true },
+          { url:'js/modules/report-management.js', optional:true },
+          { url:'js/modules/weekly-report.js', optional:true },
+          { url:'js/modules/ot-dashboard.js', optional:true },
+          { url:'js/modules/users-management.js', optional:true },
+          { url:'js/modules/settings.js', optional:true },
+          { url:'js/modules/kpi-dashboard.js', optional:true },
+          { url:'js/modules/lab-kpi-dashboard.js', optional:true },
+          { url:'js/modules/stock-dashboard.js', optional:true },
+          { url:'js/modules/stock-inventory.js', optional:true },
+          { url:'js/modules/stock-check.js', optional:true },
+          { url:'js/modules/vehicle-booking.js', optional:true },
+          { url:'js/modules/team-information.js', optional:true },
+          { url:'js/modules/memo-workorder.js', optional:true },
+          { url:'js/modules/monthly-report.js', optional:true },
+          { url:'js/modules/master-cal-pm-plan.js', optional:true },
+          { url:'js/modules/audit-log.js', optional:true },
+          { url:'js/modules/notification-config.js', optional:true },
+          { url:'js/modules/ces-hub-evaluation.js', optional:true },
+          { url:'js/modules/ces-ai-knowledge.js', optional:true },
+          { url:'js/modules/runtime-system.js', optional:true },
+          { url:'js/modules/inventory-runtime.js', optional:true },
+          { url:'js/modules/frontend-links.js', optional:true },
+          { url:'js/modules/report-csi-ui.js', optional:true },
+          { url:'js/modules/report-csi-upload.js', optional:true },
+          { url:'js/modules/inventory-enhancements.js', optional:true },
+          { url:'js/modules/settings-permissions.js', optional:true },
+          { url:'js/modules/global-header-actions.js', optional:true },
+          { url:'js/modules/ui-consistency.js', optional:true },
+          { url:'js/modules/ui-refinement.js', optional:true },
+          { url:'js/modules/stability-access-line-readiness.js', optional:true },
+          { url:'js/modules/line-oa.js', optional:true },
+          { url:'js/modules/ui-interactions.js', optional:true },
+          { url:'js/modules/infusion-rental-current.js', optional:true }
+          ,{ url:'js/modules/infusion-dashboard-current.js', optional:true }
+          ,{ url:'js/modules/user-log-dashboard.js', optional:true }
         ]
       };
 
@@ -554,44 +549,36 @@
       var CES_DEFERRED_OPENED_KEY = 'CES_DEFERRED_OPENED_TABS';
 
       var CES_DEFERRED_TAB_SCRIPTS = {
-        management_overview:['js/modules/10-management-overview-dashboard.js','js/modules/990-runtime-system-final.js'],
-        service:['js/modules/20-service-csi.js','js/modules/990-runtime-system-final.js'],
-        report:['js/modules/30-report-csi.js','js/modules/990-runtime-system-final.js','js/modules/995-report-csi.js','js/modules/996-report-csi-upload.js'],
-        memo_workorder:['js/modules/185-memo-workorder.js'],
-        pr_gr_dashboard:['js/modules/PR%20dashboard.js'],
-        yearly:['js/modules/40-yearly-dashboard.js','js/modules/990-runtime-system-final.js'],
-        revenue:['js/modules/50-revenue-dashboard.js','js/modules/990-runtime-system-final.js'],
-        calendar:['js/modules/60-calendar-master.js','js/modules/990-runtime-system-final.js'],
-        checkin:['js/modules/70-checkin.js','js/modules/990-runtime-system-final.js'],
-        car_booking:['js/modules/170-vehicle-booking.js','js/modules/990-runtime-system-final.js'],
-        van_booking:['js/modules/170-vehicle-booking.js','js/modules/990-runtime-system-final.js'],
-        report_manage:['js/modules/80-report-management.js','js/modules/990-runtime-system-final.js'],
-        weekly:['js/modules/90-weekly-report.js','js/modules/990-runtime-system-final.js'],
-        ot:['js/modules/100-ot-dashboard.js','js/modules/990-runtime-system-final.js'],
-        team_information:['js/modules/180-team-information.js','js/modules/990-runtime-system-final.js'],
-        master_cal_pm_plan:['js/modules/187-master-cal-pm-plan.js'],
-        audit_log:['js/modules/188-audit-log.js'],
-        monthly_report:['js/modules/186-monthly-report.js','js/modules/990-runtime-system-final.js'],
-        users:['js/modules/110-users-management.js'],
-        ces_evaluation:['js/modules/195-ces-hub-evaluation.js'],
-        ces_ai_knowledge:['js/modules/196-ces-ai-knowledge.js'],
-        setting:['js/modules/120-settings.js','js/modules/997-stock-inventory-settings-kpi.js'],
-        notification_config:['js/modules/189-notification-config.js'],
-        user_log:['js/modules/212-user-log-dashboard.js'],
-        kpi:['js/modules/130-kpi-dashboard.js','js/modules/131-lab-kpi-dashboard.js','js/modules/990-runtime-system-final.js','js/modules/992-frontend-reference-fix.js','js/modules/997-stock-inventory-settings-kpi.js'],
-        stock_dashboard:['js/modules/140-stock-dashboard.js','js/modules/150-stock-inventory.js','js/modules/991-runtime-stock-final.js','js/modules/latest-fixes.js','js/modules/211-infusion-rental-current.js','js/modules/213-infusion-dashboard-current.js'],
-        inventory:['js/modules/140-stock-dashboard.js','js/modules/150-stock-inventory.js','js/modules/991-runtime-stock-final.js','js/modules/997-stock-inventory-settings-kpi.js'],
-        check_stock:['js/modules/140-stock-dashboard.js','js/modules/160-stock-check.js','js/modules/991-runtime-stock-final.js','js/modules/latest-fixes.js','js/modules/211-infusion-rental-current.js']
+        management_overview:['js/modules/management-overview-dashboard.js','js/modules/runtime-system.js'],
+        service:['js/modules/service-csi.js','js/modules/runtime-system.js'],
+        report:['js/modules/report-csi.js','js/modules/runtime-system.js','js/modules/report-csi-ui.js','js/modules/report-csi-upload.js'],
+        memo_workorder:['js/modules/memo-workorder.js'],
+        pr_gr_dashboard:['js/modules/pr-dashboard.js'],
+        yearly:['js/modules/yearly-dashboard.js','js/modules/runtime-system.js'],
+        revenue:['js/modules/revenue-dashboard.js','js/modules/runtime-system.js'],
+        calendar:['js/modules/calendar-master.js','js/modules/runtime-system.js'],
+        checkin:['js/modules/checkin.js','js/modules/runtime-system.js'],
+        car_booking:['js/modules/vehicle-booking.js','js/modules/runtime-system.js'],
+        van_booking:['js/modules/vehicle-booking.js','js/modules/runtime-system.js'],
+        report_manage:['js/modules/report-management.js','js/modules/runtime-system.js'],
+        weekly:['js/modules/weekly-report.js','js/modules/runtime-system.js'],
+        ot:['js/modules/ot-dashboard.js','js/modules/runtime-system.js'],
+        team_information:['js/modules/team-information.js','js/modules/runtime-system.js'],
+        master_cal_pm_plan:['js/modules/master-cal-pm-plan.js'],
+        audit_log:['js/modules/audit-log.js'],
+        monthly_report:['js/modules/monthly-report.js','js/modules/runtime-system.js'],
+        users:['js/modules/users-management.js'],
+        ces_evaluation:['js/modules/ces-hub-evaluation.js'],
+        ces_ai_knowledge:['js/modules/ces-ai-knowledge.js'],
+        setting:['js/modules/settings.js','js/modules/inventory-enhancements.js'],
+        notification_config:['js/modules/notification-config.js'],
+        user_log:['js/modules/user-log-dashboard.js'],
+        kpi:['js/modules/kpi-dashboard.js','js/modules/lab-kpi-dashboard.js','js/modules/runtime-system.js','js/modules/frontend-links.js','js/modules/inventory-enhancements.js'],
+        stock_dashboard:['js/modules/stock-dashboard.js','js/modules/stock-inventory.js','js/modules/inventory-runtime.js','js/modules/ui-interactions.js','js/modules/infusion-rental-current.js','js/modules/infusion-dashboard-current.js'],
+        inventory:['js/modules/stock-dashboard.js','js/modules/stock-inventory.js','js/modules/inventory-runtime.js','js/modules/inventory-enhancements.js'],
+        check_stock:['js/modules/stock-dashboard.js','js/modules/stock-check.js','js/modules/inventory-runtime.js','js/modules/ui-interactions.js','js/modules/infusion-rental-current.js']
       };
-      var CES_DEFERRED_SHARED_TAIL = [
-        'js/modules/206-global-header-actions.js',
-        'js/modules/207-ui-consistency.js',
-        'js/modules/208-ui-refinement.js',
-        'js/modules/209-stability-access-line-readiness.js',
-        'js/modules/210-line-oa.js',
-        'js/modules/latest-fixes.js',
-        'js/modules/211-infusion-rental-current.js'
-      ];
+      var CES_DEFERRED_SHARED_TAIL = ['js/modules/global-header-actions.js','js/modules/line-oa.js'];
 
       function cesDeferredItemByUrl(url){
         var list=window.CES_BOOT_MANIFEST.deferredScripts||[];
@@ -670,26 +657,7 @@
         }catch(ignore){}
       }
       window.CES_getRememberedDeferredTabs=cesReadDeferredOpenedTabs_;
-      window.CES_warmDeferredModulesInBackground=function(activeTab){
-        if(cesDeferredBackgroundWarmPromise)return cesDeferredBackgroundWarmPromise;
-        activeTab=String(activeTab||window.CES_ACTIVE_TAB||window.currentTab||'portal').trim();
-        var allTabs=Object.keys(CES_DEFERRED_TAB_SCRIPTS),seen=Object.create(null),ordered=[];
-        cesReadDeferredOpenedTabs_().slice(0,3).forEach(function(tab){if(tab&&tab!==activeTab&&!seen[tab]){seen[tab]=true;ordered.push(tab);}});
-        cesDeferredBackgroundWarmPromise=new Promise(function(resolve){
-          var index=0;
-          function next(){
-            if(index>=ordered.length){resolve(true);return;}
-            var tab=ordered[index++];
-            var run=function(){
-              Promise.resolve(window.CES_prepareDeferredTab(tab)).catch(function(error){console.warn('[CES background warm]',tab,error);}).finally(function(){setTimeout(next,180);});
-            };
-            if(window.CES_TASK_PRIORITY&&typeof window.CES_TASK_PRIORITY.whenIdle==='function')window.CES_TASK_PRIORITY.whenIdle(run,{timeout:5000});
-            else setTimeout(run,250);
-          }
-          next();
-        });
-        return cesDeferredBackgroundWarmPromise;
-      };
+      window.CES_warmDeferredModulesInBackground=function(){return Promise.resolve(false);};
       var cesDeferredSharedTailPromise=null;
       function cesLoadDeferredSharedTailLater_(){
         if(cesDeferredSharedTailPromise)return cesDeferredSharedTailPromise;

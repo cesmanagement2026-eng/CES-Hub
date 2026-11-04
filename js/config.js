@@ -6,7 +6,7 @@
 
 window.CES_CONFIG = {
   // IMPORTANT: After deploying Apps Script backend, paste the latest /exec URL here.
-  GAS_API_URL: 'https://script.google.com/macros/s/AKfycbxWNBKP-NBQRYxT4D87n5HnwlxuWNodrNG7V7q_TGg3KJRYiYzGIelXH6tekEivJujjJQ/exec', // PASTE NEW BOUND APPS SCRIPT /exec URL BEFORE PUBLISHING,
+  GAS_API_URL: '', // PASTE NEW BOUND APPS SCRIPT /exec URL BEFORE PUBLISHING,
   // Optional extra /exec endpoints. The polyfill also accepts ?gasApiUrl=<url>
   // and persists that override, so a deployment URL can be corrected without
   // allowing every module to fail independently.
@@ -24,16 +24,17 @@ window.CES_CONFIG = {
     LOGIN_CHANNEL_ID: '2009944147',
     LIFF_ID: '2009944147-iluulCQj',
     LIFF_SDK_URL: 'https://static.line-scdn.net/liff/edge/2/sdk.js',
-    ENDPOINT_URL: 'https://cesmanagement2026-eng.github.io/CES-Hub/'
+    ENDPOINT_URL: 'https://siripak-ch.github.io/CES-Hub/'
   },
 
   DEBUG: false,
-  RELEASE: 'CES-HUB-BOUND-MIGRATION',
+  RELEASE: 'CES-HUB',
 
   // External links are kept in one place. Config sheet values override these defaults at runtime.
   EXTERNAL_LINKS: {
     CONFIG_SHEET: 'https://docs.google.com/spreadsheets/d/1gsI3bPPIBi7lLynDGEBp5OLeYsgu2pTHiCKSuEEcBWA/edit?gid=1870451409#gid=1870451409',
     CES_EVALUATION_DATA: 'https://docs.google.com/spreadsheets/d/1gaTh8YFBWDX7cPFsdElzyMdGbbu6LZwYYe5I5VXrwVs/edit',
+    PR_GR_RAW_DATA: 'https://bdmsgroup-my.sharepoint.com/:x:/r/personal/rachvade_ye_bdms_co_th/Documents/Microsoft%20Teams%20Chat%20Files/All%20Status%20PR%20CES%2028.10.2026.xlsx?d=w694f1f4a56ef4d42a3d834725077af7e&csf=1&web=1&e=h9fKkF',
     SERVICE_CSI_CES_SUMMARY: 'https://survey.nhealth-asia.com/environments/cm5l2u5sl0008pv01is0nqdv5/surveys/cm1hci0mw00jf45vmps2myg1g/summary?referer=true',
     SERVICE_CSI_TES_SUMMARY: 'https://survey.nhealth-asia.com/environments/cm5l2u5sl0008pv01is0nqdv5/surveys/uyyoxtx5xogrpidf3gbmc6k2/summary',
     REPORT_CSI_SUMMARY: 'https://survey.nhealth-asia.com/environments/cm5l2u5sl0008pv01is0nqdv5/surveys/cmcu51nfa00e8s3010s2ukzvb/summary',
@@ -73,7 +74,7 @@ window.CES_CONFIG = {
   },
 
   PERFORMANCE: {
-    MODULE_CACHE_TTL_MS: 600000,
+    MODULE_CACHE_TTL_MS: 180000,
     VEHICLE_CACHE_TTL_MS: 300000,
     PORTAL_CACHE_TTL_MS: 600000,
     PREVENT_DUPLICATE_LOADS: true
@@ -99,4 +100,4 @@ window.CES_STORAGE_LINKS = {
   "TE": "https://drive.google.com/drive/folders/1-aF5DW2DnK_a1RTwY5Y-e1opbx6kmzhv",
   "VEHICLE": "https://drive.google.com/drive/folders/1rZyBY-g0h3QkVI2H2LD1x2ER5oWDueyx"
 };
-window.CES_STORAGE_LINKS.LOGO = "img/ces-logo.jpg";
+window.CES_STORAGE_LINKS.LOGO = 'img/nhealth_logo-9.png';

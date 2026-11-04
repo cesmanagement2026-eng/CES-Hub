@@ -1,18 +1,9 @@
-# CES Hub — Latest Frontend Deployment
+# CES Hub Frontend — New Project
 
-Deploy this folder as the static frontend (GitHub Pages / web server).
+1. Deploy the `frontend/` directory to the intended GitHub Pages branch.
+2. In `frontend/js/config.js`, update `CES_CONFIG.GAS_API_URL` to the **new** Google Apps Script Web App `/exec` URL. The shipped value is intentionally blank to avoid writing to an old deployment.
+3. Verify browser API linkage in Settings → Check API & Data.
+4. Clear cached files after deploying HTML, JS and CSS together.
+5. Restore the CES Hub logo from `frontend/img/nhealth_logo-9.png`.
 
-Canonical inventory source: `Accessories Data` in the Stock spreadsheet.
-The inventory schema contains 28 columns. `Cost/ea` is column AA and
-`Total Cost` is column AB. The dashboard reads AB; checkout calculates
-selected quantity × AA.
-
-The existing UI/views and labels are preserved; only the Check Stock, Audit Log,
-and inventory-data integration logic was updated in this release.
-
-Set `GAS_API_URL` in `js/config.js` to the `/exec` URL of the deployment.
-The Web app must execute as the owner and allow access to all intended users.
-
-Proven-unused files removed from the frontend package:
-- `modules/900-app-controller.js` (duplicate; runtime loads `js/modules/900-app-controller.js`)
-- `data/CES_Inventory_Clean_V30.0.30.xlsx` (no runtime references)
+Only one active tab is prioritized at initial load; module downloads, network latency and Apps Script cold starts prevent any guaranteed fixed load time.
