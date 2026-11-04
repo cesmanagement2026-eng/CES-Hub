@@ -6,7 +6,7 @@
 
 window.CES_CONFIG = {
   // IMPORTANT: After deploying Apps Script backend, paste the latest /exec URL here.
-  GAS_API_URL: '', // PASTE NEW BOUND APPS SCRIPT /exec URL BEFORE PUBLISHING,
+  GAS_API_URL: 'https://script.google.com/macros/s/AKfycbxWNBKP-NBQRYxT4D87n5HnwlxuWNodrNG7V7q_TGg3KJRYiYzGIelXH6tekEivJujjJQ/exec', // PASTE NEW BOUND APPS SCRIPT /exec URL BEFORE PUBLISHING,
   // Optional extra /exec endpoints. The polyfill also accepts ?gasApiUrl=<url>
   // and persists that override, so a deployment URL can be corrected without
   // allowing every module to fail independently.
@@ -24,7 +24,7 @@ window.CES_CONFIG = {
     LOGIN_CHANNEL_ID: '2009944147',
     LIFF_ID: '2009944147-iluulCQj',
     LIFF_SDK_URL: 'https://static.line-scdn.net/liff/edge/2/sdk.js',
-    ENDPOINT_URL: 'https://siripak-ch.github.io/CES-Hub/'
+    ENDPOINT_URL: 'https://cesmanagement2026-eng.github.io/CES-Hub/'
   },
 
   DEBUG: false,
