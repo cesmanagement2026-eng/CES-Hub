@@ -1,0 +1,10 @@
+<section id="view-notification_config" class="view-section hidden" aria-label="Notification Config">
+ <div class="nc-shell">
+  <header class="nc-header"><div class="nc-title"><span class="nc-icon"><i class="fas fa-bell"></i></span><div><h2>Notification Config</h2><small>Schedule · Recipient · Team · Subject</small></div></div><div class="nc-toolbar"><button type="button" onclick="cesNotifyLoad(true)" title="Refresh"><i class="fas fa-rotate"></i></button><button type="button" onclick="cesNotifyReviewAndSave()" class="nc-primary" title="Save notification settings"><i class="fas fa-floppy-disk"></i> Save</button></div></header>
+  <div class="nc-help"><i class="fas fa-circle-info"></i> Each notification has its own schedule, recipient and CC. All email subjects use <b>[CES HUB]</b>. One shared scheduler checks enabled notifications; saving configuration does not send emails immediately.</div>
+  <div class="nc-settings"><label>Default admin recipient<input type="email" id="ncDefaultTo" value="Siripak.Ch@nhealth-asia.com" autocomplete="off"></label><label>Module<select id="ncModuleFilter" onchange="cesNotifyRender()"><option value="all">All modules</option></select></label><label>Search<input id="ncSearch" placeholder="Search by notification name / team" oninput="cesNotifyRender()"></label></div>
+  <div id="ncMessage" class="nc-message" role="status">Loading configuration…</div>
+  <div id="ncCards" class="nc-cards"></div>
+  <div class="nc-footer"><span id="ncSummary">No notifications loaded</span><button type="button" class="nc-primary" onclick="cesNotifyReviewAndSave()"><i class="fas fa-check-circle"></i> Review & Save all</button></div>
+ </div>
+</section>
