@@ -33,7 +33,7 @@ function initStockDashboardModule(force=false){
     }
     SD_DASH.loaded=true;
     SD_DASH.raw=res;
-    const sourceLink=document.getElementById('sdCleanInventorySourceLinkV3028');if(sourceLink){if(res.sourceSpreadsheetUrl){sourceLink.href=res.sourceSpreadsheetUrl;sourceLink.classList.remove('opacity-40');}else{sourceLink.removeAttribute('href');sourceLink.classList.add('opacity-40');}}
+    const sourceLink=document.getElementById('sdCleanInventorySourceLinkV3028');if(sourceLink){if(res.sourceSpreadsheetUrl){sourceLink.href=String(res.sourceSpreadsheetUrl).split('#')[0]+'#gid=725861698';sourceLink.classList.remove('opacity-40');}else{sourceLink.href='https://docs.google.com/spreadsheets/d/1G9FQXQ8Nh7_2pQeUD-ryTnMTLBAUWFmYt5SQ8WHSgCA/edit#gid=725861698';sourceLink.classList.remove('opacity-40');}}
     try { sessionStorage.setItem(cacheKey, JSON.stringify({ts:Date.now(), data:res})); } catch(e) {}
     sd_fillFilters();
     sd_renderAll();
@@ -169,7 +169,7 @@ function sdIsWarehouseLocation(loc){
 }
 function sdNormalizeDevice(d){
   d=Object.assign({},d||{});
-  if(sdIsWarehouseLocation(d.location)){
+  if(sdIsWarehouseLocation(d.location)&&!/RECHECK|OVERDUE|MISSING|BROKEN|รอสอบเทียบ|เกินกำหนด|ไม่พบในรายการ|ใช้งานไม่ได้/i.test(String(d.equipmentStatus||d.status||''))){
     d.location='Warehouse';d.status='Stock';d.finalStatus='Stock';d.rentalStatus='STOCK';
     d.borrower='-';d.borrowDate='';d.expectedReturn='';d.expectedReturnDate='';d.dueDate='';d.overdueDays=0;d.daysRemaining='';
   }
@@ -384,7 +384,10 @@ function sdStatusOf(d){
   const text=[d.status,d.baseStatus,d.base_status,d.rentalStatus,d.rental_status,d.dqStatus,d.dq_status,d.actionRequired,d.action_required,d.recheckNote,d.recheck_note].join(' ').toUpperCase();
   if(/BROKEN|BREAK|DAMAGED|DEFECT|เสีย|ชำรุด|พัง/.test(text)) return 'Broken';
   if(/MISSING|LOST|สูญหาย|หาย|หาไม่พบ/.test(text)) return 'Missing';
-  if(/RECHECK|RE-CHECK|ตรวจซ้ำ|ตรวจสอบซ้ำ/.test(text)) return 'Recheck';
+  if(/เกินกำหนด|OVERDUE|EXPIRED|เลยกำหนด/.test(String(d.equipmentStatus||d.status||'').toUpperCase()))return 'Overdue';
+  if(/RECHECK|RE-CHECK|ตรวจซ้ำ|ตรวจสอบซ้ำ|รอสอบเทียบ/.test(String(d.equipmentStatus||d.status||'').toUpperCase()))return 'Recheck';
+  if(/พร้อมส่ง|READY|STOCK|AVAILABLE/.test(String(d.equipmentStatus||d.status||'').toUpperCase()))return 'Stock';
+  if(/MISSING|ไม่พบในรายการ/.test(String(d.equipmentStatus||d.status||'').toUpperCase()))return 'Missing';
   if(/OVERDUE|EXPIRED|เลยกำหนด|เกินกำหนด/.test(text)||Number(d.overdueDays||d.overdue_days||0)>0) return 'Overdue';
   if(/IN[_\s-]*USE|BORROW|RENT|ยืม|ใช้งาน/.test(text)) return 'In-Use';
   return 'Stock';

@@ -1127,6 +1127,36 @@ function cesBookingDetailTextArea_(id,label,value,disabled) {
   var safeValue=(value==null?'':value); return '<div><label class="ces-detail-label-v243">'+cesBookEsc_(label)+'</label><textarea id="'+id+'" rows="2" '+(disabled?'disabled':'')+' class="ces-detail-input-v243">'+cesBookEsc_(safeValue)+'</textarea></div>';
 }
 
+/* V4 evidence gallery: Drive thumbnails use existing viewer permissions, not public sharing. */
+function cesBookingEvidenceIdV4_(url){
+  var s=String(url||'');
+  var match=s.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)||s.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  return match?match[1]:'';
+}
+function cesBookingEvidenceGalleryV4_(row,kind){
+  var isBill=kind==='bill';
+  var urls=isBill?(row.returnBillFileUrls||[]):(row.returnCarPhotoFileUrls||[]);
+  var ids=isBill?(row.returnBillFileIds||[]):(row.returnCarPhotoFileIds||[]);
+  var names=isBill?(row.returnBillFileNames||[]):(row.returnCarPhotoFileNames||[]);
+  if(!Array.isArray(urls))urls=[];if(!Array.isArray(ids))ids=[];if(!Array.isArray(names))names=[];
+  if(isBill&&!urls.length&&row.returnBillFileUrl)urls=[row.returnBillFileUrl];
+  if(isBill&&!ids.length&&row.returnBillFileId)ids=[row.returnBillFileId];
+  var len=Math.max(urls.length,ids.length);if(!len)return '';
+  var items=[];
+  for(var i=0;i<len;i++){
+    var id=String(ids[i]||cesBookingEvidenceIdV4_(urls[i])||'').trim();
+    if(id&&!/^[a-zA-Z0-9_-]{12,}$/.test(id))id='';
+    var link=String(urls[i]||'').trim();
+    if(!/^https:\/\/(drive|docs)\.google\.com\//i.test(link))link=id?'https://drive.google.com/file/d/'+encodeURIComponent(id)+'/view':'';
+    if(!link)continue;
+    var title=String(names[i]||((isBill?'Bill / Receipt ':'Car Photo ')+(i+1)));
+    var imageUrl=id?'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w1200':(/\.(png|jpe?g|webp|gif)(?:[?#]|$)/i.test(link)?link:'');
+    var preview=imageUrl?'<img loading="lazy" referrerpolicy="no-referrer" src="'+cesBookEsc_(imageUrl)+'" alt="'+cesBookEsc_(title)+'" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'ces-evidence-failed-v4\')">':'<span class="ces-evidence-icon-v4"><i class="fas fa-file-pdf"></i></span>';
+    items.push('<a class="ces-evidence-card-v4" target="_blank" rel="noopener noreferrer" href="'+cesBookEsc_(link)+'" title="Open '+cesBookEsc_(title)+'">'+preview+'<span class="ces-evidence-name-v4">'+cesBookEsc_(title)+'</span><span class="ces-evidence-open-v4">Open original ↗</span></a>');
+  }
+  return items.length?'<section class="ces-evidence-section-v4"><div class="ces-evidence-header-v4"><b><i class="fas '+(isBill?'fa-receipt':'fa-camera')+'"></i> '+(isBill?'Bill / Receipt':'Return Car Photos')+'</b><span>'+items.length+' file(s)</span></div><div class="ces-evidence-grid-v4">'+items.join('')+'</div></section>':'';
+}
+
 async function openVehicleBookingDetail(type, bookingId) {
   type=cesBookType_(type); bookingId=String(bookingId||'');
   var row=(cesBookingState_(type).rows||[]).find(function(x){return String(x.bookingId)===bookingId;});
@@ -1141,7 +1171,8 @@ async function openVehicleBookingDetail(type, bookingId) {
   var html='<div class="ces-booking-detail-v243 text-left"><div class="ces-detail-head-v243"><div><small>BOOKING ID</small><b>'+cesBookEsc_(row.bookingId)+'</b></div><span class="'+cesBookStatusClass_(status)+'">'+cesBookEsc_(cesBookStatusLabel_(status))+'</span></div><div class="ces-detail-requester-v243"><b>'+cesBookEsc_(row.requesterName||'-')+'</b><span>'+cesBookEsc_(row.team||'-')+' · '+cesBookEsc_(row.requesterId||'-')+'</span></div>';
   if(active){html+='<div class="ces-detail-grid-v243">'+cesBookingDetailInput_('ces-edit-job-v243','Job / Customer',row.jobTitle,'text',!canEdit)+cesBookingDetailInput_('ces-edit-destination-v243','Destination',row.destination,'text',!canEdit)+cesBookingDetailInput_('ces-edit-date-v243','Start Date',row.bookingDate,'date',!canEdit)+cesBookingDetailInput_('ces-edit-return-date-v243','Planned Return',row.plannedReturnDate||row.bookingDate,'date',!canEdit)+cesBookingDetailInput_('ces-edit-start-v243','Start Time',row.startTime,'time',!canEdit)+cesBookingDetailInput_('ces-edit-end-v243','End Time',row.endTime,'time',!canEdit)+cesBookingDetailInput_('ces-edit-passengers-v243','Passengers',row.passengers||1,'number',!canEdit)+cesBookingDetailInput_('ces-edit-contact-v243','Contact',row.contact,'text',!canEdit)+'</div>'+cesBookingDetailTextArea_('ces-edit-purpose-v243','Purpose / Onsite Detail',row.purpose,!canEdit);}
   if(completed){html+='<div class="ces-detail-grid-v243">'+cesBookingDetailInput_('ces-edit-km-v243','Actual Total KM',row.actualTotalKm,'number',!canEdit)+cesBookingDetailInput_('ces-edit-bill-v243','Electric Bill (THB)',row.electricBill,'number',!canEdit)+cesBookingDetailInput_('ces-edit-toll-v243','Toll Fee (THB)',row.tollFee||0,'number',!canEdit)+cesBookingDetailInput_('ces-edit-other-v243','Other Expense (THB)',row.otherExpense||0,'number',!canEdit)+'</div>'+cesBookingDetailTextArea_('ces-edit-return-note-v243','Return Note',row.returnNote,!canEdit);}
-  html+='<div class="ces-detail-docs-v243">'+(docLinks||'<span class="text-amber-700">MEMO / Work Order file pending. Attach before return.</span>')+'</div>';
+  html+='<div class="ces-detail-docs-v243">'+(row.memoFileUrl?'<a class="ces-detail-doc-v243" target="_blank" rel="noopener noreferrer" href="'+cesBookEsc_(row.memoFileUrl)+'"><i class="fas fa-paperclip"></i> E-Request</a>':'')+(!row.memoFileUrl&&!billUrls.length&&!photoLinks?'<span class="text-amber-700">MEMO / Work Order file pending.</span>':'')+'</div>';
+  html+=cesBookingEvidenceGalleryV4_(row,'bill')+cesBookingEvidenceGalleryV4_(row,'photo');
   html+='<div class="rounded-xl border border-blue-100 bg-blue-50 p-3 mt-2 text-xs text-blue-800"><b>MEMO / Work Order reference:</b> '+cesBookEsc_(row.memoReference||'-')+'</div>';
   if(canEdit){html+='<div class="ces-detail-upload-grid-v243"><div class="ces-detail-upload-full-v243"><label class="ces-detail-label-v243">MEMO / Work Order Reference</label><input id="ces-edit-memo-reference" class="ces-detail-input-v243" value="'+cesBookEsc_(row.memoReference||'')+'" placeholder="Memo No. / Job No."></div><div><label class="ces-detail-label-v243">MEMO / Work Order '+(row.memoFileUrl?'(Replace)':'* Attach before return')+'</label><input id="ces-edit-memo-file-v243" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" class="ces-detail-file-v243"></div>'+(completed?'<div><label class="ces-detail-label-v243">Replace Bill / Receipt</label><input id="ces-edit-bill-file-v243" type="file" accept=".pdf,.jpg,.jpeg,.png,.heic" class="ces-detail-file-v243"></div><div class="ces-detail-upload-full-v243"><label class="ces-detail-label-v243">Add Car Pictures</label><input id="ces-edit-car-photos-v243" type="file" multiple accept=".jpg,.jpeg,.png,.heic,.webp" class="ces-detail-file-v243"></div>':'')+'</div>';}
   if(!canEdit)html+='<div class="mt-3 rounded-xl bg-slate-50 border p-3 text-xs text-slate-500">Read only: only the requester or ADMIN can edit this record.</div>';

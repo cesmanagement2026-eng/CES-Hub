@@ -1,0 +1,50 @@
+/* CES HUB V4 · compact inventory & EV evidence preview. Scoped to affected modules. */
+#view-inventory .ces-acc-table-scroll-v4{width:100%;max-height:63vh;overflow:auto;border:1px solid #dce6f2;border-radius:12px;scrollbar-gutter:stable}
+#view-inventory .ces-acc-table-v4{width:100%;min-width:935px;border-collapse:separate;border-spacing:0;font:500 12px/1.35 'Prompt',Arial,sans-serif;color:#1e293b}
+#view-inventory .ces-acc-table-v4 th{position:sticky;z-index:3;top:0;background:#eaf2ff;color:#003d92;font-size:11px;font-weight:800;padding:10px 12px;text-align:left;white-space:nowrap;border-bottom:2px solid #bed3ee}
+#view-inventory .ces-acc-table-v4 td{padding:7px 12px;border-bottom:1px solid #edf1f6;vertical-align:middle;white-space:nowrap}
+#view-inventory .ces-acc-table-v4 tbody tr:nth-child(even){background:#f8fafc}
+#view-inventory .ces-acc-table-v4 tbody tr:hover{background:#eaf4ff}
+#view-inventory .ces-acc-table-v4 .num{text-align:right;font-variant-numeric:tabular-nums}
+#view-inventory .ces-acc-name-v4{font-weight:800;color:#123f85;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+#view-inventory .ces-acc-table-v4 small{display:block;color:#64748b;font-size:10px;margin-top:2px}
+#view-inventory .ces-acc-stock-v4{font-size:14px;font-weight:900;color:#07835b}
+#view-inventory .ces-acc-stock-v4.low{color:#dc2626}
+#view-inventory .ces-acc-team-v4{display:inline-block;padding:4px 8px;font-weight:800;border-radius:8px;background:#f1f5f9;color:#334155;border-left:3px solid var(--team-color,#64748b)}
+#view-inventory .ces-acc-team-v4.med{--team-color:#004eaa}#view-inventory .ces-acc-team-v4.lab{--team-color:#06a9ce}#view-inventory .ces-acc-team-v4.ehs{--team-color:#0bbba4}#view-inventory .ces-acc-team-v4.tes{--team-color:#eab308}
+#view-inventory .ces-acc-status-v4{font-weight:800;border-radius:999px;padding:5px 8px;font-size:10px;display:inline-block;background:#dcfce7;color:#065f46}
+#view-inventory .ces-acc-status-v4.low{background:#fee2e2;color:#b91c1c}#view-inventory .ces-acc-status-v4.rental{background:#dbeafe;color:#1d4ed8}
+#view-inventory .ces-acc-actions-v4{display:flex;align-items:center;justify-content:flex-end;gap:5px}
+#view-inventory .ces-acc-actions-v4 input{width:43px;height:30px;text-align:center;border:1px solid #cbd5e1;border-radius:7px;font-size:12px;font-weight:700;padding:0 2px}
+#view-inventory .ces-acc-action-v4{height:31px;width:31px;flex:none;border:0;border-radius:8px;color:white;display:inline-flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;transition:filter .13s,transform .13s}
+#view-inventory .ces-acc-action-v4:hover:not(:disabled){filter:brightness(.9);transform:translateY(-1px)}#view-inventory .ces-acc-action-v4:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+#view-inventory .ces-acc-action-v4.cart{background:#059669}#view-inventory .ces-acc-action-v4.restock{background:#f59e0b}#view-inventory .ces-acc-action-v4.detail{background:#0284c7}#view-inventory .ces-acc-action-v4.edit{background:#4f46e5}#view-inventory .ces-acc-action-v4.delete{background:#dc2626}
+#view-inventory .ces-acc-action-v4:disabled{background:#cbd5e1!important;color:#64748b;opacity:.72;cursor:not-allowed;box-shadow:none}
+#view-inventory .ces-acc-low-v4{background:#fffafa}#view-inventory #siAccSection{min-width:0}
+.ces-booking-detail-v243 .ces-evidence-section-v4{text-align:left;margin:14px 0;padding:13px;background:#f8fbff;border:1px solid #dbeafe;border-radius:13px}
+.ces-evidence-header-v4{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#003da5;margin-bottom:10px;font-size:12px}.ces-evidence-header-v4 span{font-weight:700;color:#64748b}
+.ces-evidence-grid-v4{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}
+.ces-evidence-card-v4{display:flex;min-width:0;flex-direction:column;text-decoration:none!important;border:1px solid #d6e3f4;border-radius:12px;overflow:hidden;background:#fff;color:#0f172a;transition:box-shadow .15s}
+.ces-evidence-card-v4:hover{box-shadow:0 8px 20px #003da522}
+.ces-evidence-card-v4 img{width:100%;height:164px;object-fit:contain;background:#edf4ff;display:block}
+.ces-evidence-card-v4.ces-evidence-failed-v4:before{content:'Preview unavailable';display:flex;height:164px;align-items:center;justify-content:center;color:#64748b;font-size:12px}
+.ces-evidence-icon-v4{display:flex;height:164px;align-items:center;justify-content:center;color:#c2410c;font-size:36px;background:#fff7ed}
+.ces-evidence-name-v4{font-weight:800;font-size:11px;padding:8px 9px 0;overflow-wrap:anywhere}
+.ces-evidence-open-v4{color:#0c4a9a;font-weight:700;font-size:10px;padding:4px 9px 9px}
+@media(max-width:720px){.ces-evidence-grid-v4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* The Inventory Enhancements module owns the final rendered table. */
+#view-inventory .cesHub-access-table.cesHub-v4{width:100%;min-width:1000px;font-size:11.5px;table-layout:auto}
+#view-inventory .cesHub-access-table.cesHub-v4 th{padding:9px 10px;white-space:nowrap;background:#eaf3ff;color:#03428e}
+#view-inventory .cesHub-access-table.cesHub-v4 td{padding:6px 10px;white-space:nowrap;vertical-align:middle;line-height:1.35}
+#view-inventory .cesHub-access-table.cesHub-v4 small{font-size:10px;color:#64748b;display:block;margin:2px 0 0}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-item b{max-width:245px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.7px}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-row-actions{display:flex;align-items:center;gap:5px;justify-content:flex-end;flex-wrap:nowrap}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-row-actions button{height:30px;width:31px;min-width:31px;padding:0;border:0;color:white!important;border-radius:8px;display:flex;align-items:center;justify-content:center}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-cart-v4{background:#059669}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-restock-v4{background:#f59e0b}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-detail-v4{background:#0284c7}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-edit-v4{background:#4f46e5}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-row-actions button:disabled{background:#cbd5e1!important;color:#64748b!important;cursor:not-allowed}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-qty{width:45px;min-width:45px;height:30px;padding:2px;border-radius:8px;font-size:11px}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-pill{font-size:9px;padding:5px 8px}

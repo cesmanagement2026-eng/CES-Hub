@@ -370,6 +370,9 @@ function si_addAccessoryToCart(a,inputId){
   const stock=Number(a.stockQty||a.stock_qty||a.qty||0), min=Number(a.minStockQty||a.min_stock_qty||a.minStock||0);
   if(stock<=min){Swal.fire('ต้อง Restock ก่อนเบิกใช้','จำนวนคงเหลือเท่ากับหรือต่ำกว่า minimum stock','warning');return;}
   if(qty>stock){Swal.fire('จำนวนเกิน stock',`คงเหลือ ${stock}`,'warning');return;}
+  const available=Math.max(0,stock-min-1);
+  const existing=(SI.cart||[]).find(x=>x.kind==='accessory'&&String(x.accessoryId||x.idCode||x.itemName)===String(a.accessoryId||a.accessory_id||a.idCode||a.id_code||a.itemName||a.name));
+  if(qty+Number(existing&&(existing.issueQty||existing.qty)||0)>available){Swal.fire('จำนวนเบิกเกินที่อนุญาต',`เบิกได้ไม่เกิน ${available} ชิ้น โดยต้องเหลือ stock มากกว่า Min Stock`,'warning');return;}
   const key=a.accessoryId||a.accessory_id||a.idCode||a.id_code||a.itemName||a.name;
   const ex=SI.cart.find(x=>x.kind==='accessory'&&(x.accessoryId||x.idCode||x.itemName)===key);
   if(ex){ex.issueQty=Number(ex.issueQty||ex.qty||0)+qty;ex.qty=ex.issueQty;} else SI.cart.push(Object.assign({},a,{kind:'accessory',type:'accessory',accessoryId:key,issueQty:qty,qty:qty,stockQty:stock}));
@@ -484,35 +487,37 @@ function si_renderAccCards(){
     spSetHtml('siAccPagination','');
     return;
   }
-  spSetHtml('siAccCards',`<div class="sp-acc-list-v17">${rows.map((a,i)=>siAccRow(a,start+i)).join('')}</div>`);
+  spSetHtml('siAccCards',`<div class="ces-acc-table-scroll-v4"><table class="ces-acc-table-v4"><thead><tr><th>Item / ID</th><th>Team</th><th>Vendor / Type</th><th class="num">Stock</th><th class="num">Available / Min</th><th>Status</th><th>Action</th></tr></thead><tbody>${rows.map((a,i)=>siAccRow(a,start+i)).join('')}</tbody></table></div>`);
   const total=Math.max(1,Math.ceil(SI.accFiltered.length/SI.pageSize));
   let btns='';
   const from=Math.max(1,SI.accPage-2), to=Math.min(total,SI.accPage+2);
   for(let p=from;p<=to;p++) btns+=`<button class="${p===SI.accPage?'active':''}" onclick="SI.accPage=${p};si_renderAccCards()">${p}</button>`;
-  spSetHtml('siAccPagination',`<div class="sp-muted">Page ${SI.accPage} / ${total} • 50 rows per page</div><div class="sp-page-buttons"><button ${SI.accPage<=1?'disabled':''} onclick="SI.accPage--;si_renderAccCards()">Prev</button>${btns}<button ${SI.accPage>=total?'disabled':''} onclick="SI.accPage++;si_renderAccCards()">Next</button></div>`);
+  spSetHtml('siAccPagination',`<div class="sp-muted">Page ${SI.accPage} / ${total} • ${SI.pageSize} rows per page</div><div class="sp-page-buttons"><button ${SI.accPage<=1?'disabled':''} onclick="SI.accPage--;si_renderAccCards()">Prev</button>${btns}<button ${SI.accPage>=total?'disabled':''} onclick="SI.accPage++;si_renderAccCards()">Next</button></div>`);
 }
 
 function siAccRow(a,i){
-  const id=a.accessoryId||a.accessory_id||a.idCode||a.id_code||a.itemName||a.name||('ACC'+i);
+  const id=String(a.accessoryId||a.accessory_id||a.idCode||a.id_code||a.itemName||a.name||('ACC'+i));
   const name=a.itemName||a.item_name||a.name||'-';
   const team=String(a.team||'-').toUpperCase();
-  const serial=String(a.serialNumber||a.serial_number||'').trim();
   const rental=!!a.rentalAccessory;
-  const qty=rental?1:Number(a.stockQty||a.stock_qty||a.qty||0), min=rental?0:Number(a.minStockQty||a.min_stock_qty||a.minStock||0);
-  const low=!rental&&qty<=min, inputId=`siAccQty_${i}`;
-  const teamCls=team.includes('MED')?'med':team.includes('LAB')?'lab':team.includes('EHS')?'ehs':team.includes('TES')?'tes':'';
-  const sub=[team,id,serial?('SN '+serial):''].filter(Boolean).map(spEsc).join(' • ');
-  return `<div class="sp-acc-row-v17 ${low?'low':''} ${rental?'ces-rental-accessory-row-v266':''}">
-    <div class="acc-ico ${teamCls}"><i class="fas ${(typeof siAccIcon==='function')?siAccIcon(a):'fa-plug'}"></i></div>
-    <div><div class="acc-title">${spEsc(name)}</div><div class="acc-sub">${sub}</div>${rental?'<div class="acc-sub" style="color:#0f766e;font-weight:800">Assigned with '+spEsc(a.equipmentId||'-')+' · '+spEsc(a.borrower||'-')+'</div>':''}</div>
-    <div><div class="acc-stock" style="color:${low?'#dc2626':(rental?'#0f766e':'#059669')}">${spNum(qty)}</div><div class="acc-sub">${rental?'Assigned qty':'Stock qty'}</div></div>
-    <div><b>${rental?'—':spNum(min)}</b><div class="acc-sub">${rental?'Rental item':'Min stock'}</div></div>
-    <div>${rental?'<span class="sp-badge In-Use">IN USE</span>':(low?'<span class="sp-badge Overdue">LOW STOCK</span>':spBadge(a.status||'STOCK'))}</div>
-    <div class="acc-sub">${spEsc(a.actionRequired||a.action_required||'No action')}</div>
-    <div class="acc-actions">
-      ${rental?'<span class="sp-muted" style="font-size:10px">Synced from rental</span>':`<button class="acc-mini" onclick="siQty('${inputId}',-1)">−</button><input id="${inputId}" type="number" min="1" step="1" value="1"><button class="acc-mini" onclick="siQty('${inputId}',1)">+</button><button class="acc-mini green" ${low?'disabled':''} title="Add to cart" onclick='si_addAccessoryToCart(${si_json(a)},"${inputId}")'><i class="fas fa-cart-plus"></i></button><button class="acc-mini orange" title="Restock" onclick='si_restockPrompt(${si_json(a)})'><i class="fas fa-box-open"></i></button><button class="acc-mini info" title="Detail" onclick='si_accessoryDetailPrompt(${si_json(a)})'><i class="fas fa-circle-info"></i></button><button class="acc-mini blue" title="Edit details / Min stock" onclick='si_editAccessoryPrompt(${si_json(a)})'><i class="fas fa-pen"></i></button><button class="acc-mini red" title="Delete" onclick='si_deleteAccessoryPrompt(${si_json(a)})'><i class="fas fa-trash"></i></button>`}
-    </div>
-  </div>`;
+  const qty=rental?1:Number(a.stockQty||a.stock_qty||a.qty||0),min=rental?0:Number(a.minStockQty||a.min_stock_qty||a.minStock||0);
+  const available=Math.max(0,qty-min-1),low=!rental&&(qty<=min||available<=0),inputId=`siAccQty_${i}`;
+  const vendor=a.vendor||a.vendor1||a.vendor_1||a['Vendor 1']||'—';
+  const type=a.accessoriesType||a.accessories_type||a.type||'GENERAL';
+  const teamCls=team.includes('MED')?'med':team.includes('LAB')?'lab':team.includes('EHS')?'ehs':team.includes('TES')?'tes':'other';
+  const status=rental?'IN USE':(low?'LOW STOCK':String(a.status||'STOCK').replace(/_/g,' '));
+  const btn=(title,color,icon,onclick,disabled)=>`<button type="button" class="ces-acc-action-v4 ${color}" title="${title}" aria-label="${title}" ${disabled?'disabled aria-disabled="true"':''} onclick='${onclick}'><i class="fas ${icon}"></i></button>`;
+  const action=rental?'<span class="ces-acc-muted-v4">Equipment rental</span>':
+    `<div class="ces-acc-actions-v4"><input id="${inputId}" type="number" min="1" max="${Math.max(1,available)}" step="1" value="1" aria-label="Issue quantity" ${low?'disabled':''}>`+
+    btn(low?'Restock before checkout':'Add to cart', 'cart','fa-cart-plus',`si_addAccessoryToCart(${si_json(a)},"${inputId}")`,low)+
+    btn('Restock','restock','fa-box-open',`si_restockPrompt(${si_json(a)})`,false)+
+    btn('Details','detail','fa-circle-info',`si_accessoryDetailPrompt(${si_json(a)})`,false)+
+    btn('Edit / Minimum','edit','fa-pen',`si_editAccessoryPrompt(${si_json(a)})`,false)+
+    btn('Delete','delete','fa-trash',`si_deleteAccessoryPrompt(${si_json(a)})`,false)+'</div>';
+  return `<tr class="${low?'ces-acc-low-v4':''}"><td><div class="ces-acc-name-v4">${spEsc(name)}</div><small>${spEsc(id)}${a.serialNumber?' · '+spEsc(a.serialNumber):''}</small></td>`+
+    `<td><span class="ces-acc-team-v4 ${teamCls}">${spEsc(team)}</span></td><td><div>${spEsc(vendor)}</div><small>${spEsc(type)}</small></td>`+
+    `<td class="num ces-acc-stock-v4 ${low?'low':''}">${spNum(qty)}</td><td class="num"><b>${rental?'—':spNum(available)}</b><small> / ${spNum(min)}</small></td>`+
+    `<td><span class="ces-acc-status-v4 ${low?'low':rental?'rental':'ok'}">${spEsc(status)}</span></td><td>${action}</td></tr>`;
 }
 
 function siAccessoryActor_(){

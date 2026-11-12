@@ -175,7 +175,7 @@
   style();ensureFilters();
   const all=groups(),byGroup=all.reduce((out,g)=>(out[g.id]=g,out),{});
   const rowFilter=a=>{const val=id=>String($(id)?.value||'all'),q=String($('siAccSearch')?.value||'').trim().toLowerCase();
-    const status=n(a.minStockQty)>0&&n(a.stockQty)<=n(a.minStockQty)?'LOW_STOCK':'STOCK';
+    const status=n(a.stockQty)<=0?'UNALLOCATED':n(a.stockQty)-n(a.minStockQty)<=1?'LOW_STOCK':'STOCK';
     return String(a.team||'').toUpperCase()!=='SHARED'&& (val('siAccTeam')==='all'||a.team===val('siAccTeam'))&&
      (val('siAccItem')==='all'||a.itemName===val('siAccItem'))&&
      (val('siAccStatus')==='all'||status===val('siAccStatus'))&&
@@ -186,18 +186,29 @@
   w.SI.accFiltered=rows.map(x=>x.a);
   const pageCount=Math.max(1,Math.ceil(rows.length/40));w.SI.accPage=Math.min(pageCount,Math.max(1,w.SI.accPage||1));
   const page=rows.slice((w.SI.accPage-1)*40,w.SI.accPage*40);
-  const tbody=page.map(({a,g})=>{const q=n(a.stockQty),min=n(a.minStockQty),available=Math.max(0,q-min-1),id=esc(a.accessoryId),selected=esc(g.id),team=String(a.team||'SHARED').toUpperCase(),color=typeof w.cesGetTeamColor==='function'?w.cesGetTeamColor(team):(team==='SHARED'?'#94a3b8':'#64748b');return '<tr style="--ces-row-team:'+esc(color)+'">'+[
-    '<div class="cesHub-item"><b>'+esc(a.itemName||a.itemName2||'—')+'</b><small>'+id+' · '+esc(a.type||'General')+'</small></div>',
-    '<span class="cesHub-team" style="--team-color:'+esc(color)+'">'+esc(team)+'</span>',
-    '<div class="cesHub-detail"><b>'+esc(a.vendor1||'—')+'</b><small style="display:block;color:#6b7f9a;margin-top:3px">'+esc(a.itemDetail||'—')+'</small></div>',
-    '<b class="cesHub-stock">'+q.toLocaleString()+'</b><small class="cesHub-muted">Available '+available+' · Min '+min+'</small><div style="margin-top:4px">'+badges(a)+'</div>'
-  ].map(x=>'<td>'+x+'</td>').join('')+
-  '<td><div class="cesHub-row-actions"><input type="number" class="cesHub-qty" id="cesHubq-'+id+'" min="1" max="'+available+'" value="1" '+(!available?'disabled':'')+' aria-label="Issue quantity">'+
-  '<button type="button" class="cesHub-btn primary" '+(!available?'disabled':'')+' onclick="siInventory_select(\''+selected+'\',\''+id+'\',true);siInventory_add(\''+selected+'\')" title="Add to cart" aria-label="Add to cart"><i class="fas fa-cart-plus"></i></button>'+
-  '<button type="button" class="cesHub-btn" onclick="siInventory_select(\''+selected+'\',\''+id+'\',true);siInventory_detail(\''+selected+'\')" title="Details" aria-label="Details"><i class="fas fa-circle-info"></i></button>'+
-  '<button type="button" class="cesHub-btn" onclick="siInventory_edit(\''+id+'\')" title="Edit" aria-label="Edit"><i class="fas fa-pen"></i></button></div></td></tr>';}).join('');
-  const headers=['Item / ID','Team','Vendor / Detail','Stock / Available','Action'];
-  const node=$('siAccCards');if(node){node.innerHTML='<div class="cesHub-access-table-scroll"><table class="cesHub-access-table"><thead><tr>'+headers.map(x=>'<th scope="col">'+esc(x)+'</th>').join('')+'</tr></thead><tbody>'+(tbody||'<tr><td colspan="5" style="text-align:center;padding:28px">No matching inventory rows</td></tr>')+'</tbody></table></div>';}
+  const tbody=page.map(({a,g})=>{
+    const q=n(a.stockQty),min=n(a.minStockQty),available=Math.max(0,q-min-1),id=esc(a.accessoryId),selected=esc(g.id),team=String(a.team||'SHARED').toUpperCase();
+    const color=typeof w.cesGetTeamColor==='function'?w.cesGetTeamColor(team):(team==='SHARED'?'#94a3b8':'#64748b');
+    const low=available===0,st=q<=0?(min>0?'OUT OF STOCK':'UNALLOCATED'):(low?'LOW STOCK':'STOCK');
+    const qty='<input type="number" class="cesHub-qty" id="cesHubq-'+id+'" min="1" max="'+Math.max(1,available)+'" value="1" '+(low?'disabled':'')+' aria-label="Issue quantity">';
+    const action='<div class="cesHub-row-actions cesHub-actions-v4">'+qty+
+      '<button type="button" class="cesHub-btn cesHub-cart-v4" '+(low?'disabled aria-disabled="true"':'')+' onclick="siInventory_select(\''+selected+'\',\''+id+'\',true);siInventory_add(\''+selected+'\')" title="'+(low?'Restock before issue':'Add to cart')+'" aria-label="Add to cart"><i class="fas fa-cart-plus"></i></button>'+
+      '<button type="button" class="cesHub-btn cesHub-restock-v4" onclick="siInventory_select(\''+selected+'\',\''+id+'\',true);siInventory_restock(\''+selected+'\')" title="Restock" aria-label="Restock"><i class="fas fa-box-open"></i></button>'+
+      '<button type="button" class="cesHub-btn cesHub-detail-v4" onclick="siInventory_select(\''+selected+'\',\''+id+'\',true);siInventory_detail(\''+selected+'\')" title="Details" aria-label="Details"><i class="fas fa-circle-info"></i></button>'+
+      '<button type="button" class="cesHub-btn cesHub-edit-v4" onclick="siInventory_edit(\''+id+'\')" title="Edit" aria-label="Edit"><i class="fas fa-pen"></i></button></div>';
+    return '<tr style="--ces-row-team:'+esc(color)+'">'+[
+      '<div class="cesHub-item"><b>'+esc(a.itemName||a.itemName2||'—')+'</b><small>'+id+' · '+esc(a.itemGroupId||g.id||'')+'</small></div>',
+      '<span class="cesHub-team" style="--team-color:'+esc(color)+'">'+esc(team)+'</span>',
+      '<div class="cesHub-detail"><b>'+esc(a.vendor1||'—')+'</b><small>'+esc(a.type||'General')+' · '+esc(a.itemDetail||'—')+'</small></div>',
+      '<b class="cesHub-stock">'+q.toLocaleString()+'</b>',
+      '<b>'+available.toLocaleString()+'</b><small>Min '+min.toLocaleString()+'</small>',
+      '<span class="cesHub-pill '+(low?'low':'ok')+'">'+st+'</span>',
+      action
+    ].map(x=>'<td>'+x+'</td>').join('')+'</tr>';
+  }).join('');
+  const headers=['Item / ID','Team','Vendor / Detail','Stock','Available / Min','Status','Actions'];
+  const node=$('siAccCards');if(node){node.innerHTML='<div class="cesHub-access-table-scroll"><table class="cesHub-access-table cesHub-v4"><thead><tr>'+headers.map(x=>'<th scope="col">'+esc(x)+'</th>').join('')+'</tr></thead><tbody>'+(tbody||'<tr><td colspan="7" style="text-align:center;padding:28px">No matching inventory rows</td></tr>')+'</tbody></table></div>';}
+
   if($('siAccCount'))$('siAccCount').textContent=rows.length+' team item rows';
   if($('siAccPagination'))$('siAccPagination').innerHTML='<span>Page '+w.SI.accPage+' / '+pageCount+'</span> <button class="cesHub-btn" onclick="SI.accPage=Math.max(1,SI.accPage-1);siInventory_renderAccessories()">Previous</button> <button class="cesHub-btn" onclick="SI.accPage=Math.min('+pageCount+',SI.accPage+1);siInventory_renderAccessories()">Next</button>';
  };
