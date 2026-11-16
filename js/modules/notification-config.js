@@ -14,17 +14,20 @@
   function markDirty(){state.dirty=true;var b=el('ncSummary');if(b)b.textContent='Unsaved changes · '+state.rows.length+' schedules';}
   function updateScheduleVisibility(card){var kind=card.querySelector('[data-field="kind"]')?.value||'';card.querySelectorAll('[data-schedule-for]').forEach(function(node){node.hidden=!node.dataset.scheduleFor.split(' ').includes(kind);});}
 
-  function card(row){var subject=String(row.subject||row.name||'').replace(/^\s*\[CES HUB\]\s*/i,'');return '<article class="nc-card" data-id="'+esc(row.id)+'">'+
-    '<div class="nc-card-header"><div><div class="nc-module">'+esc(row.module||'System')+'</div><h3>'+esc(row.name||row.id)+'</h3><small class="nc-card-id">'+esc(row.id)+'</small></div><label class="nc-switch"><input data-field="enabled" type="checkbox" '+(row.enabled!==false?'checked':'')+'> <span>Enabled</span></label></div>'+
+  function card(row){var subject=String(row.subject||row.name||'').replace(/^\s*\[CES HUB\]\s*/i,'');
+    var fixed=['service_weekly','csi_line_monthend','accessories_daily_issue'].includes(String(row.id));
+    var lock=fixed?' disabled':'';
+    return '<article class="nc-card" data-id="'+esc(row.id)+'">'+
+    '<div class="nc-card-header"><div><div class="nc-module">'+esc(row.module||'System')+'</div><h3>'+esc(row.name||row.id)+'</h3><small class="nc-card-id">'+esc(row.id)+'</small>'+(fixed?'<small class="nc-card-id">Schedule is fixed by service policy. Recipient / CC / Subject can be changed.</small>':'')+'</div><label class="nc-switch"><input data-field="enabled" type="checkbox" '+(row.enabled!==false?'checked':'')+'> <span>Enabled</span></label></div>'+
     '<div class="nc-card-grid">'+
     '<label>Team / Scope<input data-field="team" value="'+esc(row.team||'')+'" placeholder="All / MED / LAB / EHS / TES"></label>'+
-    '<label>Frequency'+select('kind',[['DAILY','Daily'],['WEEKLY','Weekly'],['BIWEEKLY','Every 2 weeks'],['MONTHLY','Monthly'],['WEEK_OF_MONTH','Specific week of month'],['FIRST_MONDAY','First Monday of month'],['MONTH_END','Last day of month']],row.kind||'MONTHLY')+'</label>'+
-    '<label data-schedule-for="WEEKLY BIWEEKLY WEEK_OF_MONTH">Weekday'+select('weekday',days.map(function(x){return[x,x.charAt(0)+x.slice(1).toLowerCase()];}),row.weekday||'MONDAY')+'</label>'+
-    '<label data-schedule-for="WEEK_OF_MONTH">Week of month'+select('weekOfMonth',[[1,'First'],[2,'Second'],[3,'Third'],[4,'Fourth'],[5,'Fifth']],row.weekOfMonth||1)+'</label>'+
+    '<label>Frequency'+select('kind',[['DAILY','Daily'],['WEEKLY','Weekly'],['BIWEEKLY','Every 2 weeks'],['MONTHLY','Monthly'],['WEEK_OF_MONTH','Specific week of month'],['FIRST_MONDAY','First Monday of month'],['MONTH_END','Last day of month']],row.kind||'MONTHLY').replace('<select ','<select'+lock+' ')+'</label>'+
+    '<label data-schedule-for="WEEKLY BIWEEKLY WEEK_OF_MONTH">Weekday'+select('weekday',days.map(function(x){return[x,x.charAt(0)+x.slice(1).toLowerCase()];}),row.weekday||'MONDAY').replace('<select ','<select'+lock+' ')+'</label>'+
+    '<label data-schedule-for="WEEK_OF_MONTH">Week of month'+select('weekOfMonth',[[1,'First'],[2,'Second'],[3,'Third'],[4,'Fourth'],[5,'Fifth']],row.weekOfMonth||1).replace('<select ','<select'+lock+' ')+'</label>'+
     '<label data-schedule-for="FIRST_MONDAY">First Monday<input value="First Monday · monthly" disabled></label>'+
-    '<label data-schedule-for="MONTHLY">Day of month<input data-field="day" min="1" max="28" type="number" value="'+n(row.day,1)+'"></label>'+
-    '<label>Hour (24h)<input data-field="hour" min="0" max="23" type="number" value="'+n(row.hour,9)+'"></label>'+
-    '<label>Minute<input data-field="minute" min="0" max="59" type="number" value="'+n(row.minute,0)+'"></label>'+
+    '<label data-schedule-for="MONTHLY">Day of month<input data-field="day" min="1" max="28" type="number"'+lock+' value="'+n(row.day,1)+'"></label>'+
+    '<label>Hour (24h)<input data-field="hour" min="0" max="23" type="number"'+lock+' value="'+n(row.hour,9)+'"></label>'+
+    '<label>Minute<input data-field="minute" min="0" max="59" type="number"'+lock+' value="'+n(row.minute,0)+'"></label>'+
     '<label class="wide">To<input data-field="to" type="text" value="'+esc(row.to||'')+'" placeholder="Default recipient if empty"></label>'+
     '<label class="wide">CC<input data-field="cc" type="text" value="'+esc(row.cc||'')+'" placeholder="Optional CC"></label>'+
     '<label class="wide">Subject (prefix [CES HUB] automatically)<input data-field="subject" type="text" value="'+esc(subject)+'"></label></div></article>';}
@@ -37,14 +40,15 @@
 
   function bind(){var host=el('ncCards');if(!host||host.dataset.bound==='1')return;host.dataset.bound='1';['input','change'].forEach(function(evt){host.addEventListener(evt,function(event){var card=event.target.closest('.nc-card[data-id]');if(!card)return;var row=state.rows.find(function(x){return String(x.id)===card.dataset.id;});if(!row)return;syncInput(card,row);markDirty();if(event.target.dataset.field==='kind')updateScheduleVisibility(card);});});}
 
-  function waitForView(next,tries){if(ensureLayout()){bind();next();return;}if(tries>25)return;setTimeout(function(){waitForView(next,tries+1);},120);}
+  function waitForView(next,tries){if(ensureLayout()){bind();next();return;}if(tries>25){next();return;}setTimeout(function(){waitForView(next,tries+1);},120);}
   window.cesNotifyRender=render;
   window.cesNotifyLoad=function(force){return new Promise(function(resolve){waitForView(resolve,0);}).then(function(){
     if(state.loading)return state.loading;
     if(force&&state.dirty&&!window.confirm('Discard unsaved changes and reload notification settings?'))return {success:false,cancelled:true};
     if(!force&&state.rows.length&&(state.dirty||Date.now()-state.loadedAt<300000)){render();return{success:true,source:'cache'};}
+    if(!el('ncCards'))return {success:false,message:'Notification view not mounted'};
     message('Loading notification settings…');el('ncCards').innerHTML='<div class="nc-card" style="grid-column:1/-1">Loading configurations…</div>';
-    state.loading=api('getNotificationAutomationConfig',[{force:!!force}],true).then(function(response){if(!response||response.success===false)throw Error(response?.message||'Notification API returned no data');
+    state.loading=api('getNotificationAutomationConfig',[{force:!!force}],true).catch(function(){return api('getNotificationAutomationConfig',[{force:!!force}],false);}).then(function(response){if(!response||response.success===false)throw Error(response?.message||'Notification API returned no data');
       state.rows=Array.isArray(response.rows)?response.rows.map(function(r){return Object.assign({},r);}):[];
       state.admin=response.adminTo||'Siripak.Ch@nhealth-asia.com';if(el('ncDefaultTo'))el('ncDefaultTo').value=state.admin;
       var previous=el('ncModuleFilter')?.value||'all',modules=Array.from(new Set(state.rows.map(function(x){return x.module;}).filter(Boolean))).sort();
