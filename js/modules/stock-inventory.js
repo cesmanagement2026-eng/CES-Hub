@@ -487,7 +487,7 @@ function si_renderAccCards(){
     spSetHtml('siAccPagination','');
     return;
   }
-  spSetHtml('siAccCards',`<div class="ces-acc-table-scroll-v4"><table class="ces-acc-table-v4"><thead><tr><th>Item / ID</th><th>Team</th><th>Vendor / Type</th><th class="num">Stock</th><th class="num">Available / Min</th><th class="num">Vendor 1 Cost/ea</th><th>Status</th><th>Action</th></tr></thead><tbody>${rows.map((a,i)=>siAccRow(a,start+i)).join('')}</tbody></table></div>`);
+  spSetHtml('siAccCards',`<div class="ces-acc-table-scroll-v4"><table class="ces-acc-table-v4"><thead><tr><th>Item / ID</th><th>Team</th><th>Vendor / Type</th><th class="num">Stock</th><th class="num">Available / Min</th><th>Status</th><th>Action</th></tr></thead><tbody>${rows.map((a,i)=>siAccRow(a,start+i)).join('')}</tbody></table></div>`);
   const total=Math.max(1,Math.ceil(SI.accFiltered.length/SI.pageSize));
   let btns='';
   const from=Math.max(1,SI.accPage-2), to=Math.min(total,SI.accPage+2);
@@ -501,7 +501,7 @@ function siAccRow(a,i){
   const team=String(a.team||'-').toUpperCase();
   const rental=!!a.rentalAccessory;
   const qty=rental?1:Number(a.stockQty||a.stock_qty||a.qty||0),min=rental?0:Number(a.minStockQty||a.min_stock_qty||a.minStock||0);
-  const available=Math.max(0,qty-min),low=!rental&&(qty<=min||available<=0),inputId=`siAccQty_${i}`;
+  const available=Math.max(0,qty-min-1),low=!rental&&(qty<=min||available<=0),inputId=`siAccQty_${i}`;
   const vendor=a.vendor||a.vendor1||a.vendor_1||a['Vendor 1']||'—';
   const type=a.accessoriesType||a.accessories_type||a.type||'GENERAL';
   const teamCls=team.includes('MED')?'med':team.includes('LAB')?'lab':team.includes('EHS')?'ehs':team.includes('TES')?'tes':'other';
@@ -516,7 +516,7 @@ function siAccRow(a,i){
     btn('Delete','delete','fa-trash',`si_deleteAccessoryPrompt(${si_json(a)})`,false)+'</div>';
   return `<tr class="${low?'ces-acc-low-v4':''}"><td><div class="ces-acc-name-v4">${spEsc(name)}</div><small>${spEsc(id)}${a.serialNumber?' · '+spEsc(a.serialNumber):''}</small></td>`+
     `<td><span class="ces-acc-team-v4 ${teamCls}">${spEsc(team)}</span></td><td><div>${spEsc(vendor)}</div><small>${spEsc(type)}</small></td>`+
-    `<td class="num ces-acc-stock-v4 ${low?'low':''}">${spNum(qty)}</td><td class="num"><b>${rental?'—':spNum(available)}</b><small> / ${spNum(min)}</small></td><td class="num"><b>฿${Number(a.costPerEa||a.unitCost||a.cost||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</b></td>`+
+    `<td class="num ces-acc-stock-v4 ${low?'low':''}">${spNum(qty)}</td><td class="num"><b>${rental?'—':spNum(available)}</b><small> / ${spNum(min)}</small></td>`+
     `<td><span class="ces-acc-status-v4 ${low?'low':rental?'rental':'ok'}">${spEsc(status)}</span></td><td>${action}</td></tr>`;
 }
 
