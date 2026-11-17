@@ -1,0 +1,28 @@
+/* CES Hub V8: preserve V6/V7 accordion inventory UI with compact team-only rows. */
+#view-inventory .cesHub-access-table{width:100%;min-width:1000px;table-layout:fixed;font-size:11px}
+#view-inventory .cesHub-access-table th,#view-inventory .cesHub-access-table td{padding:9px 12px!important;white-space:normal;vertical-align:middle;border-bottom:1px solid #e8eef7}
+#view-inventory .cesHub-access-table th{background:#eaf2fe!important;color:#0d448d!important;font-weight:800;position:sticky;top:0;z-index:3}
+#view-inventory .cesHub-access-table td:nth-child(1){width:22%}#view-inventory .cesHub-access-table th:nth-child(1){width:22%}
+#view-inventory .cesHub-access-table td:nth-child(8),#view-inventory .cesHub-access-table th:nth-child(8){width:22%}
+#view-inventory .ces-acc-parent-v5{background:#f3f7ff!important;box-shadow:none!important}
+#view-inventory .ces-acc-parent-v5 td{padding:9px 12px!important}
+#view-inventory .ces-acc-parent-v5 .ces-acc-parent-label-v6 strong{font-size:11px;color:#073d8f}
+#view-inventory .ces-acc-child-v5{background:#fff!important}
+#view-inventory .ces-acc-child-v5 td:first-child{border-left:3px solid var(--ces-row-team,#003da5)}
+#view-inventory .cesHub-actions-v4{display:flex;flex-wrap:nowrap;gap:5px;align-items:center}
+#view-inventory .cesHub-actions-v4 .cesHub-btn{width:30px;height:30px;min-width:30px;border-radius:9px}
+#view-inventory .cesHub-actions-v4 .cesHub-qty{width:42px;min-width:42px}
+#view-inventory .ces-v8-pending{margin:12px 0 18px;background:#f8fbff;border:1px solid #dbeafe;border-radius:12px;overflow:hidden}
+#view-inventory .ces-v8-pending-head{padding:13px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#eaf2ff;color:#06489b}
+#view-inventory .ces-v8-pending-head span{font-size:11px;color:#64748b}
+#view-inventory .ces-v8-pending-scroll{overflow:auto;max-height:250px}
+#view-inventory .ces-v8-pending table{border-collapse:collapse;width:100%;min-width:650px;font-size:12px}
+#view-inventory .ces-v8-pending th,#view-inventory .ces-v8-pending td{padding:10px 15px;border-bottom:1px solid #e2e8f0;text-align:left}
+#view-inventory .ces-v8-pending th{color:#1e40af;background:#f1f5ff}
+#view-inventory .ces-v8-pending small{display:block;color:#64748b}
+#view-inventory .ces-v8-allocate{background:#003da5;color:white;font-weight:700;border-radius:9px;padding:7px 13px}
+#view-inventory .ces-v8-note{padding:15px;color:#64748b}
+#view-kpi #kpi-late-alert-button{display:none!important}
+#view-stock_dashboard #sdModelCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#view-stock_dashboard #sdModelCards .sp-model-card{min-width:0}
+@media(max-width:850px){#view-stock_dashboard #sdModelCards{grid-template-columns:1fr}}

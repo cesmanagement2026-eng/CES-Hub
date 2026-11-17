@@ -144,13 +144,20 @@ function spEnsureStyle(){
   `;
   document.head.appendChild(style);
 }
+function sdV8CanonicalModel_(v){
+  const t=String(v||'').trim();
+  if(/^sunfusion(?:\s+semi[-\s]?)?\s*2$/i.test(t))return 'Sunfusion Semi-2';
+  if(/^infusomat\s*space$/i.test(t))return 'Infusomat Space';
+  if(/^space\s*plus$/i.test(t))return 'Spaceplus';
+  return t;
+}
 function sd_filteredModelCards_(rows){
   const configs=[
     {brand:'B.BRAUN',keyword:'INFUSOMAT',label:'Infusomat Space',color:'#059669',bg:'#dcfce7',accent:'bbraun-infusomat'},
     {brand:'B.BRAUN',keyword:'SPACEPLUS',label:'Spaceplus',color:'#d97706',bg:'#fef3c7',accent:'bbraun-spaceplus'},
-    {brand:'BYOND',keyword:'SUNFUSION',label:'Sunfusion',color:'#2563eb',bg:'#dbeafe',accent:'byond-sunfusion'}
+    {brand:'BYOND',keyword:'SUNFUSION SEMI-2',label:'Sunfusion Semi-2',color:'#2563eb',bg:'#dbeafe',accent:'byond-sunfusion'}
   ];
-  return configs.map(cfg=>{const matched=(rows||[]).filter(d=>String(d.brand||'').toUpperCase().includes(cfg.brand)&&[d.model,d.itemName,d.item_name].join(' ').toUpperCase().includes(cfg.keyword));return Object.assign({},cfg,{total:matched.length,stock:matched.filter(d=>d.status==='Stock').length,inUse:matched.filter(d=>d.status==='In-Use').length,overdue:matched.filter(d=>d.status==='Overdue'||Number(d.overdueDays||0)>0).length});});
+  return configs.map(cfg=>{const matched=(rows||[]).filter(d=>String(d.brand||'').toUpperCase().includes(cfg.brand)&&sdV8CanonicalModel_(d.model||d.itemName||d.item_name).toUpperCase().includes(cfg.keyword));return Object.assign({},cfg,{total:matched.length,stock:matched.filter(d=>d.status==='Stock').length,inUse:matched.filter(d=>d.status==='In-Use').length,overdue:matched.filter(d=>d.status==='Overdue'||Number(d.overdueDays||0)>0).length});});
 }
 function sd_filteredKpi_(rows){rows=rows||[];return {total:rows.length,stock:rows.filter(d=>d.status==='Stock').length,inUse:rows.filter(d=>d.status==='In-Use').length,overdue:rows.filter(d=>d.status==='Overdue'||Number(d.overdueDays||0)>0).length,missing:rows.filter(d=>d.status==='Missing').length,broken:rows.filter(d=>d.status==='Broken').length,recheck:rows.filter(d=>d.status==='Recheck').length,rentalRows:(SD_DASH.raw&&SD_DASH.raw.rentals?SD_DASH.raw.rentals.length:0)};}
 function sd_returnLocation(location){
@@ -393,7 +400,7 @@ function sdStatusOf(d){
   return 'Stock';
 }
 function sdNormalizedRows(rows){
-  return (rows||[]).map(d=>Object.assign({},d,{status:sdStatusOf(d)}));
+  return (rows||[]).map(d=>Object.assign({},d,{status:sdStatusOf(d),model:sdV8CanonicalModel_(d.model)}));
 }
 if(typeof sdFilteredDevices === 'function' && !window._sdFilteredPatch){
   window._sdFilteredPatch=true;
@@ -421,8 +428,6 @@ function sd_renderKpis(k){
     ['เช่ายืม',k.inUse,'fa-arrow-right-from-bracket','#d97706','#fef3c7'],
     ['รอสอบเทียบ',k.recheck,'fa-triangle-exclamation','#7c3aed','#ede9fe'],
     ['ใช้งานไม่ได้',k.broken,'fa-screwdriver-wrench','#64748b','#e2e8f0'],
-    ['ไม่พบในรายการ',k.missing,'fa-question-circle','#dc2626','#fee2e2'],
-    ['เกินกำหนดคืน',k.overdue,'fa-clock','#dc2626','#fee2e2'],
     ['รายการเช่า',k.rentalRows,'fa-file-contract','#0ea5e9','#e0f2fe']
   ];
   spSetHtml('sdKpiGrid',items.map(i=>`<div class="sp-kpi"><div class="ico" style="background:${i[4]}"><i class="fas ${i[2]}" style="color:${i[3]}"></i></div><div class="label">${i[0]}</div><div class="val" style="color:${i[3]}">${spNum(i[1])}</div></div>`).join(''));
@@ -805,7 +810,7 @@ var sdInitV3029Base_=window.initStockDashboardModule;if(typeof sdInitV3029Base_=
     if(warehouse_(d))return 'Stock';
     return 'Stock';
   }
-  function norm_(rows){return (rows||[]).map(function(d){return Object.assign({},d,{status:status_(d),finalStatus:status_(d)});});}
+  function norm_(rows){return (rows||[]).map(function(d){return Object.assign({},d,{status:status_(d),finalStatus:status_(d),model:sdV8CanonicalModel_(d.model)});});}
   function datePartsList_(row){
     var keys=['borrowDate','borrow_date','expectedReturnDate','expected_return_date','dueDate','due_date','returnDate','return_date','planCalPm','plan_cal_pm','planPm','plan_pm','pmDueDate','pm_due_date','calPmDueDate','cal_pm_due_date'],out=[],seen={};
     keys.forEach(function(key){var raw=row&&row[key];if(!raw)return;var d=new Date(raw),part=null;if(!isNaN(d.getTime()))part={year:String(d.getFullYear()),month:String(d.getMonth()+1).padStart(2,'0')};else{var m=String(raw).match(/(20\d{2})[-\/]([01]?\d)/);if(m)part={year:m[1],month:String(Number(m[2])).padStart(2,'0')};}if(part&&!seen[part.year+'-'+part.month]){seen[part.year+'-'+part.month]=1;out.push(part);}});
@@ -823,7 +828,7 @@ var sdInitV3029Base_=window.initStockDashboardModule;if(typeof sdInitV3029Base_=
     });
   }
   function count_(rows,key){var m={};(rows||[]).forEach(function(x){var k=String(x[key]||'Unknown');m[k]=(m[k]||0)+1;});return Object.keys(m).map(function(k){return{name:k,count:m[k]};}).sort(function(a,b){return b.count-a.count;});}
-  function statusOrder(){return ['Stock','In-Use','Overdue','Recheck','Missing','Broken'];}
+  function statusOrder(){return ['Stock','In-Use','Recheck','Broken'];}
   function renderCharts_(rows){
     if(typeof Chart==='undefined')return;
     rows=rows||filtered_();
@@ -837,9 +842,9 @@ var sdInitV3029Base_=window.initStockDashboardModule;if(typeof sdInitV3029Base_=
     var ms=document.getElementById('sdModelStatusChart');
     if(ms){
       if(SD_DASH.modelStatusChart)try{SD_DASH.modelStatusChart.destroy();}catch(e){}
-      var models=count_(rows,'model').slice(0,12).map(function(x){return x.name;});
-      var statuses=['Stock','In-Use','Overdue','Recheck','Missing','Broken'];
-      var datasets=statuses.map(function(st,i){return{label:st,data:models.map(function(model){return rows.filter(function(d){return String(d.model||'Unknown')===String(model)&&d.status===st;}).length;}),backgroundColor:['#34d399','#fbbf24','#fb7185','#a78bfa','#fb923c','#60a5fa'][i],borderRadius:5};}).filter(function(ds){return ds.data.some(function(v){return v>0;});});
+      var models=['Infusomat Space','Spaceplus','Sunfusion Semi-2'];
+      var statuses=['Stock','In-Use','Recheck','Broken'];
+      var datasets=statuses.map(function(st,i){return{label:st,data:models.map(function(model){return rows.filter(function(d){return String(d.model||'Unknown')===String(model)&&d.status===st;}).length;}),backgroundColor:['#34d399','#fbbf24','#a78bfa','#fb923c'][i],borderRadius:5};}).filter(function(ds){return ds.data.some(function(v){return v>0;});});
       SD_DASH.modelStatusChart=new Chart(ms,{type:'bar',data:{labels:models,datasets:datasets},options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,ticks:{font:{size:9}}},y:{stacked:true,beginAtZero:true,ticks:{precision:0}}},plugins:{legend:{position:'bottom'}}}});
     }
     var bc=document.getElementById('sdBrandChart');
@@ -859,7 +864,7 @@ var sdInitV3029Base_=window.initStockDashboardModule;if(typeof sdInitV3029Base_=
     return k;
   }
   function renderKpi_(k){
-    var items=[['อุปกรณ์ทั้งหมด',k.total,'fa-boxes','#2563eb','#dbeafe'],['พร้อมส่ง',k.stock,'fa-warehouse','#059669','#dcfce7'],['เช่ายืม',k.inUse,'fa-arrow-right-from-bracket','#d97706','#fef3c7'],['รอสอบเทียบ',k.recheck,'fa-triangle-exclamation','#7c3aed','#ede9fe'],['ใช้งานไม่ได้',k.broken,'fa-screwdriver-wrench','#64748b','#e2e8f0'],['ไม่พบในรายการ',k.missing,'fa-question-circle','#dc2626','#fee2e2'],['เกินกำหนดคืน',k.overdue,'fa-clock','#dc2626','#fee2e2'],['รายการเช่า',k.rentalRows,'fa-file-contract','#0ea5e9','#e0f2fe']];
+    var items=[['อุปกรณ์ทั้งหมด',k.total,'fa-boxes','#2563eb','#dbeafe'],['พร้อมส่ง',k.stock,'fa-warehouse','#059669','#dcfce7'],['เช่ายืม',k.inUse,'fa-arrow-right-from-bracket','#d97706','#fef3c7'],['รอสอบเทียบ',k.recheck,'fa-triangle-exclamation','#7c3aed','#ede9fe'],['ใช้งานไม่ได้',k.broken,'fa-screwdriver-wrench','#64748b','#e2e8f0'],['รายการเช่า',k.rentalRows,'fa-file-contract','#0ea5e9','#e0f2fe']];
     spSetHtml('sdKpiGrid',items.map(function(i){return'<div class="sp-kpi"><div class="ico" style="background:'+i[4]+'"><i class="fas '+i[2]+'" style="color:'+i[3]+'"></i></div><div class="label">'+i[0]+'</div><div class="val" style="color:'+i[3]+'">'+spNum(i[1])+'</div></div>';}).join(''));
   }
   function renderAll_(rows){

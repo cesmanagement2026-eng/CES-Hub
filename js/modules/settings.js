@@ -154,9 +154,7 @@
             LINK_E_REQUEST:getVal('cfg-link-e-request'), LINK_CAR_BOOKING_DRIVE:getVal('cfg-link-car-booking-drive'), LINK_VAN_PROVINCE_FORM:getVal('cfg-link-van-province-form'), LINK_VAN_GOOGLE_CALENDAR:getVal('cfg-link-van-calendar'), LINK_VAN_LG_BOOKING:getVal('cfg-link-van-lg-booking'), LINK_VAN_NMOBILE:getVal('cfg-link-van-nmobile'), LINK_GIZTIX_DELIVERY:getVal('cfg-link-giztix'),
             TES_IMPORT_WEBAPP_URL:getVal('cfg-tes-import-url'), TES_IMPORT_SECRET:getVal('cfg-tes-import-secret'),
             BOOKING_MEMO_FOLDER_ID:getVal('cfg-booking-memo-folder'), BOOKING_PDF_FOLDER_ID:getVal('cfg-booking-pdf-folder'), BOOKING_RETURN_BILL_FOLDER_ID:getVal('cfg-booking-return-bill-folder'),
-            LINE_OA_BASIC_ID:getVal('cfg-line-oa-basic-id'), LINE_GATEWAY_URL:getVal('cfg-line-gateway-url'),
-            ADMIN_NOTIFY_EMAIL:getVal('cfg-mail-admin') || getVal('cfg-admin-email'), SERVICE_CSI_ADMIN_CC:getVal('cfg-mail-admin-cc'),
-            TEAM_MAIL_CC_MED:getVal('cfg-mail-med'), TEAM_MAIL_CC_LAB:getVal('cfg-mail-lab'), TEAM_MAIL_CC_EHS:getVal('cfg-mail-ehs'), TEAM_MAIL_CC_ENV:getVal('cfg-mail-env'), TEAM_MAIL_CC_TES:getVal('cfg-mail-tes'), TEAM_MAIL_CC_MNG:getVal('cfg-mail-mng'), TEAM_MAIL_CC_QM:getVal('cfg-mail-qm'), TEAM_MAIL_CC_SALES:getVal('cfg-mail-sales'),
+            // LINE/Mail settings are retired in V7; preserve existing Config values when saving other settings.
             LINK_CES_HUB_HOME:getVal('cfg-link-ces-home'), LINK_INFUSION_PUMP_DASHBOARD:getVal('cfg-link-infusion-dashboard'), LINK_RENTAL_CONTACT_PAGE:getVal('cfg-link-rental-contact'), LINK_MASTER_CAL_PM_SOURCE:getVal('cfg-link-master-cal-pm'), LINK_INVENTORY_SOURCE:getVal('cfg-link-inventory-source'), LINK_CHECK_STOCK:getVal('cfg-link-check-stock'),
             AUDIT_DRIVE_MED:getVal('cfg-audit-drive-med'), AUDIT_EXCEL_MED:getVal('cfg-audit-excel-med'), AUDIT_DRIVE_LAB:getVal('cfg-audit-drive-lab'), AUDIT_EXCEL_LAB:getVal('cfg-audit-excel-lab'), AUDIT_DRIVE_EHS:getVal('cfg-audit-drive-ehs'), AUDIT_EXCEL_EHS:getVal('cfg-audit-excel-ehs'),
             ANNOUNCE_MSG:getVal('cfg-announce-msg'),
@@ -254,6 +252,7 @@
     async function saveSettingSection(section, button) {
         const keys = CES_SETTING_SECTION_KEYS_V264[String(section || '').toLowerCase()] || [];
         if (!keys.length) return;
+        if (section === 'line' || section === 'mail') { if (typeof Swal!=='undefined') Swal.fire('Messaging disabled','LINE and email configuration will be rebuilt later.','info'); return; }
         const all = collectFullSystemConfig_(), patch = {CONFIG_SCHEMA_VERSION:'30.0.37'};
         keys.forEach(key => { patch[key] = all[key]; });
         const btn = button || null, oldHtml = btn ? btn.innerHTML : '';

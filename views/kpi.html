@@ -6,7 +6,7 @@
 </div>
 <div>
 <h2 class="text-xl font-extrabold text-slate-800 tracking-tight">KPI Tracking</h2>
-<p class="text-sm text-slate-400 font-medium">Strict Workflow & Notification System</p>
+<p class="text-sm text-slate-400 font-medium">EHS / ENV · KPI Performance & Report Workflow</p>
 </div>
 </div>
 <div class="flex flex-wrap items-center justify-end gap-2" id="kpi-header-actions">
@@ -17,11 +17,11 @@
 </div>
 <a id="kpi-sheet-link" class="hidden ces-standard-icon-btn ces-external-link-btn" href="#" target="_blank" rel="noopener" title="Open KPI source sheet"><i class="fas fa-link"></i></a>
 <div class="flex bg-slate-100 p-1 rounded-xl">
-<button class="px-5 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-indigo-600 transition-all" id="kpi-tab-med" onclick="switchKpiTab('MED')">MED</button>
-<button class="px-5 py-2 rounded-lg text-xs font-bold text-slate-500 hover:text-indigo-600 transition-all" id="kpi-tab-lab" onclick="switchKpiTab('LAB')">LAB</button>
+
+
 <button class="px-5 py-2 rounded-lg text-xs font-bold bg-white text-indigo-600 shadow-sm transition-all" id="kpi-tab-ehs" onclick="switchKpiTab('EHS')">EHS</button>
 </div>
-<button id="kpi-late-alert-button" class="ces-standard-icon-btn ces-action-warning ces-notification-icon-btn group" onclick="openLateAlertModal()" title="Late Jobs Notification" aria-label="Late Jobs Notification"><i class="fas fa-bell"></i><span id="kpi-late-badge" class="sp-mini-badge ces-notification-count hidden">0</span></button>
+
 </div>
 </div>
 <!-- KPI Performance: Before / On / Over KPI -->
@@ -252,9 +252,7 @@
 <option value="desc">Late Most</option>
 <option value="asc">Late Least</option>
 </select>
-<button class="px-4 py-2 bg-[#003DA5] hover:bg-[#003DA5] text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-2" id="btn-send-late-email" onclick="triggerLateEmail()">
-<i class="fas fa-paper-plane"></i> Notify Manager
-                </button>
+
 </div>
 </div>
 <div class="p-4 flex-1 overflow-y-auto custom-scrollbar bg-slate-50/50" id="late-jobs-container"></div>

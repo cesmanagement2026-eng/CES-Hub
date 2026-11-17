@@ -526,7 +526,7 @@
   const VALID_TABS = [
     'portal', 'management_overview', 'yearly', 'revenue', 'ot', 'service', 'report', 'memo_workorder', 'calendar',
     'checkin', 'car_booking', 'van_booking', 'weekly', 'report_manage',  'kpi', 'stock_dashboard',
-    'inventory', 'check_stock', 'team_information',  'monthly_report', 'users', 'ces_evaluation', 'ces_ai_knowledge', 'setting', 'notification_config', 'user_log', 'health'
+    'inventory', 'check_stock', 'team_information',  'monthly_report', 'users', 'ces_evaluation', 'ces_ai_knowledge', 'setting',  'user_log', 'health'
   ];
 
   const TITLES = {
@@ -556,7 +556,7 @@
     ces_evaluation: 'CES Hub Evaluation',
     ces_ai_knowledge: 'CES AI Knowledge',
     setting: 'Setting',
-    notification_config: 'Notification Config',
+    
     user_log: 'Log Summary',
     health: 'System Health Check'
   };
@@ -588,7 +588,7 @@
     ces_evaluation: 'fa-star-half-stroke',
     ces_ai_knowledge: 'fa-robot',
     setting: 'fa-cogs',
-    notification_config: 'fa-bell',
+    
     user_log: 'fa-chart-line',
     health: 'fa-heart-pulse'
   };

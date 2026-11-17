@@ -169,9 +169,11 @@ function initKPITab() {
 }
 
 function switchKpiTab(team) {
+    // V8: MED / LAB KPI workspaces have been retired. ENV remains within EHS.
+    team = 'EHS';
     currentKpiTeam = team;
 
-    ['MED', 'LAB', 'EHS'].forEach(t => {
+    ['EHS'].forEach(t => {
         const btn = document.getElementById(`kpi-tab-${t.toLowerCase()}`);
         if (btn) {
             btn.className = t === team
@@ -200,12 +202,12 @@ function switchKpiTab(team) {
 
     const sheetLink = document.getElementById('kpi-sheet-link');
     if (sheetLink) {
-        const key = team === 'EHS' ? 'KPI_EHS_SHEET' : (team === 'LAB' ? 'KPI_LAB_SHEET' : '');
+        const key = 'KPI_EHS_SHEET';
         const url = key && typeof window.cesExternalLink === 'function' ? window.cesExternalLink(key) : '';
         sheetLink.href = url || '#';
         sheetLink.classList.toggle('hidden', !url);
         sheetLink.classList.toggle('flex', !!url);
-        sheetLink.title = team === 'EHS' ? 'Open EHS KPI Sheet' : (team === 'LAB' ? 'Open LAB KPI Sheet' : 'Open KPI Sheet');
+        sheetLink.title = 'Open EHS KPI Sheet';
     }
 
     const summaryWrap = document.getElementById('kpi-summary-section');
@@ -535,32 +537,8 @@ function renderLateJobsUI() {
         </div>`).join('');
 }
 
-function triggerLateEmail() {
-    const btn = document.getElementById('btn-send-late-email');
-    const oldHtml = btn.innerHTML;
+/* V8: email sending removed. KPI report actions remain available. */
 
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Email...';
-    btn.disabled = true;
-
-    google.script.run
-        .withFailureHandler(err => {
-            Swal.fire('Error', err.message || String(err), 'error');
-            btn.innerHTML = oldHtml;
-            btn.disabled = false;
-        })
-        .withSuccessHandler(res => {
-            btn.innerHTML = oldHtml;
-            btn.disabled = false;
-
-            if (res && res.success) {
-                Swal.fire('Success!', res.message, 'success');
-                closeModal('modal-kpi-late');
-            } else {
-                Swal.fire('Error', (res && res.message) || 'Cannot send email', 'error');
-            }
-        })
-        .sendLateKpiEmail(currentKpiTeam);
-}
 
 // ==========================================
 // Small helpers

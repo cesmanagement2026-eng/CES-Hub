@@ -55,7 +55,7 @@
       <div class="flex items-center justify-between gap-3"><h3 class="ces-setting-title"><i class="fas fa-broadcast-tower text-[#003DA5]"></i>Announcement & Admin</h3><button type="button" class="ces-training-btn primary" onclick="saveSettingSection('announcement',this)"><i class="fas fa-floppy-disk"></i> Save</button></div>
       <div class="flex items-center justify-between p-4 rounded-2xl bg-blue-50 border border-blue-100"><div><label class="font-black text-slate-700 text-sm">Announcement Bar</label><p class="text-xs text-slate-400">Toggle alert on Home Dashboard</p></div><label class="relative inline-flex items-center cursor-pointer"><input class="sr-only peer" id="cfg-announce-active" type="checkbox"><div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#003DA5]"></div></label></div>
       <div><label class="ces-setting-label">Announcement Message</label><input class="ces-setting-input" id="cfg-announce-msg" type="text"></div>
-      <div class="ces-setting-field ces-admin-email-field"><label class="ces-setting-label" for="cfg-admin-email">Admin Notification Email</label><input class="ces-setting-input" id="cfg-admin-email" type="email" autocomplete="email" placeholder="admin@nhealth-asia.com"></div>
+      
     </div>
 
     <div class="xl:col-span-7 bg-white p-5 rounded-3xl shadow-sm border border-slate-100 space-y-4" style="order:-100">
@@ -145,32 +145,9 @@
       </div></div>
     </div>
 
-    <div class="xl:col-span-12 bg-white p-5 rounded-3xl shadow-sm border border-slate-100 space-y-4">
-      <div class="flex items-center justify-between gap-3"><h3 class="ces-setting-title"><i class="fab fa-line text-emerald-500"></i>LINE Notification · Current CES Hub OA</h3><button type="button" class="ces-training-btn primary" onclick="saveSettingSection('line',this)"><i class="fas fa-floppy-disk"></i> Save Securely</button></div>
-      <p class="text-xs text-slate-400">Only CES Hub OA is active. Channel secret is stored in Apps Script Script Properties and is never written to Config Sheet.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="ces-token-card med"><label>OA Basic ID</label><input id="cfg-line-oa-basic-id" type="text" class="ces-secret-input" value="@032jntyw"></div>
-        <div class="ces-token-card lab"><label>Cloudflare Gateway URL</label><input id="cfg-line-gateway-url" type="url" class="ces-secret-input"></div>
-        <div class="ces-token-card ehs"><label>Channel Secret <span id="cfg-line-secret-status" class="text-emerald-600"></span></label><div class="ces-secret-input flex items-center text-slate-500 text-[10px]">Configure <b class="mx-1">LINE_CHANNEL_SECRET</b> in Cloudflare Worker Secrets only</div></div>
-      </div>
-    </div>
+    
 
-    <div class="xl:col-span-12 bg-white p-5 rounded-3xl shadow-sm border border-slate-100 space-y-4">
-      <div class="flex items-center justify-between gap-3"><h3 class="ces-setting-title"><i class="fas fa-envelope text-[#003DA5]"></i>Mail Notification Configuration</h3><div class="flex gap-2"><button type="button" class="ces-training-btn" onclick="testAllCesMail(this)"><i class="fas fa-paper-plane"></i> Test All Mail</button><button type="button" class="ces-training-btn primary" onclick="saveSettingSection('mail',this)"><i class="fas fa-floppy-disk"></i> Save</button></div></div>
-      <p class="text-xs text-slate-400">Central recipients used by Service CSI, CAL/PM, Infusion Pump and other automated mail.</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div><label class="ces-setting-label">Admin</label><input class="ces-setting-input text-xs" id="cfg-mail-admin" type="text"></div>
-        <div><label class="ces-setting-label">Service CSI Admin CC</label><input class="ces-setting-input text-xs" id="cfg-mail-admin-cc" type="text"></div>
-        <div><label class="ces-setting-label">MED CC</label><textarea class="ces-setting-input text-xs" id="cfg-mail-med" rows="2"></textarea></div>
-        <div><label class="ces-setting-label">LAB CC</label><textarea class="ces-setting-input text-xs" id="cfg-mail-lab" rows="2"></textarea></div>
-        <div><label class="ces-setting-label">EHS CC</label><textarea class="ces-setting-input text-xs" id="cfg-mail-ehs" rows="2"></textarea></div>
-        <div><label class="ces-setting-label">ENV CC</label><textarea class="ces-setting-input text-xs" id="cfg-mail-env" rows="2"></textarea></div>
-        <div><label class="ces-setting-label">TES CC</label><textarea class="ces-setting-input text-xs" id="cfg-mail-tes" rows="2"></textarea></div>
-        <div><label class="ces-setting-label">MNG CC</label><textarea class="ces-setting-input text-xs" id="cfg-mail-mng" rows="2"></textarea></div>
-        <div><label class="ces-setting-label">QM CC</label><textarea class="ces-setting-input text-xs" id="cfg-mail-qm" rows="2"></textarea></div>
-        <div><label class="ces-setting-label">Sales CC</label><textarea class="ces-setting-input text-xs" id="cfg-mail-sales" rows="2"></textarea></div>
-      </div>
-    </div>
+    
 
   </div>
 </section>

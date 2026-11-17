@@ -39,7 +39,6 @@ let _userCache = null;
         { id:'team_plan',name:'Team Plan',group:'Information',icon:'fa-calendar-days' },
         { id:'monthly_report',name:'Monthly Report',group:'Information',icon:'fa-file-circle-check' },
         { id:'setting',name:'Setting',group:'System',icon:'fa-cogs' },
-        { id:'notification_config',name:'Notification Config',group:'System',icon:'fa-bell' },
         { id:'user_log',name:'Log Summary',group:'System',icon:'fa-chart-line' },
         { id:'users',name:'User Management',group:'System',icon:'fa-users-cog' },
         { id:'ces_evaluation',name:'CES Hub Evaluation',group:'System',icon:'fa-star-half-stroke' },
