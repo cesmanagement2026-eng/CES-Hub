@@ -25,7 +25,7 @@ let KPI_TABLE_PAGE_V36 = 1;
 let KPI_FILTER_SIGNATURE_V36 = '';
 
 function cesKpiCacheKey(team) {
-    return 'ces_kpi_dashboard_v16_sheet_aligned_' + String(team || 'EHS').toUpperCase();
+    return 'ces_kpi_dashboard_v17_fix_report_20261117_' + String(team || 'EHS').toUpperCase();
 }
 function cesKpiReadCache(team) {
     const key = cesKpiCacheKey(team);
@@ -364,123 +364,128 @@ function kpiStatusUi(row) {
     `;
 }
 
+function openKPIJobFromRowId(rowId) {
+    const row = (globalKpiData || []).find(item => String(item.rowId) === String(rowId));
+    if (row) openUpdateModal(row);
+}
 function openUpdateModal(data) {
     document.getElementById('upd-row-id').value = data.rowId;
-
+    const isEnv = kpiIsEnvWorkflowRow(data);
+    const r = data.rawStatus || {};
+    const esc = kpiEsc;
     document.getElementById('upd-job-header').innerHTML = `
         <div class="flex flex-wrap gap-2 w-full">
-            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fas fa-hospital text-slate-400"></i> ${kpiEsc(data.customerId)}</span>
-            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fas fa-hashtag text-slate-400"></i> Job: ${kpiEsc(data.jobNo)}</span>
-            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fas fa-layer-group text-slate-400"></i> ${kpiEsc(data.sourceSheet || '-')}</span>
-            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fas fa-user-tag text-slate-400"></i> Req: ${kpiEsc(data.requester || '-')}</span>
-            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fas fa-calendar-alt text-slate-400"></i> CAL: ${kpiEsc(data.calDate)}</span>
-            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold flex items-center gap-1.5 shadow-sm"><i class="fas fa-flag-checkered text-slate-400"></i> KPI: ${kpiEsc(data.deadline)}</span>
-        </div>
-    `;
-
-    const devStr = Object.entries(data.devices || {})
-        .filter(([k, v]) => v && v !== '0')
-        .map(([k, v]) => `<span class="bg-slate-50 px-2 py-1 rounded border border-slate-200 text-slate-600 uppercase shadow-sm">${k}: <b class="text-slate-800">${kpiEsc(v)}</b></span>`)
-        .join('');
-
-    document.getElementById('modal-devices-container').innerHTML =
-        `<div class="flex flex-wrap gap-2 text-[10px] font-bold">${devStr || '<span class="text-slate-400">No Device Specifics</span>'}</div>
-         <div class="text-[11px] font-black text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm">TOTAL: ${kpiEsc(data.totalAmount || '0')}</div>`;
-
-    const r = data.rawStatus || {};
-
-    const isEngDone = (r.eng === 'เสร็จพร้อมตรวจ');
-    const isSupDone = isEngDone && (r.sup === 'ตรวจเสร็จ');
-    const isRepDone = isSupDone && (r.rep === 'ส่ง Report เสร็จแล้ว');
-
-    const isEngProcess = (r.eng === 'กำลังทำ' || isEngDone);
-    const isSupProcess = isEngDone && (r.sup === 'กำลังตรวจ' || isSupDone || r.sup === 'รอแก้ไข');
-    const isRepProcess = isSupDone && (r.rep === 'รอส่ง Report' || isRepDone || r.rep === 'รอแก้ไข');
-
-    const isSupEdit = isEngDone && (r.sup === 'รอแก้ไข');
-    const isRepEdit = isSupDone && (r.rep === 'รอแก้ไข');
-
-    const steps = [
-        { l: 'กำลังทำ', t: 'Engineer Status', d: isEngProcess, edit: false, date: r.engDate },
-        { l: 'เสร็จพร้อมตรวจ', t: 'Engineer Status', d: isEngDone, edit: false, date: r.engDate },
-        { l: 'กำลังตรวจ', t: 'Supervisor Status', d: isSupProcess, edit: isSupEdit, date: r.supDate },
-        { l: 'ตรวจเสร็จ', t: 'Supervisor Status', d: isSupDone, edit: false, date: r.supDate },
-        { l: 'รอส่ง Report', t: 'Report Status', d: isRepProcess, edit: isRepEdit, date: r.repDate },
-        { l: 'ส่ง Report เสร็จแล้ว', t: 'Report Status', d: isRepDone, edit: false, date: r.repDate }
-    ];
-
-    document.getElementById('modal-stepper-container').innerHTML = `
-        <div class="flex items-start justify-between min-w-[750px] w-full pt-6 relative">
-            ${steps.map((s, i) => `
-                <div class="flex flex-col items-center flex-1 relative">
-                    ${(i === 0 || i === 2 || i === 4) ? `<span class="absolute -top-8 text-[9px] font-black ${s.d || s.edit ? 'text-indigo-600' : 'text-slate-400'} bg-white px-2 rounded border border-slate-200 shadow-sm">${s.t}</span>` : ''}
-                    <div class="z-10 w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold transition-all shadow-sm
-                        ${s.edit ? 'bg-[#003DA5] text-white ring-4 ring-[#003DA5]' : s.d ? 'bg-blue-100 text-[#003DA5] shadow-md' : 'bg-slate-100 text-slate-300 border-2 border-slate-200'}">
-                        ${s.edit ? '<i class="fas fa-tools"></i>' : s.d ? '<i class="fas fa-check"></i>' : i + 1}
-                    </div>
-                    <span class="text-[9px] font-extrabold mt-3 ${s.d || s.edit ? 'text-slate-800' : 'text-slate-400'} text-center h-6 leading-tight">${s.l}</span>
-                    ${s.date && s.d && !s.edit ? `<span class="text-[8px] font-bold text-[#003DA5] bg-blue-50 px-1.5 py-0.5 rounded mt-1 border border-blue-200 shadow-sm">${kpiEsc(s.date)}</span>` : ''}
-                </div>
-                ${i < steps.length - 1 ? `<div class="flex-1 h-[3px] mt-4 ${s.d ? 'bg-blue-300' : 'bg-slate-200'}"></div>` : ''}
-            `).join('')}
+            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold">${esc(data.customerId)} · ${esc(data.jobNo)}</span>
+            <span class="bg-indigo-50 text-indigo-700 px-2.5 py-1.5 rounded-lg text-[10px] font-bold">${esc(data.sourceSheet || '')}</span>
+            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold">Onsite: ${esc(data.calDate)}</span>
+            <span class="bg-white text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-[10px] font-bold">Overall KPI: ${esc(data.overallDeadline || data.deadline)}</span>
         </div>`;
 
-    let target = '';
-    let opts = [];
+    const devStr=Object.entries(data.devices||{}).filter(([key,val])=>val&&val!=='0')
+        .map(([key,val])=>`<span class="bg-slate-50 px-2 py-1 rounded border border-slate-200 text-slate-600 uppercase">${esc(key)}: <b>${esc(val)}</b></span>`).join('');
+    document.getElementById('modal-devices-container').innerHTML =
+        `<div class="flex flex-wrap gap-2 text-[10px] font-bold">${devStr || '<span class="text-slate-400">No device details</span>'}</div>
+         <div class="text-[11px] font-black text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg">TOTAL: ${esc(data.totalAmount||'0')}</div>`;
 
-    if (!r.eng || r.eng === '') {
-        target = 'Engineer Status'; opts = ['กำลังทำ'];
-    } else if (r.eng === 'กำลังทำ') {
-        target = 'Engineer Status'; opts = ['เสร็จพร้อมตรวจ'];
-    } else if (isEngDone && (!r.sup || r.sup === '')) {
-        target = 'Supervisor Status'; opts = ['กำลังตรวจ'];
-    } else if (isEngDone && (r.sup === 'กำลังตรวจ' || r.sup === 'รอแก้ไข')) {
-        target = 'Supervisor Status'; opts = ['ตรวจเสร็จ', 'รอแก้ไข'];
-    } else if (isSupDone && (!r.rep || r.rep === '')) {
-        target = 'Report Status'; opts = ['รอส่ง Report'];
-    } else if (isSupDone && (r.rep === 'รอส่ง Report' || r.rep === 'รอแก้ไข')) {
-        target = 'Report Status'; opts = ['ส่ง Report เสร็จแล้ว', 'รอแก้ไข'];
+    const engDone = r.eng === 'เสร็จพร้อมตรวจ';
+    const supDone = r.sup === 'ตรวจเสร็จ';
+    const repDone = r.rep === 'ส่ง Report เสร็จแล้ว';
+    const steps = isEnv ? [
+        {label:'กำลังตรวจ',date:r.supDate,done:!!r.sup},
+        {label:'ตรวจเสร็จ',date:r.supDate,done:supDone},
+        {label:'รอส่ง Report',date:'',done:supDone && !!r.rep},
+        {label:'ส่ง Report เสร็จแล้ว',date:r.repDate,done:repDone}
+    ] : [
+        {label:'กำลังทำ',date:'',done:!!r.eng},
+        {label:'เสร็จพร้อมตรวจ',date:r.engDate,done:engDone},
+        {label:'กำลังตรวจ',date:'',done:engDone&&!!r.sup},
+        {label:'ตรวจเสร็จ',date:r.supDate,done:engDone&&supDone},
+        {label:'รอส่ง Report',date:'',done:engDone&&supDone&&!!r.rep},
+        {label:'ส่ง Report เสร็จแล้ว',date:r.repDate,done:engDone&&supDone&&repDone}
+    ];
+    document.getElementById('modal-stepper-container').innerHTML=`
+        <div class="flex items-start justify-between min-w-[560px] gap-2 pt-2">
+        ${steps.map((step,index)=>`<div class="flex-1 text-center min-w-0">
+          <div class="w-8 h-8 mx-auto rounded-full ${step.done?'bg-blue-100 text-blue-700':'bg-slate-200 text-slate-500'} flex items-center justify-center text-[10px] font-black">${step.done?'✓':index+1}</div>
+          <div class="text-[10px] mt-2 font-bold">${esc(step.label)}</div>
+          ${step.done&&step.date?`<div class="text-[9px] text-blue-700">${esc(kpiFormatDateShort(step.date))}</div>`:''}
+        </div>`).join('')}
+        </div>`;
+
+    let target='',opts=[];
+    if (isEnv) {
+        if (!r.sup || r.sup==='') {target='Supervisor Status';opts=['กำลังตรวจ'];}
+        else if (r.sup==='กำลังตรวจ' || r.sup==='รอแก้ไข') {target='Supervisor Status';opts=['ตรวจเสร็จ','รอแก้ไข'];}
+        else if (supDone && (!r.rep || r.rep==='')) {target='Report Status';opts=['รอส่ง Report'];}
+        else if (supDone && (r.rep==='รอส่ง Report'||r.rep==='รอแก้ไข')) {target='Report Status';opts=['ส่ง Report เสร็จแล้ว','รอแก้ไข'];}
+    } else {
+        if (!r.eng) {target='Engineer Status';opts=['กำลังทำ'];}
+        else if (r.eng==='กำลังทำ') {target='Engineer Status';opts=['เสร็จพร้อมตรวจ'];}
+        else if (engDone&&!r.sup) {target='Supervisor Status';opts=['กำลังตรวจ'];}
+        else if (engDone&&(r.sup==='กำลังตรวจ'||r.sup==='รอแก้ไข')) {target='Supervisor Status';opts=['ตรวจเสร็จ','รอแก้ไข'];}
+        else if (engDone&&supDone&&!r.rep) {target='Report Status';opts=['รอส่ง Report'];}
+        else if (engDone&&supDone&&(r.rep==='รอส่ง Report'||r.rep==='รอแก้ไข')) {target='Report Status';opts=['ส่ง Report เสร็จแล้ว','รอแก้ไข'];}
     }
-
     document.getElementById('upd-target-col').value = target || 'Completed';
     document.getElementById('upd-new-status').innerHTML = opts.length
-        ? opts.map(o => `<option value="${kpiEsc(o)}">${kpiEsc(o)}</option>`).join('')
+        ? opts.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('')
         : '<option value="">งานเสร็จสมบูรณ์</option>';
+    document.getElementById('btn-save-kpi').disabled = opts.length===0;
 
-    document.getElementById('btn-save-kpi').disabled = opts.length === 0;
+    const box=document.getElementById('upd-fix-report-checkbox');
+    const stamp=document.getElementById('upd-fix-report-date');
+    const fixSection=document.getElementById('upd-fix-report-section');
+    if (fixSection) fixSection.classList.toggle('hidden',currentKpiTeam!=='EHS');
+    if (box) {box.checked=!!(data.reportFixChecked||r.reportFixChecked);box.disabled=false;}
+    if (stamp) stamp.textContent = data.reportFixDate || r.reportFixDate || 'ยังไม่มี Timestamp';
     document.getElementById('modal-kpi-update').classList.remove('hidden');
 }
 
-function saveJobStatus() {
-    const rId = document.getElementById('upd-row-id').value;
-    const tCol = document.getElementById('upd-target-col').value;
-    const nSt = document.getElementById('upd-new-status').value;
-
-    if (!nSt) return;
-
-    const btn = document.getElementById('btn-save-kpi');
-    const oldHtml = btn.innerHTML;
-
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-    btn.disabled = true;
-
-    google.script.run
-        .withFailureHandler(err => {
-            Swal.fire('Error', err.message || String(err), 'error');
-            btn.innerHTML = oldHtml;
-            btn.disabled = false;
-        })
-        .withSuccessHandler(res => {
-            if (res && res.success) {
-                Swal.fire({ icon: 'success', title: 'Saved!', timer: 1000, showConfirmButton: false });
-                fetchKPIData(rId);
-            } else {
-                Swal.fire('Error', (res && res.message) || 'Save failed', 'error');
-            }
-            btn.innerHTML = oldHtml;
-            btn.disabled = false;
-        })
-        .updateJobStatus(currentKpiTeam, rId, tCol, nSt);
+function kpiUpdateRemote_(rowId,statusType,status) {
+    const args=[currentKpiTeam,rowId,statusType,status];
+    if (window.CES_API && typeof window.CES_API.callFunction==='function') {
+        return window.CES_API.callFunction('updateJobStatus',args,{
+            transport:'iframe',timeoutMs:60000,dedupe:false,priority:'active',userAction:true,module:'kpi'
+        });
+    }
+    return new Promise((resolve,reject)=>{
+        if (!window.google || !google.script || !google.script.run) {
+            reject(new Error('KPI API unavailable'));return;
+        }
+        google.script.run.withFailureHandler(reject).withSuccessHandler(resolve)
+            .updateJobStatus(...args);
+    });
+}
+async function saveJobStatus() {
+    const rowId=document.getElementById('upd-row-id').value;
+    const target=document.getElementById('upd-target-col').value;
+    const status=document.getElementById('upd-new-status').value;
+    if (!status) return;
+    const btn=document.getElementById('btn-save-kpi');
+    const oldHtml=btn.innerHTML;
+    btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Saving...';btn.disabled=true;
+    try {
+        const res=await kpiUpdateRemote_(rowId,target,status);
+        if (!res || !res.success) throw new Error((res&&res.message)||'Save failed');
+        if(window.Swal)Swal.fire({icon:'success',title:'Saved!',timer:1000,showConfirmButton:false});
+        fetchKPIData(rowId,true);
+    } catch(err) {
+        if(window.Swal)Swal.fire('Error',err.message||String(err),'error');
+    } finally {btn.innerHTML=oldHtml;btn.disabled=false;}
+}
+async function saveKPIReportFix() {
+    const rowId=document.getElementById('upd-row-id').value;
+    const box=document.getElementById('upd-fix-report-checkbox');
+    const previous=!box.checked;
+    box.disabled=true;
+    try {
+        const res=await kpiUpdateRemote_(rowId,'Fix Report',box.checked?'TRUE':'FALSE');
+        if (!res || !res.success) throw new Error((res&&res.message)||'Unable to update Fix Report');
+        fetchKPIData(rowId,true);
+    } catch(err) {
+        box.checked=previous;
+        if(window.Swal)Swal.fire('Error',err.message||String(err),'error');
+    } finally {box.disabled=false;}
 }
 
 function updateLateBadge() {
@@ -689,9 +694,13 @@ function kpiIsPendingReport(row) {
 const kpi_v33_old_renderKPITable = renderKPITable;
 
 function getKpiProgressInfo(row) {
-    const statusBg = row.isFinished ? 'bg-blue-50 border-blue-200 text-[#003DA5]' : (row.daysLate > 0 ? 'bg-red-50 border-red-200 text-[#E4002B]' : 'bg-slate-50 border-slate-200 text-slate-700');
-    const statusIcon = row.isFinished ? 'fa-check-circle text-[#003DA5]' : (row.daysLate > 0 ? 'fa-exclamation-circle text-[#003DA5]' : 'fa-spinner fa-spin text-[#003DA5]');
-    const statusText = row.isFinished ? 'COMPLETED' : (row.daysLate > 0 ? 'LATE PROCESS' : 'ON-PROCESS');
+    const statusBg = row.reportFixChecked ? 'bg-amber-50 border-amber-200 text-amber-700' :
+        row.isFinished ? 'bg-blue-50 border-blue-200 text-[#003DA5]' :
+        (row.daysLate > 0 ? 'bg-red-50 border-red-200 text-[#E4002B]' : 'bg-slate-50 border-slate-200 text-slate-700');
+    const statusIcon = row.reportFixChecked ? 'fa-screwdriver-wrench text-amber-600' :
+        row.isFinished ? 'fa-check-circle text-[#003DA5]' :
+        (row.daysLate > 0 ? 'fa-exclamation-circle text-[#E4002B]' : 'fa-spinner fa-spin text-[#003DA5]');
+    const statusText = row.reportFixChecked ? 'FIX REPORT' : row.isFinished ? 'COMPLETED' : (row.daysLate > 0 ? 'LATE PROCESS' : 'ON-PROCESS');
     const curStepText = row.isFinished ? 'ส่ง Report เสร็จแล้ว' : (row.currentStatus || row.rawStatus?.rep || row.rawStatus?.sup || row.rawStatus?.eng || 'รอเริ่มงาน');
 
     return `<div class="flex flex-col border rounded-lg px-3 py-2 shadow-sm w-full max-w-[180px] ${statusBg}">
@@ -767,12 +776,21 @@ function kpiStrictCurrentStatusFromRaw(rawStatus) {
 
 function kpiApplyStrictWorkflowStatus(rows) {
     return (rows || []).map(row => {
-        const strict = kpiStrictCurrentStatusFromRaw(row.rawStatus || {});
-        return Object.assign({}, row, {
-            currentStatus: strict,
-            statusDetail: strict,
+        const raw = row.rawStatus || {};
+        const isEnv = kpiIsEnvWorkflowRow(row);
+        const sup = kpiNormalizeStatus(raw.sup);
+        const rep = kpiNormalizeStatus(raw.rep);
+        const strict = isEnv
+            ? (rep === 'ส่ง Report เสร็จแล้ว' ? 'ส่ง Report เสร็จแล้ว'
+               : rep === 'รอแก้ไข' ? 'รอแก้ไข'
+               : rep === 'รอส่ง Report' ? 'รอส่ง Report'
+               : sup === 'ตรวจเสร็จ' ? 'ตรวจเสร็จ' : 'กำลังตรวจ')
+            : kpiStrictCurrentStatusFromRaw(raw);
+        return Object.assign({},row,{
+            currentStatus: strict, statusDetail: strict,
             isFinished: strict === 'ส่ง Report เสร็จแล้ว',
-            hasEdit: strict === 'รอแก้ไข' || kpiRowStatusList(row).includes('รอแก้ไข')
+            hasEdit: !!row.reportFixChecked || !!raw.reportFixChecked ||
+                strict === 'รอแก้ไข' || kpiRowStatusList(row).includes('รอแก้ไข')
         });
     });
 }
@@ -999,7 +1017,7 @@ function kpiFormatDateShort(v) {
 
 function kpiGetFinishDate(row) {
     const r = row?.rawStatus || {};
-    if (row?.isFinished) return r.repDate || r.hard || '';
+    if (row?.isFinished) return r.repDate || ''; // AE(EHS) / X(ENV); never use Hard copy checkbox
     return '';
 }
 
@@ -1211,7 +1229,7 @@ function renderKPITable() {
         const serviceBadge = kpiRowServiceTeam(row);
         const serviceCls = serviceBadge === 'ENV' ? 'bg-green-50 text-green-700 border-green-300' : 'bg-indigo-50 text-indigo-600 border-[#003DA5]/20';
 
-        return `<tr onclick='openUpdateModal(${JSON.stringify(row).replace(/'/g, "\'")})' class="kpi-detail-row cursor-pointer hover:bg-slate-50 border-b border-slate-100 transition-colors">
+        return `<tr onclick="openKPIJobFromRowId(${kpiEsc(JSON.stringify(String(row.rowId)))})" class="kpi-detail-row cursor-pointer hover:bg-slate-50 border-b border-slate-100 transition-colors">
             <td class="p-4 align-middle">
                 <h4 class="text-sm font-black text-slate-800">${kpiEsc(row.customerId)}</h4>
                 <p class="text-[10px] font-bold text-indigo-500 mt-1">Job: ${kpiEsc(row.jobNo)}</p>

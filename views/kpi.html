@@ -197,6 +197,17 @@
 <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Select Next Status (Strict Flow)</label>
 <select class="w-full text-sm border border-indigo-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-100 bg-white font-bold text-indigo-800 shadow-sm" id="upd-new-status"></select>
 </div>
+<div id="upd-fix-report-section" class="md:col-span-2 rounded-xl border border-amber-200 bg-amber-50 p-4">
+  <div class="flex items-center justify-between gap-4">
+    <div class="flex-1 min-w-0">
+      <label for="upd-fix-report-checkbox" class="text-xs font-extrabold text-amber-900">แก้ไข Report (Fix Report)</label>
+      <p class="text-[10px] text-amber-700 mt-1">EHS: AC → AD · ENV: V → W · เลือก TRUE บันทึก Timestamp Bangkok และยกเลิกเพื่อล้างวันที่</p>
+      <p class="text-[11px] text-amber-900 mt-2">Fix Report date: <span id="upd-fix-report-date" class="font-bold">ยังไม่มี Timestamp</span></p>
+    </div>
+    <input id="upd-fix-report-checkbox" type="checkbox" onchange="saveKPIReportFix()"
+      class="w-5 h-5 accent-amber-600 cursor-pointer" aria-label="Fix Report checkbox"/>
+  </div>
+</div>
 <div class="md:col-span-2 mt-2">
 <button class="w-full py-4 bg-[#003DA5] hover:bg-[#003DA5] text-white rounded-xl font-bold text-sm shadow-md shadow-[#003DA5]/10 transition-all active:scale-95 flex items-center justify-center gap-2" id="btn-save-kpi" onclick="saveJobStatus()">
 <i class="fas fa-save"></i> บันทึกการอัปเดตสถานะ (Save Status)
