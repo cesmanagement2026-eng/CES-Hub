@@ -1,0 +1,342 @@
+/* Consolidated from ces-hub-usability.css in original cascade order */
+/* CES Hub usability layer 2026-11-12. Scoped to the five affected views. */
+#view-notification_config {padding:20px!important;max-width:100%;overflow-x:hidden!important;background:#f5f8fc}
+#view-notification_config .nc-shell{max-width:1450px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+#view-notification_config .nc-header,#view-notification_config .nc-help,#view-notification_config .nc-settings,#view-notification_config .nc-footer,#view-notification_config .nc-card{position:relative;height:auto!important;max-height:none!important;min-width:0!important;float:none!important;transform:none!important;inset:auto!important;box-sizing:border-box;background:#fff;border:1px solid #dce6f2;border-radius:15px;box-shadow:0 4px 16px rgba(24,69,120,.05);overflow:visible!important}
+#view-notification_config .nc-header{display:flex!important;min-height:80px!important;align-items:center;justify-content:space-between;padding:16px 20px!important;gap:16px}
+#view-notification_config .nc-title{display:flex!important;align-items:center!important;gap:12px;flex:1;min-width:0}
+#view-notification_config .nc-icon{display:grid;place-items:center;color:#004aad;background:#eaf2ff;border-radius:11px;width:42px;height:42px;font-size:18px;flex:0 0 42px}
+#view-notification_config .nc-title h2{font-size:18px;font-weight:850;color:#003da5;margin:0;white-space:normal}
+#view-notification_config .nc-title small{display:block;font-size:11px;color:#73849d;font-weight:600;margin-top:4px}
+#view-notification_config .nc-toolbar{display:flex!important;gap:8px;flex:0 0 auto;align-items:center}
+#view-notification_config button.nc-primary{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;background:#004aad;color:#fff;border:1px solid #004aad;border-radius:9px;font-size:12px;font-weight:800;padding:9px 14px;white-space:nowrap;cursor:pointer}
+#view-notification_config .nc-toolbar button:not(.nc-primary){border:1px solid #dce6f2;border-radius:9px;background:#f8fbff;color:#004aad;padding:9px 12px;min-height:38px;cursor:pointer}
+#view-notification_config .nc-help{display:flex!important;align-items:flex-start;gap:10px;padding:13px 16px!important;font-size:12px;line-height:1.55;color:#445b79;white-space:normal!important;overflow-wrap:anywhere}
+#view-notification_config .nc-help>i{color:#0059b9;margin-top:2px;flex:none}
+#view-notification_config .nc-settings{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px;padding:15px!important}
+#view-notification_config .nc-settings label,#view-notification_config .nc-card-grid label{display:flex!important;flex-direction:column!important;gap:6px;min-width:0!important;max-width:100%;font-size:11px;font-weight:800;color:#526782;line-height:1.35;white-space:normal!important}
+#view-notification_config .nc-settings input,#view-notification_config .nc-settings select,#view-notification_config .nc-card-grid input,#view-notification_config .nc-card-grid select{display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;min-height:38px!important;height:38px!important;padding:8px 10px!important;border:1px solid #d8e4f2!important;border-radius:9px!important;background:#fff!important;box-shadow:none!important;font-family:inherit!important;font-size:12px!important;font-weight:600!important;line-height:1.35!important;color:#203b61!important}
+#view-notification_config .nc-settings input:focus,#view-notification_config .nc-card-grid input:focus,#view-notification_config .nc-settings select:focus,#view-notification_config .nc-card-grid select:focus{outline:2px solid #93c5fd!important;outline-offset:1px!important}
+#view-notification_config #ncMessage{min-height:32px!important;display:flex!important;align-items:center;padding:8px 12px!important;border:1px solid #e5edf5;border-radius:9px;background:#f8fbff;font-size:12px;line-height:1.45;white-space:normal!important}
+#view-notification_config #ncCards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;width:100%;min-width:0!important;align-items:start;overflow:visible!important}
+#view-notification_config .nc-card{display:flex!important;flex-direction:column;gap:14px;padding:17px!important;min-height:0!important}
+#view-notification_config .nc-card-header{display:flex!important;gap:12px;justify-content:space-between;align-items:flex-start;min-height:0!important}
+#view-notification_config .nc-card-header>div:first-child{min-width:0;flex:1}
+#view-notification_config .nc-card h3{font-size:14px;line-height:1.4;font-weight:850;color:#163d77;margin:5px 0 1px;overflow-wrap:anywhere}
+#view-notification_config .nc-module{font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:#005cb9;font-weight:850}
+#view-notification_config .nc-card-id{display:block;color:#96a4b5;font-size:10px;overflow-wrap:anywhere}
+#view-notification_config .nc-switch{display:inline-flex!important;align-items:center!important;gap:7px;background:#eaf6ff;color:#0054a6;border:1px solid #cde2fa;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap;flex:none}
+#view-notification_config .nc-switch input{accent-color:#004aad;width:16px!important;height:16px!important;min-width:16px!important;min-height:16px!important;margin:0;cursor:pointer}
+#view-notification_config .nc-card-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:11px!important;align-items:start}
+#view-notification_config .nc-card-grid .wide{grid-column:1/-1}
+#view-notification_config .nc-card-grid [hidden]{display:none!important}
+#view-notification_config .nc-footer{display:flex!important;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px!important;color:#526b85;font-size:12px}
+#view-pr_gr_dashboard .prDashboard-pill{background:#edf2f9;color:#50637d}
+#view-pr_gr_dashboard .prDashboard-pill.done,#view-pr_gr_dashboard .pr-quick-status.done{background:#e5f0ff;color:#0756ad}
+#view-pr_gr_dashboard .prDashboard-pill.open,#view-pr_gr_dashboard .pr-quick-status.open{background:#e4fbf5;color:#087c65}
+#view-pr_gr_dashboard .prDashboard-pill.waiting,#view-pr_gr_dashboard .pr-quick-status.waiting{background:#fff2d5;color:#9a5b00}
+#view-pr_gr_dashboard .prDashboard-pill.rejected,#view-pr_gr_dashboard .pr-quick-status.rejected{background:#ffedf0;color:#b42340}
+#view-pr_gr_dashboard .pr-status-quickbar{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 1px}
+#view-pr_gr_dashboard .pr-quick-status{background:#f1f5fa;color:#435b77;border:1px solid transparent;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:750;line-height:1.3;cursor:pointer;white-space:normal;text-align:left}
+#view-pr_gr_dashboard .pr-quick-status b{margin-left:5px;font-weight:900}
+#view-pr_gr_dashboard .pr-quick-status.selected{outline:2px solid #004aad;outline-offset:1px}
+#view-pr_gr_dashboard .prDashboard-table-wrap td:nth-child(3){min-width:136px}
+#view-car_booking .ces-ev-header-row h2,#view-car_booking .ces-ev-guide-head b{white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important}
+#view-car_booking .ces-ev-guide-head>div{min-width:0}
+#view-car_booking .ces-ev-rates b,#view-car_booking .ces-ev-rates small{white-space:nowrap!important;font-size:clamp(9px,0.82vw,12px);overflow:hidden;text-overflow:ellipsis}
+#view-car_booking .ces-ev-flow li{white-space:nowrap!important;font-size:clamp(9px,0.78vw,12px);min-width:0;overflow:hidden;text-overflow:ellipsis}
+#view-car_booking .ces-car-book-toolbar{display:flex;gap:8px;align-items:center;min-width:0;flex-wrap:wrap}
+#view-car_booking .ces-car-book-toolbar input{width:min(245px,100%)}
+#view-car_booking .ces-car-book-toolbar select{min-height:39px;min-width:135px}
+#view-car_booking .ces-ev-request-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:13px 0 8px;background:#f7fbff;border:1px solid #dce8f5;border-radius:13px;padding:13px}
+#view-car_booking .ces-ev-request-filters label{display:flex;flex-direction:column;gap:5px;font-size:10px;font-weight:850;color:#5d7390;min-width:0}
+#view-car_booking .ces-ev-request-filters input,#view-car_booking .ces-ev-request-filters select{width:100%;height:38px;background:#fff;border:1px solid #d8e5f3;border-radius:9px;padding:7px 9px;font-size:11px;color:#1e3a5f;min-width:0}
+#view-car_booking .ces-ev-filter-reset{align-self:end;min-height:38px;border:1px solid #d9e5f2;border-radius:9px;background:#fff;color:#004aad;font-size:11px;font-weight:850;padding:8px 10px;white-space:nowrap}
+#view-car_booking .ces-ev-filter-summary{font-size:11px;color:#57708c;margin:6px 0 10px}
+#view-car_booking #car-book-list table{table-layout:auto}
+#view-car_booking #car-book-list th,#view-car_booking #car-book-list td{vertical-align:middle!important;line-height:1.5}
+#view-car_booking #car-book-list td:nth-child(2),#view-car_booking #car-book-list td:nth-child(3){min-width:185px}
+#view-inventory{color:#1b3354}
+#view-inventory .stockpro-shell{width:100%;min-width:0;max-width:1600px;margin:auto}
+#view-inventory .stockpro-header-card,#view-inventory .stockpro-card,#view-inventory .stockpro-filter-card{border:1px solid #dce6f2!important;border-radius:16px!important;box-shadow:0 3px 14px rgba(24,69,120,.04)!important}
+#view-inventory .stockpro-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:7px}
+#view-inventory .stockpro-actions button,#view-inventory .stockpro-actions a{flex:0 0 auto}
+#view-inventory .ces-inventory-mode-tabs{background:#e7eff9!important;border:1px solid #d7e4f2;padding:5px;border-radius:12px;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+#view-inventory .ces-inventory-mode-tabs .sp-tab{min-height:39px!important;border:0!important;border-radius:9px!important;font-size:12px!important;font-weight:850!important;color:#44607f!important;padding:8px 12px!important;white-space:nowrap!important}
+#view-inventory .ces-inventory-mode-tabs .sp-tab.active{background:#fff!important;color:#004aad!important;box-shadow:0 2px 10px #16396316!important}
+#view-inventory .si-dash-filter-card-v3031,#view-inventory .stockpro-filter-card{min-width:0}
+#view-inventory .si-dash-filter-grid-v3031 select,#view-inventory #siAccFilters select,#view-inventory #siAccFilters input,#view-inventory #siRestockSection input,#view-inventory #siRestockSection select{min-height:38px;font-size:12px;background:#fff;color:#1f3d63}
+#view-inventory .stockpro-chart-box{min-height:270px;max-height:380px;overflow:hidden}
+#view-inventory #siAccessoriesSummaryV3028,#view-inventory #siRestockTable,#view-inventory #siAccCards{max-width:100%;overflow-x:auto;scrollbar-gutter:stable}
+#view-inventory #siAccessoriesSummaryV3028 table,#view-inventory #siRestockTable table{min-width:900px}
+#view-inventory #siAccessoriesSummaryV3028 th,#view-inventory #siRestockTable th{background:#eaf2ff;color:#204972;white-space:nowrap;font-size:11px;font-weight:850;position:sticky;top:0}
+#view-inventory #siAccessoriesSummaryV3028 td,#view-inventory #siRestockTable td{font-size:12px;line-height:1.55;vertical-align:middle}
+#view-inventory #siAccCards .sp-acc-row-v17{min-width:780px;gap:12px;align-items:center}
+#view-inventory #siAccCards .acc-title{font-size:13px;line-height:1.4;overflow-wrap:anywhere}
+#view-inventory #siAccCards .acc-sub{font-size:11px;line-height:1.4}
+#view-inventory #siAccCards button,#view-inventory #siRestockTable button{min-height:32px}
+#view-inventory .ces-team-stock-strip{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))!important;gap:9px!important}
+#view-inventory .ces-team-stock-chip{min-width:0;max-width:none}
+#view-inventory .ces-team-stock-chip strong{font-size:16px;white-space:nowrap}
+#view-inventory .ces-stock-clarity{font-size:11px;color:#61738c;line-height:1.5;padding:0 3px}
+#view-inventory .si-dash-kpi-card-v3031{min-width:0}
+#view-inventory .si-dash-kpi-copy b{font-variant-numeric:tabular-nums;word-break:normal;overflow-wrap:break-word}
+@media(max-width:1120px){#view-notification_config #ncCards{grid-template-columns:1fr!important}#view-car_booking .ces-ev-request-filters{grid-template-columns:repeat(3,minmax(0,1fr))}#view-inventory .ces-team-stock-strip{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:690px){#view-notification_config{padding:10px!important}#view-notification_config .nc-settings{grid-template-columns:1fr!important}#view-notification_config .nc-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#view-notification_config .nc-footer{flex-wrap:wrap}#view-pr_gr_dashboard .pr-status-quickbar{gap:6px}#view-car_booking .ces-ev-request-filters{grid-template-columns:repeat(2,minmax(0,1fr))}#view-car_booking .ces-ev-rates{grid-template-columns:1fr}#view-car_booking .ces-ev-flow{grid-template-columns:repeat(2,minmax(0,1fr))}#view-car_booking .ces-ev-rates b,#view-car_booking .ces-ev-rates small{font-size:11px}#view-inventory .ces-team-stock-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important}#view-inventory .stockpro-actions{max-width:100%;justify-content:flex-start}}
+@media(max-width:420px){#view-notification_config .nc-card-grid{grid-template-columns:1fr!important}#view-car_booking .ces-ev-request-filters{grid-template-columns:1fr}#view-inventory .ces-inventory-mode-tabs .sp-tab{font-size:10px!important;padding:6px 3px!important}}
+/* Keep EV labels readable without truncating actions or pushing cards off-screen. */
+#view-car_booking .ces-ev-guide-head small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+#view-car_booking .ces-ev-guide-head b{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:1050px){#view-car_booking .ces-ev-header-row{flex-wrap:wrap!important}#view-car_booking .ces-vehicle-header-actions{flex-wrap:wrap;justify-content:flex-start}}
+
+/* Consolidated from ces-hub-v4.css in original cascade order */
+/* CES HUB V4 · compact inventory & EV evidence preview. Scoped to affected modules. */
+#view-inventory .ces-acc-table-scroll-v4{width:100%;max-height:63vh;overflow:auto;border:1px solid #dce6f2;border-radius:12px;scrollbar-gutter:stable}
+#view-inventory .ces-acc-table-v4{width:100%;min-width:935px;border-collapse:separate;border-spacing:0;font:500 12px/1.35 'Prompt',Arial,sans-serif;color:#1e293b}
+#view-inventory .ces-acc-table-v4 th{position:sticky;z-index:3;top:0;background:#eaf2ff;color:#003d92;font-size:11px;font-weight:800;padding:10px 12px;text-align:left;white-space:nowrap;border-bottom:2px solid #bed3ee}
+#view-inventory .ces-acc-table-v4 td{padding:7px 12px;border-bottom:1px solid #edf1f6;vertical-align:middle;white-space:nowrap}
+#view-inventory .ces-acc-table-v4 tbody tr:nth-child(even){background:#f8fafc}
+#view-inventory .ces-acc-table-v4 tbody tr:hover{background:#eaf4ff}
+#view-inventory .ces-acc-table-v4 .num{text-align:right;font-variant-numeric:tabular-nums}
+#view-inventory .ces-acc-name-v4{font-weight:800;color:#123f85;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+#view-inventory .ces-acc-table-v4 small{display:block;color:#64748b;font-size:10px;margin-top:2px}
+#view-inventory .ces-acc-stock-v4{font-size:14px;font-weight:900;color:#07835b}
+#view-inventory .ces-acc-stock-v4.low{color:#dc2626}
+#view-inventory .ces-acc-team-v4{display:inline-block;padding:4px 8px;font-weight:800;border-radius:8px;background:#f1f5f9;color:#334155;border-left:3px solid var(--team-color,#64748b)}
+#view-inventory .ces-acc-team-v4.med{--team-color:#004eaa}#view-inventory .ces-acc-team-v4.lab{--team-color:#06a9ce}#view-inventory .ces-acc-team-v4.ehs{--team-color:#0bbba4}#view-inventory .ces-acc-team-v4.tes{--team-color:#eab308}
+#view-inventory .ces-acc-status-v4{font-weight:800;border-radius:999px;padding:5px 8px;font-size:10px;display:inline-block;background:#dcfce7;color:#065f46}
+#view-inventory .ces-acc-status-v4.low{background:#fee2e2;color:#b91c1c}#view-inventory .ces-acc-status-v4.rental{background:#dbeafe;color:#1d4ed8}
+#view-inventory .ces-acc-actions-v4{display:flex;align-items:center;justify-content:flex-end;gap:5px}
+#view-inventory .ces-acc-actions-v4 input{width:43px;height:30px;text-align:center;border:1px solid #cbd5e1;border-radius:7px;font-size:12px;font-weight:700;padding:0 2px}
+#view-inventory .ces-acc-action-v4{height:31px;width:31px;flex:none;border:0;border-radius:8px;color:white;display:inline-flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;transition:filter .13s,transform .13s}
+#view-inventory .ces-acc-action-v4:hover:not(:disabled){filter:brightness(.9);transform:translateY(-1px)}#view-inventory .ces-acc-action-v4:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+#view-inventory .ces-acc-action-v4.cart{background:#059669}#view-inventory .ces-acc-action-v4.restock{background:#f59e0b}#view-inventory .ces-acc-action-v4.detail{background:#0284c7}#view-inventory .ces-acc-action-v4.edit{background:#4f46e5}#view-inventory .ces-acc-action-v4.delete{background:#dc2626}
+#view-inventory .ces-acc-action-v4:disabled{background:#cbd5e1!important;color:#64748b;opacity:.72;cursor:not-allowed;box-shadow:none}
+#view-inventory .ces-acc-low-v4{background:#fffafa}#view-inventory #siAccSection{min-width:0}
+.ces-booking-detail-v243 .ces-evidence-section-v4{text-align:left;margin:14px 0;padding:13px;background:#f8fbff;border:1px solid #dbeafe;border-radius:13px}
+.ces-evidence-header-v4{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#003da5;margin-bottom:10px;font-size:12px}.ces-evidence-header-v4 span{font-weight:700;color:#64748b}
+.ces-evidence-grid-v4{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}
+.ces-evidence-card-v4{display:flex;min-width:0;flex-direction:column;text-decoration:none!important;border:1px solid #d6e3f4;border-radius:12px;overflow:hidden;background:#fff;color:#0f172a;transition:box-shadow .15s}
+.ces-evidence-card-v4:hover{box-shadow:0 8px 20px #003da522}
+.ces-evidence-card-v4 img{width:100%;height:164px;object-fit:contain;background:#edf4ff;display:block}
+.ces-evidence-card-v4.ces-evidence-failed-v4:before{content:'Preview unavailable';display:flex;height:164px;align-items:center;justify-content:center;color:#64748b;font-size:12px}
+.ces-evidence-icon-v4{display:flex;height:164px;align-items:center;justify-content:center;color:#c2410c;font-size:36px;background:#fff7ed}
+.ces-evidence-name-v4{font-weight:800;font-size:11px;padding:8px 9px 0;overflow-wrap:anywhere}
+.ces-evidence-open-v4{color:#0c4a9a;font-weight:700;font-size:10px;padding:4px 9px 9px}
+@media(max-width:720px){.ces-evidence-grid-v4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* The Inventory Enhancements module owns the final rendered table. */
+#view-inventory .cesHub-access-table.cesHub-v4{width:100%;min-width:1000px;font-size:11.5px;table-layout:auto}
+#view-inventory .cesHub-access-table.cesHub-v4 th{padding:9px 10px;white-space:nowrap;background:#eaf3ff;color:#03428e}
+#view-inventory .cesHub-access-table.cesHub-v4 td{padding:6px 10px;white-space:nowrap;vertical-align:middle;line-height:1.35}
+#view-inventory .cesHub-access-table.cesHub-v4 small{font-size:10px;color:#64748b;display:block;margin:2px 0 0}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-item b{max-width:245px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.7px}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-row-actions{display:flex;align-items:center;gap:5px;justify-content:flex-end;flex-wrap:nowrap}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-row-actions button{height:30px;width:31px;min-width:31px;padding:0;border:0;color:white!important;border-radius:8px;display:flex;align-items:center;justify-content:center}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-cart-v4{background:#059669}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-restock-v4{background:#f59e0b}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-detail-v4{background:#0284c7}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-edit-v4{background:#4f46e5}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-row-actions button:disabled{background:#cbd5e1!important;color:#64748b!important;cursor:not-allowed}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-qty{width:45px;min-width:45px;height:30px;padding:2px;border-radius:8px;font-size:11px}
+#view-inventory .cesHub-access-table.cesHub-v4 .cesHub-pill{font-size:9px;padding:5px 8px}
+
+/* Consolidated from ces-hub-v5.css in original cascade order */
+/* CES Hub V5 - focused UX fixes. */
+#view-car_booking .ces-ev-heading-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:4px}
+#view-car_booking .ces-ev-heading-copy h2{margin:0;white-space:nowrap}
+#view-car_booking .ces-ev-heading-sub{font-size:11px;line-height:1.35;color:#64748b;white-space:normal}
+#view-notification_config{width:100%;max-width:none!important;min-width:0;overflow-x:hidden!important}
+#view-notification_config .nc-shell{display:flex!important;flex-direction:column!important;width:100%!important;max-width:1400px!important;min-width:0!important;gap:16px!important;margin:0 auto!important}
+#view-notification_config .nc-header{position:static!important;display:flex!important;align-items:center!important;justify-content:space-between!important;min-height:78px!important;height:auto!important;padding:16px 18px!important;overflow:visible!important}
+#view-notification_config .nc-help,#view-notification_config .nc-settings,#view-notification_config .nc-message,#view-notification_config .nc-footer{position:static!important;display:block;flex-shrink:0;min-width:0;width:100%;height:auto!important}
+#view-notification_config .nc-settings{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#view-notification_config #ncCards{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;min-width:0;position:static!important;height:auto!important;overflow:visible!important}
+#view-notification_config #ncCards .nc-card{position:static!important;display:block!important;min-height:0!important;width:auto!important;max-width:none!important;height:auto!important;overflow:visible!important;transform:none!important;flex:none!important}
+#view-notification_config .nc-toolbar{display:flex!important;flex:none;gap:8px}
+#view-notification_config .nc-card-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+#view-notification_config [hidden]{display:none!important}
+@media(max-width:1050px){#view-notification_config #ncCards{grid-template-columns:1fr!important}}
+@media(max-width:680px){#view-notification_config .nc-settings{grid-template-columns:1fr!important}#view-notification_config .nc-header{flex-wrap:wrap}}
+#view-stock_dashboard .sd-contract-actions-cell{min-width:142px!important;width:142px!important;white-space:nowrap!important}
+#view-stock_dashboard .sd-contract-actions-current{display:flex!important;align-items:center!important;gap:5px!important;flex-wrap:nowrap!important;min-width:118px}
+#view-stock_dashboard .sd-contract-actions-current button{width:31px!important;height:32px!important;min-width:31px!important;flex:0 0 31px!important;padding:0!important;display:grid!important;place-items:center}
+#view-stock_dashboard .sd-contract-scroll{overflow-x:auto!important;max-width:100%}
+#view-inventory .ces-acc-table-v4{min-width:1180px}
+#view-inventory .ces-acc-action-v4.cart:not(:disabled){background:#0756b8!important;color:white!important}
+#view-inventory .ces-acc-action-v4.restock:not(:disabled){background:#dc2626!important;color:white!important}
+#view-inventory .ces-acc-action-v4.detail:not(:disabled){background:#0f766e!important;color:white!important}
+#view-inventory .ces-acc-action-v4.edit:not(:disabled){background:#7c3aed!important;color:white!important}
+#view-inventory .ces-acc-action-v4.delete:not(:disabled){background:#b91c1c!important;color:white!important}
+#view-inventory .ces-acc-action-v4:disabled{opacity:.33!important;cursor:not-allowed!important}
+#view-inventory .ces-acc-parent-v5{background:#eaf2ff!important;color:#0d428e;font-weight:850;cursor:pointer}
+#view-inventory .ces-acc-parent-v5 td{padding:12px 13px!important;border-top:1px solid #bad5f5}
+#view-inventory .ces-acc-parent-v5 .ces-acc-caret-v5{display:inline-grid;place-items:center;width:27px;height:27px;border:1px solid #bad5f5;background:white;border-radius:8px;margin-right:8px}
+#view-inventory .ces-acc-child-v5 td:first-child{padding-left:40px!important}
+#view-inventory .ces-pending-v5{color:#a16207;font-weight:850;white-space:nowrap}
+#view-inventory .ces-acc-group-allocate-v5{background:#f59e0b;color:#fff;border:0;border-radius:8px;padding:7px 10px;font-size:11px;cursor:pointer}
+#view-inventory .ces-stock-matrix-v5{width:100%;border-collapse:collapse;font-size:12px}
+#view-inventory .ces-stock-matrix-v5 th{background:#eaf2ff;color:#084785;padding:9px;text-align:right}
+#view-inventory .ces-stock-matrix-v5 td{text-align:right;padding:8px 10px;border-bottom:1px solid #edf2f7}
+#view-inventory .ces-stock-matrix-v5 td:first-child,#view-inventory .ces-stock-matrix-v5 th:first-child{text-align:left}
+
+#view-notification_config .nc-header .nc-title{display:flex!important;align-items:center;gap:12px;min-width:200px;flex:1 1 280px;overflow:visible!important}
+#view-notification_config .nc-header .nc-title h2{font-size:18px!important;line-height:1.3!important;white-space:normal!important;margin:0!important}
+#view-notification_config .nc-header .nc-title small{display:block!important;white-space:normal!important}
+#view-notification_config .nc-toolbar{display:flex!important;flex:0 0 auto!important;white-space:nowrap}
+#view-notification_config .nc-message{padding:11px 14px!important;line-height:1.5!important;word-break:break-word!important}
+#view-notification_config .nc-card{min-width:0!important;word-break:normal!important;overflow-wrap:anywhere}
+#view-inventory .ces-acc-parent-v5 small{font-weight:550;color:#526b8c;margin-left:8px}
+#view-inventory .ces-acc-child-v5 small{display:block;font-size:10px;color:#69809a;line-height:1.4}
+#view-inventory .ces-acc-child-v5 .cesHub-row-actions{display:inline-flex!important;flex-wrap:nowrap;align-items:center;gap:5px}
+#view-inventory .ces-acc-action-v4{width:30px;height:30px;padding:0!important;display:inline-grid;place-items:center}
+#view-inventory .ces-acc-action-v4:disabled{background:#d7e0ec!important;color:#64748b!important}
+#view-inventory .cesHub-access-table th{position:sticky;top:0;z-index:2}
+
+/* Consolidated from ces-hub-v6.css in original cascade order */
+/* CES Hub V6 — module-scoped, theme-aware UI corrections */
+#view-pr_gr_dashboard .prDashboard-filters label,#view-pr_gr_dashboard .prDashboard-register-filters label,
+#view-pr_gr_dashboard .prDashboard-filters label:hover,#view-pr_gr_dashboard .prDashboard-register-filters label:hover{background:transparent!important;background-image:none!important;border:0!important;border-top:0!important;box-shadow:none!important;outline:0!important}
+#view-pr_gr_dashboard .prDashboard-filters label:before,#view-pr_gr_dashboard .prDashboard-register-filters label:before{display:none!important}
+#view-pr_gr_dashboard select:hover,#view-pr_gr_dashboard select:focus,#view-pr_gr_dashboard select:active{background:#fff!important;background-image:none!important;border-color:#92b7e8!important;box-shadow:0 0 0 2px rgba(25,98,203,.12)!important;color:#18365c!important}
+#view-pr_gr_dashboard .prDashboard-filters select,#view-pr_gr_dashboard .prDashboard-register-filters select{appearance:auto;outline-color:#0b5fc2!important}
+#view-pr_gr_dashboard .ces-pr-updated-v6{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #cfe1f6;background:#eff6ff;color:#164b92;border-radius:9px;font:700 11px/1.3 'Prompt',Arial,sans-serif;white-space:nowrap}
+#view-pr_gr_dashboard .ces-pr-updated-v6 .fas{color:#0b5fc2}
+#view-stock_dashboard .csv5-dashboard-filters{gap:10px!important}
+#view-stock_dashboard .stockpro-filter-card{background:#fff;border:1px solid #dce8f4;border-radius:16px}
+#view-stock_dashboard .stockpro-kpi-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+#view-stock_dashboard .sp-kpi{border:1px solid #dfe8f4;border-radius:14px;min-height:104px;padding:14px;box-shadow:0 3px 12px rgba(12,49,105,.03);transition:box-shadow .16s}
+#view-stock_dashboard .sp-kpi .val{font-size:26px;line-height:1.24}
+#view-stock_dashboard .sp-model-card{border:1px solid #dce7f5;border-radius:15px;padding:16px;min-width:0;box-shadow:0 5px 16px rgba(11,62,129,.035);text-align:center}
+#view-stock_dashboard .sp-model-card .csv5-model-status{display:flex;flex-wrap:wrap;justify-content:center;gap:5px}
+#view-stock_dashboard .sp-model-card .csv5-model-status span{padding:5px 7px;border:1px solid #e6edf5;border-radius:8px;background:#fbfdff;white-space:nowrap;font-size:10px}
+#view-stock_dashboard .sp-model-card .sp-model-num{font-size:28px;font-weight:850}
+#view-stock_dashboard .stockpro-two-col{gap:14px}
+#view-stock_dashboard .stockpro-card{border:1px solid #dce7f5;border-radius:16px;box-shadow:0 4px 16px rgba(12,49,105,.035)}
+#view-stock_dashboard .ces-rental-status-filter-v6{min-width:0;position:relative}
+#view-stock_dashboard #sdContractStatusPickerV6{position:relative;min-width:0}
+#view-stock_dashboard #sdContractStatusPickerV6 summary{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;list-style:none;padding:10px 12px;background:white;border:1px solid #d9e5f3;border-radius:10px;font:700 11px 'Prompt',Arial,sans-serif;color:#2b4a70;min-height:37px}
+#view-stock_dashboard #sdContractStatusPickerV6 summary::-webkit-details-marker{display:none}
+#view-stock_dashboard #sdContractStatusPickerV6[open] summary{outline:2px solid rgba(0,74,173,.12);border-color:#7daeea}
+#view-stock_dashboard .ces-rental-status-choices-v6{position:absolute;z-index:110;top:calc(100% + 5px);width:min(270px,90vw);max-width:100%;background:#fff;border:1px solid #d8e5f4;box-shadow:0 15px 25px rgba(30,61,105,.16);border-radius:12px;padding:8px;display:grid;gap:2px}
+#view-stock_dashboard .ces-rental-status-choices-v6 label{display:flex;gap:9px;align-items:center;padding:9px 8px;font-size:11px;font-weight:700;color:#284c7a;border-radius:7px;cursor:pointer}
+#view-stock_dashboard .ces-rental-status-choices-v6 label:hover{background:#f2f7ff}
+#view-stock_dashboard .ces-rental-status-choices-v6 input{accent-color:#004aad;width:15px;height:15px}
+#view-stock_dashboard .ces-rental-status-choices-v6 button{border:1px solid #cfdeef;background:#f8fbff;border-radius:7px;color:#004aad;padding:8px;cursor:pointer;font-size:11px;font-weight:750}
+#view-stock_dashboard .sd-contract-actions-current button{border:1px solid #b7c9e1!important;border-radius:9px!important;overflow:hidden!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)!important}
+#view-inventory #siAccCards{min-width:0}
+#view-inventory .cesHub-access-table-scroll{max-height:62vh!important;overflow:auto!important;border:1px solid #d8e4f2!important;border-radius:12px!important}
+#view-inventory .cesHub-access-table.ces-acc-table-v4{min-width:1120px!important;width:100%;table-layout:fixed!important;border-spacing:0!important;font-size:11px!important}
+#view-inventory .ces-acc-table-v4 th{background:#eff5fd!important;color:#214c83!important;font-size:10px!important;letter-spacing:.02em;padding:11px 10px!important;border-bottom:1px solid #cadbf0!important}
+#view-inventory .ces-acc-table-v4 th:nth-child(1){width:21%}#view-inventory .ces-acc-table-v4 th:nth-child(2){width:15%}#view-inventory .ces-acc-table-v4 th:nth-child(3){width:11%}#view-inventory .ces-acc-table-v4 th:nth-child(4){width:7%}#view-inventory .ces-acc-table-v4 th:nth-child(5){width:13%}#view-inventory .ces-acc-table-v4 th:nth-child(6){width:10%}#view-inventory .ces-acc-table-v4 th:nth-child(7){width:9%}#view-inventory .ces-acc-table-v4 th:nth-child(8){width:14%}
+#view-inventory .ces-acc-table-v4 td{padding:9px 10px!important;white-space:normal!important;vertical-align:middle;line-height:1.3}
+#view-inventory .ces-acc-parent-v6{background:#fff!important;color:#183459!important;cursor:default!important}
+#view-inventory .ces-acc-parent-v6 td{background:#fff!important;border-top:1px solid #e0e9f3!important;border-bottom:1px solid #e6edf6!important;padding:9px 10px!important}
+#view-inventory .ces-acc-parent-v6:hover td{background:#f2f7ff!important}
+#view-inventory .ces-acc-parent-v6[aria-expanded=true] td{background:#f5f9ff!important}
+#view-inventory .ces-acc-parent-v6 .ces-acc-primary-v6{display:table-cell!important;min-width:0;white-space:nowrap!important}
+#view-inventory .ces-acc-parent-v6 .ces-acc-caret-v5{flex:0 0 27px;width:27px;height:27px;padding:0!important;margin:0!important;border-radius:8px;color:#0b56b6}
+#view-inventory .ces-acc-parent-label-v6{display:inline-block;vertical-align:middle;width:calc(100% - 42px);min-width:0;overflow:hidden}#view-inventory .ces-acc-parent-label-v6 strong{display:block;font-size:12px;color:#0c3a7d;overflow-wrap:anywhere}
+#view-inventory .ces-acc-parent-label-v6 small{display:block;font-size:10px;color:#7285a0;margin:3px 0 0!important;white-space:normal}
+#view-inventory .ces-acc-team-pills-v6{display:flex;flex-wrap:wrap;gap:4px}
+#view-inventory .ces-acc-team-chip-v6{display:inline-flex;align-items:center;border-left:3px solid var(--chip-team,#93a9c6);background:#edf4fc;padding:5px 7px;border-radius:6px;font-size:10px;font-weight:800;color:#1d3e68;white-space:nowrap}
+#view-inventory .ces-acc-team-chip-v6.empty{border-color:#cbd5e1;color:#70839d;background:#f2f5f9}
+#view-inventory .ces-acc-number-v6{text-align:left!important;font-size:12px;font-weight:850;color:#15457c;white-space:nowrap!important}
+#view-inventory .ces-acc-number-v6 small{display:block;font-size:9px;font-weight:550;color:#7387a1}
+#view-inventory .ces-v6-status{display:inline-flex;padding:5px 8px;border-radius:999px;font-weight:850;font-size:9px;white-space:nowrap}
+#view-inventory .ces-v6-status.ok{background:#dcfce7;color:#047857}.ces-v6-status.low{background:#fff0ed;color:#bb3125}.ces-v6-status.pending{background:#fff4d7;color:#a35c07}
+#view-inventory .ces-v6-parent-actions{white-space:nowrap!important}#view-inventory .ces-v6-parent-actions .cesHub-btn{padding:7px!important;font-size:10px!important}
+#view-inventory .ces-acc-child-v5{background:#fbfdff!important;box-shadow:inset 4px 0 var(--ces-row-team,#94a3b8)}
+#view-inventory .ces-acc-child-v5 td{border-bottom:1px solid #edf3f9!important;padding:8px 10px!important}
+#view-inventory .ces-acc-child-v5 td:first-child{padding-left:28px!important}
+#view-inventory .ces-acc-child-v5 .cesHub-team{padding:4px 7px!important;font-size:10px}
+#view-inventory .ces-acc-child-v5 .cesHub-row-actions{display:flex;gap:4px;white-space:nowrap}
+#view-inventory .ces-acc-child-v5 .cesHub-row-actions button{flex:0 0 30px}
+#view-inventory .ces-acc-child-v5 .cesHub-qty{height:30px!important;max-width:47px!important;padding:3px!important}
+#view-inventory #siAccPagination{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+#view-inventory .ces-v6-toggle-all{font-size:10px;padding:5px 8px}
+@media(max-width:1100px){#view-stock_dashboard .stockpro-kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){#view-stock_dashboard .stockpro-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#view-pr_gr_dashboard .prDashboard-header{align-items:flex-start}#view-pr_gr_dashboard .ces-pr-updated-v6{order:-1;width:100%}}
+
+#view-pr_gr_dashboard label:has(#prDashboardItem):hover,#view-pr_gr_dashboard label:has(#prDashboardItem):focus-within{background:#fff!important;border:0!important;border-top:0!important;box-shadow:none!important;outline:0!important}
+#view-pr_gr_dashboard label:has(#prDashboardItem):before,#view-pr_gr_dashboard label:has(#prDashboardItem):after{content:none!important;display:none!important}
+
+/* Consolidated from ces-hub-v7.css in original cascade order */
+/* CES Hub V7 — scoped contract dropdowns, equipment model cues, and inventory tables. */
+#view-stock_dashboard #sdContractStatusPickerV6{min-width:195px;max-width:260px;padding:8px!important;box-sizing:border-box;background:#fff!important;border:1px solid #cfdef0!important;border-radius:12px!important;box-shadow:0 12px 32px rgba(15,23,42,.12)!important;z-index:90!important}
+#view-stock_dashboard #sdContractStatusPickerV6 label{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:9px!important;padding:7px 9px!important;min-height:34px!important;font-size:11px!important;color:#294663!important;font-weight:700!important;border-radius:8px!important;line-height:1.3!important}
+#view-stock_dashboard #sdContractStatusPickerV6 label:hover{background:#eff6ff!important}
+#view-stock_dashboard #sdContractStatusPickerV6 input[type="checkbox"]{appearance:auto!important;-webkit-appearance:checkbox!important;display:inline-block!important;flex:0 0 16px!important;width:16px!important;height:16px!important;min-width:16px!important;max-width:16px!important;margin:0!important;transform:none!important;accent-color:#0756b8!important}
+#view-stock_dashboard .sd-contract-scroll{max-width:100%;overflow-x:auto;scrollbar-gutter:stable;border:1px solid #e1eaf4;border-radius:13px}
+#view-stock_dashboard .sd-contract-table-current{min-width:1330px!important;font-size:11px!important;table-layout:auto!important}
+#view-stock_dashboard .sd-contract-table-current th,#view-stock_dashboard .sd-contract-table-current td{padding:11px 10px!important;vertical-align:middle!important;line-height:1.5!important}
+#view-stock_dashboard .sd-contract-actions-cell{min-width:125px!important;white-space:nowrap!important}
+#view-stock_dashboard .sd-contract-actions-current{display:flex!important;flex-wrap:nowrap!important;gap:6px!important;align-items:center!important}
+#view-stock_dashboard .sd-contract-actions-current button{flex:0 0 30px!important;display:inline-grid!important;place-items:center!important;width:30px!important;height:30px!important;min-width:30px!important;padding:0!important;border:1px solid #cfe0f3!important;border-radius:9px!important;box-sizing:border-box!important}
+#view-stock_dashboard .sd-contract-table-current tr:nth-child(even):not(.is-overdue){background:#f8fbff}
+#view-stock_dashboard .sd-contract-table-current .sd-contract-period{min-width:150px;white-space:normal;overflow-wrap:anywhere}
+#view-stock_dashboard .sd-equipment-table-v3059{min-width:1330px!important;font-size:11px}
+#view-stock_dashboard .sd-eq-service-v7{min-width:155px;line-height:1.55;color:#205086}
+#view-stock_dashboard .sd-eq-service-v7 small{display:block;color:#64748b}
+#view-stock_dashboard .sd-eq-contract-v7{min-width:170px;max-width:220px;white-space:normal;overflow-wrap:anywhere;line-height:1.45}
+#view-inventory .ces-inventory-mode-tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:5px!important;background:#e8f0fa;border:1px solid #d6e3f3;border-radius:14px}
+#view-inventory .ces-inventory-mode-tabs .sp-tab{min-height:42px!important;border-radius:10px!important;text-align:center!important;cursor:pointer!important}
+#view-inventory .ces-inventory-mode-tabs .sp-tab.active{background:white!important;color:#004aad!important;box-shadow:0 3px 11px rgba(15,23,42,.08)!important}
+#view-inventory .cesHub-access-table{min-width:1020px!important;table-layout:auto!important;font-size:11px!important}
+#view-inventory .cesHub-access-table td,#view-inventory .cesHub-access-table th{padding:10px 12px!important;vertical-align:middle!important}
+#view-inventory .ces-acc-child-v5 td:first-child{border-left:4px solid var(--ces-row-team,#cbd5e1)}
+#view-inventory .cesHub-item b{font-size:12px;line-height:1.5}
+#view-inventory .ces-acc-team-pills-v6{display:flex;gap:4px;flex-wrap:wrap}
+#view-inventory .cesHub-row-actions{display:flex!important;gap:5px!important;flex-wrap:nowrap!important;min-width:190px!important}
+#view-inventory .cesHub-row-actions button{min-width:29px!important;width:29px!important;height:29px!important;display:grid!important;place-items:center!important}
+#view-inventory .cesHub-access-table tbody tr:nth-child(even):not(.ces-acc-parent-v5){background:#f9fbfe}
+#view-inventory .ces-inventory-restock-actions-v7{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#view-inventory #siRestockSection{overflow:visible!important}
+#view-inventory #cesHubRecent{overflow:auto!important;max-width:100%!important;border-radius:12px;border:1px solid #dce7f5}
+#view-inventory #cesHubRecent .cesHub-mini-table{min-width:1310px!important;width:100%!important;table-layout:auto!important}
+#view-inventory #cesHubRecent .cesHub-mini-table th{position:sticky;top:0;z-index:2;background:#eaf2ff;white-space:nowrap}
+#view-inventory #cesHubRecent .cesHub-mini-table td{padding:10px 12px!important;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+#view-inventory #cesHubRecent .cesHub-mini-table td:last-child{min-width:255px;white-space:normal;overflow-wrap:anywhere}
+#view-inventory #cesHubRecent .cesHub-mini-table tbody tr:nth-child(even){background:#f7fafe}
+@media(max-width:800px){#view-inventory .ces-inventory-mode-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}#view-stock_dashboard #sdContractStatusPickerV6{max-width:220px}}
+
+/* Retired messaging/notification configuration controls remain inaccessible. */
+#btn-notification_config,#view-notification_config,#view-setting #cfg-mail-admin,#view-setting #cfg-line-oa-basic-id{display:none!important}
+/* Dropdown is the DETAILS element; size the popover child rather than the trigger. */
+#view-stock_dashboard .ces-rental-status-filter-v6{position:relative!important;overflow:visible!important;min-width:0!important}
+#view-stock_dashboard #sdContractStatusPickerV6{width:100%!important;min-width:0!important;max-width:100%!important;padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important}
+#view-stock_dashboard #sdContractStatusPickerV6 summary{display:flex!important;align-items:center!important;justify-content:space-between!important;min-height:35px!important;padding:8px 12px!important;border:1px solid #d4e2f2!important;border-radius:10px!important;background:#fff!important;cursor:pointer!important;font-size:11px!important}
+#view-stock_dashboard #sdContractStatusPickerV6 .ces-rental-status-choices-v6{position:absolute!important;top:calc(100% + 7px)!important;left:0!important;width:230px!important;min-width:195px!important;max-width:min(230px,90vw)!important;display:grid!important;gap:3px!important;z-index:120!important;background:#fff!important;border:1px solid #cbdcf0!important;border-radius:12px!important;padding:8px!important;box-shadow:0 14px 30px rgba(15,23,42,.14)!important}
+#view-stock_dashboard #sdContractStatusPickerV6:not([open]) .ces-rental-status-choices-v6{display:none!important}
+#view-stock_dashboard #sdContractStatusPickerV6 .ces-rental-status-choices-v6 button{height:33px!important;padding:6px 10px!important;border-radius:9px!important;font-size:11px!important;background:#eff6ff!important;color:#0b4daf!important}
+
+/* Consolidated from ces-hub-v8.css in original cascade order */
+/* CES Hub V8: preserve V6/V7 accordion inventory UI with compact team-only rows. */
+#view-inventory .cesHub-access-table{width:100%;min-width:1000px;table-layout:fixed;font-size:11px}
+#view-inventory .cesHub-access-table th,#view-inventory .cesHub-access-table td{padding:9px 12px!important;white-space:normal;vertical-align:middle;border-bottom:1px solid #e8eef7}
+#view-inventory .cesHub-access-table th{background:#eaf2fe!important;color:#0d448d!important;font-weight:800;position:sticky;top:0;z-index:3}
+#view-inventory .cesHub-access-table td:nth-child(1){width:22%}#view-inventory .cesHub-access-table th:nth-child(1){width:22%}
+#view-inventory .cesHub-access-table td:nth-child(8),#view-inventory .cesHub-access-table th:nth-child(8){width:22%}
+#view-inventory .ces-acc-parent-v5{background:#f3f7ff!important;box-shadow:none!important}
+#view-inventory .ces-acc-parent-v5 td{padding:9px 12px!important}
+#view-inventory .ces-acc-parent-v5 .ces-acc-parent-label-v6 strong{font-size:11px;color:#073d8f}
+#view-inventory .ces-acc-child-v5{background:#fff!important}
+#view-inventory .ces-acc-child-v5 td:first-child{border-left:3px solid var(--ces-row-team,#003da5)}
+#view-inventory .cesHub-actions-v4{display:flex;flex-wrap:nowrap;gap:5px;align-items:center}
+#view-inventory .cesHub-actions-v4 .cesHub-btn{width:30px;height:30px;min-width:30px;border-radius:9px}
+#view-inventory .cesHub-actions-v4 .cesHub-qty{width:42px;min-width:42px}
+#view-inventory .ces-v8-pending{margin:12px 0 18px;background:#f8fbff;border:1px solid #dbeafe;border-radius:12px;overflow:hidden}
+#view-inventory .ces-v8-pending-head{padding:13px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#eaf2ff;color:#06489b}
+#view-inventory .ces-v8-pending-head span{font-size:11px;color:#64748b}
+#view-inventory .ces-v8-pending-scroll{overflow:auto;max-height:250px}
+#view-inventory .ces-v8-pending table{border-collapse:collapse;width:100%;min-width:650px;font-size:12px}
+#view-inventory .ces-v8-pending th,#view-inventory .ces-v8-pending td{padding:10px 15px;border-bottom:1px solid #e2e8f0;text-align:left}
+#view-inventory .ces-v8-pending th{color:#1e40af;background:#f1f5ff}
+#view-inventory .ces-v8-pending small{display:block;color:#64748b}
+#view-inventory .ces-v8-allocate{background:#003da5;color:white;font-weight:700;border-radius:9px;padding:7px 13px}
+#view-inventory .ces-v8-note{padding:15px;color:#64748b}
+#view-kpi #kpi-late-alert-button{display:none!important}
+#view-stock_dashboard #sdModelCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#view-stock_dashboard #sdModelCards .sp-model-card{min-width:0}
+@media(max-width:850px){#view-stock_dashboard #sdModelCards{grid-template-columns:1fr}}
+

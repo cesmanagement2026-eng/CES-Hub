@@ -166,7 +166,6 @@
         else if (tab === 'team_information' && typeof initTeamInformation === 'function') initTeamInformation();
         else if (tab === 'team_plan' && typeof window.initTeamPlan === 'function') window.initTeamPlan();
         else if (tab === 'master_cal_pm_plan' && typeof window.initMasterCalPmPlan === 'function') window.initMasterCalPmPlan(forceRefresh);
-        else if (tab === 'audit_log' && typeof window.initAuditLog === 'function') window.initAuditLog(forceRefresh);
         else if (tab === 'monthly_report' && typeof window.initMonthlyReport === 'function') window.initMonthlyReport();
         else if (tab === 'users'         && typeof initUsers === 'function') initUsers();
         else if (tab === 'notification_config') { if (typeof switchTab === 'function') switchTab('setting'); }
@@ -236,7 +235,7 @@
     const CES_AUTH_SESSION_TTL_V50 = 30 * 24 * 60 * 60 * 1000;
     const CES_LINE_FAST_SESSION_TTL_V48 = 24 * 60 * 60 * 1000;
     const CES_ACTIVE_TAB_KEY_V60 = 'CES_ACTIVE_TAB_V60';
-    const CES_VALID_TABS_V60 = ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','audit_log','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log'];
+    const CES_VALID_TABS_V60 = ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log'];
     let cesUsageHeartbeatV50 = null;
     let cesUsageLastApiV50 = { module:'', action:'', at:0 };
 
@@ -581,7 +580,7 @@
     function cesForceAdminSystemMenu_() {
         var role = String((currentUser && currentUser.role) || (window.currentUser && window.currentUser.role) || currentRole || '').trim().toUpperCase();
         if (role !== 'ADMIN') return false;
-        ['setting','user_log','users','ces_evaluation','ces_ai_knowledge','team_information','master_cal_pm_plan','audit_log','monthly_report'].forEach(function(id){
+        ['setting','user_log','users','ces_evaluation','ces_ai_knowledge','team_information','master_cal_pm_plan','monthly_report'].forEach(function(id){
             var btn=document.getElementById('btn-'+id);
             if(btn){btn.classList.remove('hidden');btn.removeAttribute('hidden');btn.style.removeProperty('display');}
         });
@@ -615,19 +614,19 @@
             });
         } else {
             if (role === 'STAFF') {
-                ['portal','management_overview','checkin','service','memo_workorder','ot','calendar','car_booking','van_booking','weekly','report_manage','kpi','team_information','master_cal_pm_plan','audit_log','monthly_report'].forEach(t => {
+                ['portal','management_overview','checkin','service','memo_workorder','ot','calendar','car_booking','van_booking','weekly','report_manage','kpi','team_information','master_cal_pm_plan','monthly_report'].forEach(t => {
                     const btn = document.getElementById('btn-' + t);
                     if (btn) btn.classList.remove('hidden');
                 });
             }
             if (role === 'MANAGER') {
-                ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','audit_log','monthly_report','ces_evaluation'].forEach(t => {
+                ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','monthly_report','ces_evaluation'].forEach(t => {
                     const btn = document.getElementById('btn-' + t);
                     if (btn) btn.classList.remove('hidden');
                 });
             }
             if (role === 'SUPERVISOR') {
-                ['portal','management_overview','checkin','service','report','memo_workorder','ot','calendar','car_booking','van_booking','yearly','revenue','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','audit_log','monthly_report'].forEach(t => {
+                ['portal','management_overview','checkin','service','report','memo_workorder','ot','calendar','car_booking','van_booking','yearly','revenue','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','monthly_report'].forEach(t => {
                     const btn = document.getElementById('btn-' + t);
                     if (btn) btn.classList.remove('hidden');
                 });
@@ -687,7 +686,7 @@
     window.cesCanAccessTab = cesCanAccessTab_;
 
     function cesTabLabel_(tab){
-        var labels={portal:'Home',management_overview:'Management Overview',service:'Service CSI',report:'Report CSI',memo_workorder:'Memo & Work Order',pr_gr_dashboard:'PR & GR Dashboard',yearly:'Job Dashboard',revenue:'Revenue Dashboard',calendar:'Calendar',checkin:'Check-in',car_booking:'EV Car Booking',van_booking:'Van Booking',team_information:'Team Information',team_plan:'Team Plan',master_cal_pm_plan:'Master CAL/PM Plan',audit_log:'Audit Log',monthly_report:'Monthly Report',users:'User Management',ces_evaluation:'CES Hub Evaluation',ces_ai_knowledge:'CES AI Knowledge',setting:'Setting',user_log:'Log Summary',health:'System Health Check',ot:'OT Dashboard',weekly:'Weekly Report',report_manage:'OT Generate',te_generate:'TE Generate',kpi:'KPI Tracking',stock_dashboard:'Infusion Pump Dashboard',inventory:'Inventory',check_stock:'Check Stock'};
+        var labels={portal:'Home',management_overview:'Management Overview',service:'Service CSI',report:'Report CSI',memo_workorder:'Memo & Work Order',pr_gr_dashboard:'PR & GR Dashboard',yearly:'Job Dashboard',revenue:'Revenue Dashboard',calendar:'Calendar',checkin:'Check-in',car_booking:'EV Car Booking',van_booking:'Van Booking',team_information:'Team Information',team_plan:'Team Plan',master_cal_pm_plan:'Master CAL/PM Plan',monthly_report:'Monthly Report',users:'User Management',ces_evaluation:'CES Hub Evaluation',ces_ai_knowledge:'CES AI Knowledge',setting:'Setting',user_log:'Log Summary',health:'System Health Check',ot:'OT Dashboard',weekly:'Weekly Report',report_manage:'OT Generate',te_generate:'TE Generate',kpi:'KPI Tracking',stock_dashboard:'Infusion Pump Dashboard',inventory:'Inventory',check_stock:'Check Stock'};
         return labels[tab] || String(tab||'Dashboard').replace(/_/g,' ').replace(/\b\w/g,function(ch){return ch.toUpperCase();});
     }
     function cesRevealDeferredViewShell_(tab){
@@ -762,7 +761,7 @@
             });
         });
 
-        const views = ['portal','management_overview','service','report','memo_workorder','pr_gr_dashboard','yearly','revenue','calendar','checkin','car_booking','van_booking','team_information','master_cal_pm_plan','audit_log','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log','ot','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock'];
+        const views = ['portal','management_overview','service','report','memo_workorder','pr_gr_dashboard','yearly','revenue','calendar','checkin','car_booking','van_booking','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log','ot','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock'];
         views.forEach(v => {
             const el = document.getElementById(`view-${v}`);
             if (el) { el.classList.add('hidden'); el.classList.remove('slide-up'); }
@@ -775,7 +774,7 @@
             portal: 'Home', management_overview: 'Management Overview', service: 'Service CSI', report: 'Report CSI', memo_workorder:'Memo & Work Order',pr_gr_dashboard:'PR & GR Dashboard',
             yearly: 'Job Dashboard', revenue: 'Revenue Dashboard',
             calendar: 'Calendar', checkin: 'Check-in',
-            car_booking: 'EV Car Booking', van_booking: 'Van Booking', team_information: 'Team Information', team_plan:'Team Plan', master_cal_pm_plan:'Master CAL/PM Plan', audit_log:'Audit Log', monthly_report:'Monthly Report',  user_log:'Log Summary',
+            car_booking: 'EV Car Booking', van_booking: 'Van Booking', team_information: 'Team Information', team_plan:'Team Plan', master_cal_pm_plan:'Master CAL/PM Plan', monthly_report:'Monthly Report',  user_log:'Log Summary',
             users: 'User Management', ces_evaluation:'CES Hub Evaluation', ces_ai_knowledge:'CES AI Knowledge', setting: 'Setting', health: 'System Health Check',
             ot: 'OT Dashboard', weekly: 'Weekly Report',
             report_manage: 'OT Generate',
@@ -982,8 +981,6 @@
                 team_information: 'team_information',
                 'master-cal-pm-plan': 'master_cal_pm_plan',
                 master_cal_pm: 'master_cal_pm_plan',
-                'audit-log':'audit_log',
-                audit_log:'audit_log',
                 'monthly-report': 'monthly_report',
                 monthly_report: 'monthly_report',
                 'ces-ai-knowledge':'ces_ai_knowledge',
@@ -1005,7 +1002,7 @@
                 settings: 'setting',
             };
             tab = alias[tab] || tab;
-            const valid = ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','audit_log','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log'];
+            const valid = ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log'];
             return valid.includes(tab) ? tab : '';
         } catch (e) {
             return '';
@@ -1073,7 +1070,7 @@
                 service:'Service CSI', report:'Report CSI', calendar:'Calendar', checkin:'Check-in',
                 car_booking:'EV Car Booking', van_booking:'Van Booking', weekly:'Weekly Report',
                 report_manage:'OT Generate', te_generate:'TE Generate', kpi:'KPI Tracking', stock_dashboard:'Infusion Pump Dashboard',
-                inventory:'Inventory', check_stock:'Check Stock', team_information:'Team Information', team_plan:'Team Plan', master_cal_pm_plan:'Master CAL/PM Plan', audit_log:'Audit Log', monthly_report:'Monthly Report',  user_log:'Log Summary', ces_evaluation:'CES Hub Evaluation', ces_ai_knowledge:'CES AI Knowledge',
+                inventory:'Inventory', check_stock:'Check Stock', team_information:'Team Information', team_plan:'Team Plan', master_cal_pm_plan:'Master CAL/PM Plan', monthly_report:'Monthly Report',  user_log:'Log Summary', ces_evaluation:'CES Hub Evaluation', ces_ai_knowledge:'CES AI Knowledge',
                 users:'User Management', setting:'Setting', health:'System Health Check'
             };
             loadingText.innerText = options.message ||

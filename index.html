@@ -35,12 +35,7 @@
     <link rel="stylesheet" href="css/app.css?build=clean">
 
 <link rel="stylesheet" href="css/ai-local-assistant.css?build=clean">
-    <link rel="stylesheet" href="css/ces-hub-usability.css?build=20261112b">
-    <link rel="stylesheet" href="css/ces-hub-v4.css?build=20261112v4">
-<link rel="stylesheet" href="css/ces-hub-v5.css?v=5.0">
-<link rel="stylesheet" href="css/ces-hub-v6.css?v=6.0">
-<link rel="stylesheet" href="css/ces-hub-v7.css?v=7.0">
-<link rel="stylesheet" href="css/ces-hub-v8.css?v=8.0">
+    <link rel="stylesheet" href="css/ces-hub-custom.css?v=9.0">
 
     <!-- Essential JS: Must load before page interaction -->
 
@@ -113,8 +108,8 @@
 
 
 
-      window.CES_BUILD_HASH = 'CES-HUB-V8-20261117-TEAM-KPI-SYNC';
-      window.CES_BUILD_VERSION = 'V8-20261117';
+      window.CES_BUILD_HASH = 'CES-HUB-V9-20261117-CLEAN-SYNC';
+      window.CES_BUILD_VERSION = 'V9-20261117';
 
       // CES_V221_CACHE_MIGRATION: force fresh shell/config/permissions after a release.
       try {
@@ -285,7 +280,6 @@
           { target:'#app-main-content', url:'views/ot.html', viewId:'view-ot', optional:true },
           { target:'#app-main-content', url:'views/team_information.html', viewId:'view-team_information', optional:true },
           { target:'#app-main-content', url:'views/master_cal_pm_plan.html', viewId:'view-master_cal_pm_plan', optional:true },
-          { target:'#app-main-content', url:'views/audit_log.html', viewId:'view-audit_log', optional:true },
           { target:'#app-main-content', url:'views/monthly_report.html', viewId:'view-monthly_report', optional:true },
           { target:'#app-main-content', url:'views/users.html', viewId:'view-users', optional:true },
           { target:'#app-main-content', url:'views/ces_evaluation.html', viewId:'view-ces_evaluation', optional:true },
@@ -330,7 +324,6 @@
           { url:'js/modules/memo-workorder.js', optional:true },
           { url:'js/modules/monthly-report.js', optional:true },
           { url:'js/modules/master-cal-pm-plan.js', optional:true },
-          { url:'js/modules/audit-log.js', optional:true },
           { url:'js/modules/ces-hub-evaluation.js', optional:true },
           { url:'js/modules/ces-ai-knowledge.js', optional:true },
           { url:'js/modules/runtime-system.js', optional:true },
@@ -386,7 +379,6 @@
         ot:['js/modules/ot-dashboard.js','js/modules/runtime-system.js'],
         team_information:['js/modules/team-information.js','js/modules/runtime-system.js'],
         master_cal_pm_plan:['js/modules/master-cal-pm-plan.js'],
-        audit_log:['js/modules/audit-log.js'],
         monthly_report:['js/modules/monthly-report.js','js/modules/runtime-system.js'],
         users:['js/modules/users-management.js'],
         ces_evaluation:['js/modules/ces-hub-evaluation.js'],

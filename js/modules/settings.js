@@ -118,7 +118,7 @@
         setVal('cfg-mail-admin-cc', data.SERVICE_CSI_ADMIN_CC || 'cesmanagement@bdms.co.th');
         ['MED','LAB','EHS','ENV','TES','MNG','QM','SALES'].forEach(team => setVal('cfg-mail-' + team.toLowerCase(), data['TEAM_MAIL_CC_' + team] || ''));
         setVal('cfg-link-ces-home', data.LINK_CES_HUB_HOME || ''); setVal('cfg-link-infusion-dashboard', data.LINK_INFUSION_PUMP_DASHBOARD || ''); setVal('cfg-link-rental-contact', data.LINK_RENTAL_CONTACT_PAGE || ''); setVal('cfg-link-master-cal-pm', data.LINK_MASTER_CAL_PM_SOURCE || ''); setVal('cfg-link-inventory-source', data.LINK_INVENTORY_SOURCE || ''); setVal('cfg-link-check-stock', data.LINK_CHECK_STOCK || '');
-        ['MED','LAB','EHS'].forEach(team => {setVal('cfg-audit-drive-' + team.toLowerCase(), data['AUDIT_DRIVE_' + team] || '');setVal('cfg-audit-excel-' + team.toLowerCase(), data['AUDIT_EXCEL_' + team] || '');});
+
 
         // 6. ข้อมูล Admin และการประกาศ (Admin & Announcement)[cite: 12]
         setVal('cfg-admin-email', data.ADMIN_NOTIFY_EMAIL);
@@ -156,7 +156,7 @@
             BOOKING_MEMO_FOLDER_ID:getVal('cfg-booking-memo-folder'), BOOKING_PDF_FOLDER_ID:getVal('cfg-booking-pdf-folder'), BOOKING_RETURN_BILL_FOLDER_ID:getVal('cfg-booking-return-bill-folder'),
             // LINE/Mail settings are retired in V7; preserve existing Config values when saving other settings.
             LINK_CES_HUB_HOME:getVal('cfg-link-ces-home'), LINK_INFUSION_PUMP_DASHBOARD:getVal('cfg-link-infusion-dashboard'), LINK_RENTAL_CONTACT_PAGE:getVal('cfg-link-rental-contact'), LINK_MASTER_CAL_PM_SOURCE:getVal('cfg-link-master-cal-pm'), LINK_INVENTORY_SOURCE:getVal('cfg-link-inventory-source'), LINK_CHECK_STOCK:getVal('cfg-link-check-stock'),
-            AUDIT_DRIVE_MED:getVal('cfg-audit-drive-med'), AUDIT_EXCEL_MED:getVal('cfg-audit-excel-med'), AUDIT_DRIVE_LAB:getVal('cfg-audit-drive-lab'), AUDIT_EXCEL_LAB:getVal('cfg-audit-excel-lab'), AUDIT_DRIVE_EHS:getVal('cfg-audit-drive-ehs'), AUDIT_EXCEL_EHS:getVal('cfg-audit-excel-ehs'),
+
             ANNOUNCE_MSG:getVal('cfg-announce-msg'),
             ANNOUNCE_ACTIVE:document.getElementById('cfg-announce-active')?.checked ? 'TRUE' : 'FALSE'
         };
@@ -239,14 +239,14 @@
     const CES_SETTING_SECTION_KEYS_V264 = {
         announcement:['ADMIN_NOTIFY_EMAIL','ANNOUNCE_MSG','ANNOUNCE_ACTIVE'],
         capacity:['CAPACITY_MED','CAPACITY_LAB','CAPACITY_EHS','CAPACITY_ENV','CAPACITY_MNG','CAPACITY_TES','CALENDAR_LEAVE_KEYWORDS','CALENDAR_OTHER_KEYWORDS'],
-        links:['LINK_SERVICE_CSI_CES_SUMMARY','LINK_SERVICE_CSI_TES_SUMMARY','LINK_REPORT_CSI_SUMMARY','LINK_REVENUE_DASHBOARD','LINK_KPI_EHS_SHEET','LINK_KPI_LAB_SHEET','LINK_MEMO_WORKORDER_SOURCE','MEMO_WORKORDER_SOURCE_SPREADSHEET_ID','LINK_TRAINING_PLAN_2026','LINK_E_REQUEST','LINK_CAR_BOOKING_DRIVE','LINK_VAN_PROVINCE_FORM','LINK_VAN_GOOGLE_CALENDAR','LINK_VAN_LG_BOOKING','LINK_VAN_NMOBILE','LINK_GIZTIX_DELIVERY','KPI_DRIVE_MED','KPI_DRIVE_LAB','KPI_DRIVE_EHS','KPI_SHEET_MED','KPI_SHEET_LAB','KPI_SHEET_EHS','LINK_CES_HUB_HOME','LINK_INFUSION_PUMP_DASHBOARD','LINK_RENTAL_CONTACT_PAGE','LINK_MASTER_CAL_PM_SOURCE','LINK_INVENTORY_SOURCE','LINK_CHECK_STOCK','AUDIT_DRIVE_MED','AUDIT_EXCEL_MED','AUDIT_DRIVE_LAB','AUDIT_EXCEL_LAB','AUDIT_DRIVE_EHS','AUDIT_EXCEL_EHS'],
+        links:['LINK_SERVICE_CSI_CES_SUMMARY','LINK_SERVICE_CSI_TES_SUMMARY','LINK_REPORT_CSI_SUMMARY','LINK_REVENUE_DASHBOARD','LINK_KPI_EHS_SHEET','LINK_KPI_LAB_SHEET','LINK_MEMO_WORKORDER_SOURCE','MEMO_WORKORDER_SOURCE_SPREADSHEET_ID','LINK_TRAINING_PLAN_2026','LINK_E_REQUEST','LINK_CAR_BOOKING_DRIVE','LINK_VAN_PROVINCE_FORM','LINK_VAN_GOOGLE_CALENDAR','LINK_VAN_LG_BOOKING','LINK_VAN_NMOBILE','LINK_GIZTIX_DELIVERY','KPI_DRIVE_MED','KPI_DRIVE_LAB','KPI_DRIVE_EHS','KPI_SHEET_MED','KPI_SHEET_LAB','KPI_SHEET_EHS','LINK_CES_HUB_HOME','LINK_INFUSION_PUMP_DASHBOARD','LINK_RENTAL_CONTACT_PAGE','LINK_MASTER_CAL_PM_SOURCE','LINK_INVENTORY_SOURCE','LINK_CHECK_STOCK'],
         colors:['TEAM_COLOR_MED','TEAM_COLOR_LAB','TEAM_COLOR_EHS','TEAM_COLOR_ENV','TEAM_COLOR_TES','TEAM_COLOR_QM','TEAM_COLOR_MNG'],
         calendar:['CAL_ID_MED','CAL_ID_LAB','CAL_ID_EHS','CAL_ID_ENV','CAL_ID_MNG','CAL_ID_TES'],
         targets:['TARGET_CSI','TARGET_SLA_HRS','TARGET_REV_MED','TARGET_REV_LAB','TARGET_REV_EHS','TARGET_REV_ENV','TARGET_REV_MNG','TARGET_REV_TES'],
         kpi:['KPI_DRIVE_MED','KPI_DRIVE_LAB','KPI_DRIVE_EHS','KPI_SHEET_MED','KPI_SHEET_LAB','KPI_SHEET_EHS'],
         line:['LINE_OA_BASIC_ID','LINE_GATEWAY_URL'],
         mail:['ADMIN_NOTIFY_EMAIL','SERVICE_CSI_ADMIN_CC','TEAM_MAIL_CC_MED','TEAM_MAIL_CC_LAB','TEAM_MAIL_CC_EHS','TEAM_MAIL_CC_ENV','TEAM_MAIL_CC_TES','TEAM_MAIL_CC_MNG','TEAM_MAIL_CC_QM','TEAM_MAIL_CC_SALES'],
-        modulelinks:['LINK_CES_HUB_HOME','LINK_INFUSION_PUMP_DASHBOARD','LINK_RENTAL_CONTACT_PAGE','LINK_MASTER_CAL_PM_SOURCE','LINK_INVENTORY_SOURCE','LINK_CHECK_STOCK','AUDIT_DRIVE_MED','AUDIT_EXCEL_MED','AUDIT_DRIVE_LAB','AUDIT_EXCEL_LAB','AUDIT_DRIVE_EHS','AUDIT_EXCEL_EHS']
+        modulelinks:['LINK_CES_HUB_HOME','LINK_INFUSION_PUMP_DASHBOARD','LINK_RENTAL_CONTACT_PAGE','LINK_MASTER_CAL_PM_SOURCE','LINK_INVENTORY_SOURCE','LINK_CHECK_STOCK']
     };
 
     async function saveSettingSection(section, button) {

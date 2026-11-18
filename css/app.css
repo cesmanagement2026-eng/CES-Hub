@@ -4622,17 +4622,13 @@ body,input,select,textarea,button,table,th,td,.swal2-container,.swal2-popup,.swa
 }
 
 #view-master_cal_pm_plan .mcp-header-actions,
-#view-audit_log .audit-header-actions,
 #view-inventory .stockpro-actions{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:7px!important;flex-wrap:wrap!important}
 #view-master_cal_pm_plan .ces-action-reset-v48,
-#view-audit_log .ces-action-reset-v48,
 #view-inventory .ces-action-reset-v48{order:50!important;background:#dc2626!important;border-color:#dc2626!important;color:#fff!important}
 #view-master_cal_pm_plan .ces-action-excel-v48,
 #view-master_cal_pm_plan .ces-action-excel,
-#view-audit_log .ces-action-excel-v48,
 #view-inventory .ces-action-excel-v48{order:40!important;background:#059669!important;border-color:#059669!important;color:#fff!important}
 #view-master_cal_pm_plan .ces-action-pdf,
-#view-audit_log .ces-action-pdf-v48,
 #view-inventory .ces-action-pdf-v48{order:30!important;background:#f59e0b!important;border-color:#f59e0b!important;color:#fff!important}
 #view-checkin #job-list-container{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;max-height:590px!important;overflow-y:auto!important;overflow-x:hidden!important;align-content:start!important;padding:2px 5px 10px 2px!important;touch-action:pan-y!important}
 #view-checkin .ces-checkin-job-card{position:relative!important;min-width:0!important;height:218px!important;min-height:218px!important;max-height:218px!important;padding:13px!important;display:grid!important;grid-template-rows:25px minmax(68px,1fr) 34px 45px!important;gap:8px!important;overflow:hidden!important;background:#fff!important;border:1px solid #dce6f1!important;border-radius:18px!important;box-shadow:0 8px 22px rgba(15,52,96,.07)!important;cursor:default!important;transition:transform .18s ease,box-shadow .18s ease!important}
