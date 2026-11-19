@@ -1,10 +1,8 @@
-<section id="view-notification_config" class="view-section hidden" aria-label="Notification Config">
- <div class="nc-shell">
-  <header class="nc-header"><div class="nc-title"><span class="nc-icon"><i class="fas fa-bell"></i></span><div><h2>Notification Config</h2><small>Schedule · Recipient · Team · Subject</small></div></div><div class="nc-toolbar"><button type="button" onclick="cesNotifyLoad(true)" title="Refresh"><i class="fas fa-rotate"></i></button><button type="button" onclick="cesNotifyReviewAndSave()" class="nc-primary" title="Save notification settings"><i class="fas fa-floppy-disk"></i> Save</button></div></header>
-  <div class="nc-help"><i class="fas fa-circle-info"></i> Each notification has its own schedule, recipient and CC. All email subjects use <b>[CES HUB]</b>. One shared scheduler checks enabled notifications; saving configuration does not send emails immediately.</div>
-  <div class="nc-settings"><label>Default admin recipient<input type="email" id="ncDefaultTo" value="Siripak.Ch@nhealth-asia.com" autocomplete="off"></label><label>Module<select id="ncModuleFilter" onchange="cesNotifyRender()"><option value="all">All modules</option></select></label><label>Search<input id="ncSearch" placeholder="Search by notification name / team" oninput="cesNotifyRender()"></label></div>
-  <div id="ncMessage" class="nc-message" role="status">Loading configuration…</div>
-  <div id="ncCards" class="nc-cards"></div>
-  <div class="nc-footer"><span id="ncSummary">No notifications loaded</span><button type="button" class="nc-primary" onclick="cesNotifyReviewAndSave()"><i class="fas fa-check-circle"></i> Review & Save all</button></div>
- </div>
-</section>
+<div id="view-notification_config" class="view-content hidden space-y-5 ces-v10-notify">
+  <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+    <div class="flex flex-wrap items-center justify-between gap-4"><div><h2 class="text-xl font-extrabold text-[#003DA5]"><i class="fas fa-bell mr-2"></i>Notification Config</h2><p class="text-sm text-slate-500 mt-1">Configure recipients and schedules per module</p></div><button onclick="initNotificationConfigV10()" class="ces-v10-btn">↻ Refresh settings</button></div>
+    <p class="ces-v10-alert mt-4"><i class="fas fa-shield-halved mr-2"></i>Setup only — email delivery and triggers remain disabled until notification scope and recipients are approved.</p>
+    <div class="overflow-auto mt-5"><table class="ces-v10-notify-table"><thead><tr><th>Module</th><th>Enabled</th><th>Frequency</th><th>Day / Date</th><th>Time</th><th>To</th><th>CC (optional)</th><th>Subject Prefix</th><th>Action</th></tr></thead><tbody id="cesNotificationRowsV10"><tr><td colspan="9">Loading configurations…</td></tr></tbody></table></div>
+    <p id="cesNotificationFootV10" class="text-xs text-slate-500 mt-3"></p>
+  </section>
+</div>

@@ -322,7 +322,7 @@ function switchCarBookingWorkspace(mode){
   if(bookBtn)bookBtn.classList.toggle('active',mode==='BOOKING');
   if(evaluationBtn)evaluationBtn.classList.toggle('active',mode==='EVALUATION');
   try{sessionStorage.setItem('CES_CAR_WORKSPACE_V204',mode);}catch(e){}
-  if(mode==='DASHBOARD'){setTimeout(function(){renderVehicleCalendar_('CAR');renderVehicleSummary('CAR');renderVehicleBookings('CAR');},20);}
+  if(mode==='DASHBOARD'){setTimeout(function(){renderVehicleCalendar_('CAR');renderVehicleSummary('CAR');renderVehicleBookings('CAR');cesEvCostLoadV10(false);},20);}
   if(mode==='EVALUATION'){setTimeout(function(){renderCarEvaluationWorkspace();},20);}
   if(window.CES_LANGUAGE&&window.CES_LANGUAGE.apply)window.CES_LANGUAGE.apply();
 }
@@ -457,6 +457,7 @@ function applyVehicleWorkspace_(type, result, fromCache, silent) {
   state.loaded = true;
   state.lastLoadedAt = Date.now();
   state.rows = result.bookings || result.data || [];
+  if(type==='CAR'){state.vehicles=result.vehicles||[];cesEvPaintVehiclesV10();}
   state.plans = result.plans || [];
   state.approvers = result.approvers || [];
   state.signatures = result.signatures || [];
@@ -964,7 +965,9 @@ function selectVehicleDaySlot_(key,startTime,endTime){
 window.selectVehicleDaySlot_=selectVehicleDaySlot_;
 
 function showVehicleDaySlots(type,key){
-  type=cesBookType_(type);var rows=cesBookingState_(type).rows||[],availability=cesBookingDayAvailability_(rows,key);
+  type=cesBookType_(type);var rows=cesBookingState_(type).rows||[];
+  if(type==='CAR')rows=rows.filter(function(r){return String(r.vehicleId||'BYD-ATTO-398')===cesEvSelectedV10();});
+  var availability=cesBookingDayAvailability_(rows,key);
   var slots=[
     {start:480,end:1020,label:'08:00–17:00',kind:'Full day'},
     {start:480,end:720,label:'08:00–12:00',kind:'Morning'},
@@ -983,7 +986,7 @@ function showVehicleDaySlots(type,key){
 function renderVehicleCalendar_(type) {
   type = cesBookType_(type);var prefix=cesBookPrefix_(type),state=cesBookingState_(type),root=document.getElementById(prefix+'-availability-calendar'),title=document.getElementById(prefix+'-calendar-title');if(!root)return;
   var month=state.month instanceof Date&&!isNaN(state.month.getTime())?state.month:new Date();month=new Date(month.getFullYear(),month.getMonth(),1);state.month=month;if(title)title.textContent=month.toLocaleDateString('en-US',{month:'long',year:'numeric'});
-  var byDate={};(state.rows||[]).forEach(function(row){var keys=cesBookDateRange_(row.bookingDate||row.onsiteDate,row.plannedReturnDate||row.bookingEndDate||row.bookingDate||row.onsiteDate);keys.forEach(function(key){if(!byDate[key])byDate[key]=[];byDate[key].push(row);});});
+  var byDate={};(state.rows||[]).filter(function(row){return type!=='CAR'||String(row.vehicleId||'BYD-ATTO-398')===cesEvSelectedV10();}).forEach(function(row){var keys=cesBookDateRange_(row.bookingDate||row.onsiteDate,row.plannedReturnDate||row.bookingEndDate||row.bookingDate||row.onsiteDate);keys.forEach(function(key){if(!byDate[key])byDate[key]=[];byDate[key].push(row);});});
   var today=typeof cesBookToday_==='function'?cesBookToday_():(new Date().toISOString().slice(0,10));
   var weekdays=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];var html=weekdays.map(function(day){return '<div class="vehicle-calendar-weekday">'+day+'</div>';}).join('');var first=new Date(month.getFullYear(),month.getMonth(),1),start=new Date(month.getFullYear(),month.getMonth(),1-first.getDay());
   for(var i=0;i<42;i++){
@@ -1096,7 +1099,7 @@ function renderVehicleBookings(type) {
     root.innerHTML = '<div class="py-14 text-center text-slate-400"><i class="fas fa-calendar-xmark text-3xl mb-3 text-slate-300"></i><div class="font-bold">No bookings found</div></div>';
     return;
   }
-  root.innerHTML = '<div class="overflow-auto rounded-2xl border border-slate-200 max-h-[560px]"><table class="w-full min-w-[1050px] text-xs text-left"><thead class="sticky top-0 bg-slate-50 z-10 text-[10px] uppercase tracking-wider text-slate-500"><tr><th class="p-3">Date / Time</th><th class="p-3" title="Inclusive calendar days between booking and planned return">Days used</th><th class="p-3">Requester</th><th class="p-3">Job / Destination</th><th class="p-3">KM / Bill</th><th class="p-3">Status</th><th class="p-3">Documents</th><th class="p-3 text-center">Action</th></tr></thead><tbody class="divide-y divide-slate-100">' + rows.map(function(row) {
+  root.innerHTML = '<div class="overflow-auto rounded-2xl border border-slate-200 max-h-[560px]"><table class="w-full min-w-[1280px] text-xs text-left ces-v10-ev-table"><thead class="sticky top-0 bg-slate-50 z-10 text-[10px] uppercase tracking-wider text-slate-500"><tr><th class="p-3">Date / Time</th><th class="p-3" title="Inclusive calendar days between booking and planned return">Days used</th><th class="p-3">Requester</th><th class="p-3">Job / Destination</th><th class="p-3">KM / Bill</th><th class="p-3">Status</th><th class="p-3">Documents</th><th class="p-3 text-center">Action</th></tr></thead><tbody class="divide-y divide-slate-100">' + rows.map(function(row) {
     var status = String(row.status || '').toUpperCase();
     var docs = '';
     if (row.memoFileUrl) docs += '<a href="' + cesBookEsc_(row.memoFileUrl) + '" target="_blank" onclick="event.stopPropagation()" class="w-8 h-8 grid place-items-center rounded-lg bg-blue-50 text-blue-600" title="E-Request"><i class="fas fa-paperclip"></i></a>';
@@ -1115,7 +1118,7 @@ function renderVehicleBookings(type) {
     if (['COMPLETED','CANCELLED','REJECTED'].indexOf(status) < 0) actions += '<button class="w-8 h-8 rounded-lg bg-red-50 text-red-500 border border-red-100" title="Cancel" onclick="event.stopPropagation();cancelVehicleBooking(\'' + type + '\',\'' + cesBookEsc_(row.bookingId) + '\')"><i class="fas fa-ban"></i></button>';
     var bookedStart=String(row.bookingDate||'').slice(0,10),bookedEnd=String(row.plannedReturnDate||row.bookingDate||'').slice(0,10);
     var bookedDays=/^\d{4}-\d{2}-\d{2}$/.test(bookedStart)&&/^\d{4}-\d{2}-\d{2}$/.test(bookedEnd)?Math.max(1,Math.floor((Date.parse(bookedEnd+'T00:00:00Z')-Date.parse(bookedStart+'T00:00:00Z'))/86400000)+1):1;
-    return '<tr class="hover:bg-blue-50/40 cursor-pointer transition-colors" onclick="openVehicleBookingDetail(\''+type+'\',\''+cesBookEsc_(row.bookingId)+'\')"><td class="p-3 font-bold text-slate-700 ces-booking-date-cell-v38"><div class="whitespace-nowrap">' + cesBookEsc_(cesBookDateDisplay_(row.bookingDate)) + ((row.plannedReturnDate && row.plannedReturnDate !== row.bookingDate) ? ' <span class="text-blue-600">→ ' + cesBookEsc_(cesBookDateDisplay_(row.plannedReturnDate)) + '</span>' : '') + '</div><div class="text-[10px] text-slate-400 mt-1 whitespace-nowrap">' + cesBookEsc_(row.startTime || '') + ' – ' + cesBookEsc_(row.endTime || '') + '</div></td><td class="p-3 font-black text-blue-700 whitespace-nowrap">' + bookedDays + ' วัน</td><td class="p-3"><b>' + cesBookEsc_(row.requesterName || '-') + '</b><div class="text-[10px] text-slate-400 flex items-center gap-1.5 mt-1"><span class="' + cesBookTeamClass_(row.team) + '">' + cesBookEsc_(row.team || '-') + '</span><span>· ' + cesBookEsc_(row.contact || '-') + '</span></div></td><td class="p-3"><b>' + cesBookEsc_(row.jobTitle || '-') + '</b><div class="text-[10px] text-slate-400 max-w-[240px] whitespace-normal">' + cesBookEsc_(row.destination || '-') + '</div></td><td class="p-3"><b>' + (Number(row.actualTotalKm||0)>0 ? cesBookEsc_(row.actualTotalKm)+' km' : 'KM at return') + '</b><div class="text-[10px] text-slate-400">' + (row.electricBill !== '' && row.electricBill != null ? cesBookMoney_(row.electricBill) : 'No bill') + '</div></td><td class="p-3"><span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-black ' + cesBookStatusClass_(status) + '">' + cesBookEsc_(status) + '</span></td><td class="p-3"><div class="flex gap-2">' + (docs || '<span class="text-slate-300">—</span>') + '</div></td><td class="p-3 text-center"><div class="flex justify-center gap-2">' + actions + '</div></td></tr>';
+    return '<tr class="hover:bg-blue-50/40 cursor-pointer transition-colors" onclick="openVehicleBookingDetail(\''+type+'\',\''+cesBookEsc_(row.bookingId)+'\')"><td class="p-3 font-bold text-slate-700 ces-booking-date-cell-v38"><div class="whitespace-nowrap">' + cesBookEsc_(cesBookDateDisplay_(row.bookingDate)) + ((row.plannedReturnDate && row.plannedReturnDate !== row.bookingDate) ? ' <span class="text-blue-600">→ ' + cesBookEsc_(cesBookDateDisplay_(row.plannedReturnDate)) + '</span>' : '') + '</div><div class="text-[10px] text-slate-400 mt-1 whitespace-nowrap">' + cesBookEsc_(row.startTime || '') + ' – ' + cesBookEsc_(row.endTime || '') + '</div></td><td class="p-3 font-black text-blue-700 whitespace-nowrap">' + bookedDays + ' วัน</td><td class="p-3"><b>' + cesBookEsc_(row.requesterName || '-') + '</b><div class="text-[10px] text-slate-400 flex items-center gap-1.5 mt-1"><span class="' + cesBookTeamClass_(row.team) + '">' + cesBookEsc_(row.team || '-') + '</span><span>· ' + cesBookEsc_(row.contact || '-') + '</span></div></td><td class="p-3"><b>' + cesBookEsc_(cesEvJobLabelV10(row)) + '</b><div class="text-[10px] text-slate-400 max-w-[240px] whitespace-normal">' + cesBookEsc_(row.destination || '-') + '</div></td><td class="p-3"><b>' + (Number(row.actualTotalKm||0)>0 ? cesBookEsc_(row.actualTotalKm)+' km' : 'KM at return') + '</b><div class="text-[10px] text-slate-400">' + (row.electricBill !== '' && row.electricBill != null ? cesBookMoney_(row.electricBill) : 'No bill') + '</div></td><td class="p-3"><span class="inline-flex whitespace-nowrap px-2.5 py-1 rounded-full text-[10px] font-black ' + cesBookStatusClass_(status) + '">' + cesBookEsc_(status) + '</span></td><td class="p-3"><div class="flex gap-2">' + (docs || '<span class="text-slate-300">—</span>') + '</div></td><td class="p-3 text-center"><div class="flex justify-center gap-2">' + actions + '</div></td></tr>';
   }).join('') + '</tbody></table></div><div class="mt-2 text-[10px] text-slate-400"><i class="fas fa-circle-info mr-1"></i>Click any row to open full details and edit attachments.</div>';
 }
 
@@ -1312,7 +1315,7 @@ async function submitVehicleRequest(type) {
   var fileInput = document.getElementById(prefix + '-memo-file');
   var file = fileInput && fileInput.files ? fileInput.files[0] : null;
   var payload = {
-    bookingType:type, clientRequestId:'', calendarUniqueKey:manualWork?'':cesBookGet_(prefix + '-calendar-key'),
+    bookingType:type, vehicleId:type==='CAR'?cesEvSelectedV10():'VAN', clientRequestId:'', calendarUniqueKey:manualWork?'':cesBookGet_(prefix + '-calendar-key'),
     calendarTeam:cesBookGet_(prefix + '-calendar-team') || cesBookGet_(prefix + '-requester-team'),
     bookingDate:cesBookGet_(prefix + '-book-date'), plannedReturnDate:cesBookGet_(prefix + '-book-return-date'),
     startTime:cesBookGet_(prefix + '-book-start') || '08:00', endTime:cesBookGet_(prefix + '-book-end') || '17:00',
@@ -1857,3 +1860,14 @@ window.addEventListener('ces:tab-changed',function(event){
 });
 
 window.cesCarBookingRefreshOnResume_=cesCarBookingRefreshOnResume_;
+
+
+/* V10 · EV fleet selector and editable six-month cost trend. */
+function cesEvSelectedV10(){return document.getElementById('cesEvVehicleSelectV10')?.value||'BYD-ATTO-398';}
+function cesEvPaintVehiclesV10(){const el=document.getElementById('cesEvVehicleSelectV10');if(!el)return;const list=cesBookingState_('CAR')?.vehicles||[];const previous=el.value||'BYD-ATTO-398';el.innerHTML=(list.length?list:[{id:'BYD-ATTO-398',name:'BYD Atto 3',registration:'กท 398',enabled:true}]).map(v=>'<option value="'+cesBookEsc_(v.id)+'" '+(!v.enabled?'disabled':'')+'>'+cesBookEsc_(v.name+' · '+v.registration+(!v.enabled?' (not ready)':''))+'</option>').join('');if([...el.options].some(x=>x.value===previous&&!x.disabled))el.value=previous;el.onchange=()=>{renderVehicleCalendar_('CAR');renderVehicleBookings('CAR');};}
+function cesEvJobLabelV10(row){const s=String(row.jobTitle||'').trim();if(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}$/.test(s)||/^20\d\d-\d\d-\d\d$/.test(s))return row.destination||row.purpose||s;return s||row.destination||row.purpose||'-';}
+const CES_EV_COST_V10={rows:[],loaded:false,chart:null};
+async function cesEvCostLoadV10(force){const root=document.getElementById('cesEvCostTableV10');if(!root||!window.CES_API)return;if(CES_EV_COST_V10.loaded&&!force)return cesEvCostRenderV10();try{const r=await window.CES_API.callFunction('getEvCostComparisonV10',[],{transport:'jsonp',timeoutMs:45000,module:'car_booking',userAction:true});if(!r?.success)throw Error(r?.message||'No cost data');CES_EV_COST_V10.rows=r.rows||[];CES_EV_COST_V10.loaded=true;cesEvCostRenderV10();}catch(e){root.innerHTML='<p class="p-3 text-rose-600">Cost comparison unavailable: '+cesBookEsc_(e.message)+'</p>';}}
+function cesEvCostRenderV10(){const root=document.getElementById('cesEvCostTableV10');if(!root)return;const rows=CES_EV_COST_V10.rows||[],money=n=>'฿'+Number(n||0).toLocaleString('th-TH',{minimumFractionDigits:0,maximumFractionDigits:2});root.innerHTML='<table class="ces-v10-cost-table"><thead><tr><th>Month</th><th>Days</th><th>KM</th><th>Charging</th><th>Toll</th><th>Other</th><th>EV Actual</th><th>Van Equivalent</th><th>Net Saving</th><th></th></tr></thead><tbody>'+rows.map((r,i)=>'<tr><td><b>'+cesBookEsc_(r.month)+'</b></td>'+['days','km','charging','toll','other'].map(key=>'<td><input aria-label="'+key+' '+r.month+'" type="number" min="0" step="'+(key==='days'?'1':'0.01')+'" value="'+Number(r[key]||0)+'" data-ev-row="'+i+'" data-ev-col="'+key+'"></td>').join('')+'<td>'+money(r.evCost)+'</td><td>'+money(r.vanCost)+'</td><td style="color:'+(r.saving>=0?'#059669':'#dc2626')+'">'+money(r.saving)+'</td><td><button type="button" onclick="cesEvCostSaveV10('+i+')">Save</button></td></tr>').join('')+'</tbody></table>';const canvas=document.getElementById('cesEvCostChartV10');if(canvas&&window.Chart){CES_EV_COST_V10.chart?.destroy();CES_EV_COST_V10.chart=new Chart(canvas,{type:'line',data:{labels:rows.map(r=>r.month),datasets:[{label:'EV actual',data:rows.map(r=>r.evCost),borderColor:'#003DA5',backgroundColor:'#003DA5',tension:.2},{label:'Van equivalent',data:rows.map(r=>r.vanCost),borderColor:'#ef4444',backgroundColor:'#ef4444',tension:.2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true}}}});}}
+async function cesEvCostSaveV10(index){const base=CES_EV_COST_V10.rows[index];if(!base||!window.CES_API)return;const payload={month:base.month,vehicleId:base.vehicleId,user:cesBookingCurrentUser_().email};document.querySelectorAll('[data-ev-row="'+index+'"]').forEach(e=>payload[e.dataset.evCol]=Number(e.value));if(!Number.isInteger(payload.days)||Object.entries(payload).filter(([k])=>['days','km','charging','toll','other'].includes(k)).some(([k,v])=>!Number.isFinite(v)||v<0))return Swal.fire('Check input','Enter nonnegative values and whole usage days','warning');try{const r=await window.CES_API.callFunction('saveEvCostComparisonV10',[payload],{transport:'iframe',timeoutMs:60000,module:'car_booking',userAction:true});if(!r?.success)throw Error(r?.message||'Save failed');await cesEvCostLoadV10(true);Swal.fire('Saved','EV Cost Comparison updated in Google Sheets','success');}catch(e){Swal.fire('Save error',String(e.message||e),'error');}}
+window.cesEvCostLoadV10=cesEvCostLoadV10;window.cesEvCostSaveV10=cesEvCostSaveV10;window.cesEvSelectedV10=cesEvSelectedV10;

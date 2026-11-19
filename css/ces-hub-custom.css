@@ -340,3 +340,34 @@
 #view-stock_dashboard #sdModelCards .sp-model-card{min-width:0}
 @media(max-width:850px){#view-stock_dashboard #sdModelCards{grid-template-columns:1fr}}
 
+
+/* V10 readability / notifications / EV performance */
+#view-inventory #siAccSection table,#view-inventory #siRestockTable table{font-size:13px!important;line-height:1.55!important;min-width:1000px}
+#view-inventory #siAccSection td,#view-inventory #siRestockTable td{padding:12px 13px!important}
+#view-inventory #siAccSection th,#view-inventory #siRestockTable th{padding:13px!important;font-size:11px!important}
+#view-inventory .ces-v10-pending{margin:20px 0;padding:18px;border-radius:16px;border:1px solid #bad7f3;background:#f7fbff}
+#view-inventory .ces-v10-pending table{width:100%;min-width:730px;font-size:13px;border-collapse:collapse}
+#view-inventory .ces-v10-pending th,#view-inventory .ces-v10-pending td{padding:10px 12px;border-bottom:1px solid #dce9f5;text-align:left}
+#view-inventory .ces-v10-pending th{background:#e9f3ff;font-size:11px}
+#view-inventory .ces-v10-pending button,.ces-v10-notify button,.ces-v10-cost-table button{background:#004bb7;color:#fff;border:0;border-radius:9px;padding:8px 13px;font-weight:700;white-space:nowrap}
+#view-car_booking .ces-v10-cost-card{background:#fff;border:1px solid #dbe5f1;border-radius:17px;padding:17px;min-width:0;margin:18px 0}
+#view-car_booking .ces-v10-cost-table{border-collapse:collapse;min-width:1000px;width:100%;font-size:12px}
+#view-car_booking .ces-v10-cost-table th,#view-car_booking .ces-v10-cost-table td{padding:9px 8px;border-bottom:1px solid #e5edf7;white-space:nowrap}
+#view-car_booking .ces-v10-cost-table th{background:#edf5ff;color:#194b80}
+#view-car_booking .ces-v10-cost-table input{width:84px;padding:7px;border:1px solid #cbd8e8;border-radius:8px;background:#fff}
+#view-car_booking .ces-v10-cost-chart{height:230px;margin-bottom:14px}
+#view-car_booking #cesEvVehicleSelectV10{border:1px solid #bed4ef;border-radius:9px;padding:9px 12px;font-size:13px;min-width:220px}
+#view-car_booking td .status,#view-car_booking td .status-badge{white-space:nowrap!important;word-break:normal!important;min-width:84px}
+.ces-v10-notify .ces-v10-alert{background:#fff8e7;color:#8a5a13;border:1px solid #fde7a5;border-radius:10px;padding:12px;font-size:12px}
+.ces-v10-notify-table{min-width:1220px;width:100%;border-collapse:collapse;font-size:12px}
+.ces-v10-notify-table th,.ces-v10-notify-table td{border-bottom:1px solid #e4ebf4;padding:12px 9px;text-align:left;vertical-align:middle}
+.ces-v10-notify-table th{background:#edf4fe;color:#1c4976;font-weight:800;white-space:nowrap}
+.ces-v10-notify-table td small{display:block;color:#8190a8;font-size:10px}
+.ces-v10-notify-table select,.ces-v10-notify-table input{width:100%;min-width:90px;max-width:175px;min-height:38px;border:1px solid #cbd9ea;border-radius:9px;padding:7px 9px;background:#fff;color:#12345a}
+.ces-v10-notify-table button:disabled{background:#cbd5e1;color:#64748b;cursor:not-allowed}
+.ces-v10-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.ces-v10-kpi-grid .card{padding:14px 16px;border:1px solid #dbe5ef;border-radius:14px;background:#f9fbff}
+.ces-v10-kpi-monthly{width:100%;min-width:950px;border-collapse:collapse;font-size:12px}
+.ces-v10-kpi-monthly th,.ces-v10-kpi-monthly td{padding:10px;border-bottom:1px solid #e5edf5;text-align:center}
+.ces-v10-kpi-monthly th{position:sticky;top:0;background:#eaf2ff;color:#1d4679}
+@media(max-width:850px){.ces-v10-kpi-grid{grid-template-columns:1fr 1fr}}

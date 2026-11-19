@@ -168,7 +168,7 @@
         else if (tab === 'master_cal_pm_plan' && typeof window.initMasterCalPmPlan === 'function') window.initMasterCalPmPlan(forceRefresh);
         else if (tab === 'monthly_report' && typeof window.initMonthlyReport === 'function') window.initMonthlyReport();
         else if (tab === 'users'         && typeof initUsers === 'function') initUsers();
-        else if (tab === 'notification_config') { if (typeof switchTab === 'function') switchTab('setting'); }
+        else if (tab === 'notification_config' && typeof window.initNotificationConfigV10 === 'function') window.initNotificationConfigV10();
         else if (tab === 'user_log' && typeof window.initUserLogDashboard === 'function') window.initUserLogDashboard(false);
         else if (tab === 'ces_evaluation' && typeof window.initCesHubEvaluation === 'function') window.initCesHubEvaluation();
         else if (tab === 'ces_ai_knowledge' && typeof window.initCesAiKnowledge === 'function') window.initCesAiKnowledge();
@@ -686,7 +686,7 @@
     window.cesCanAccessTab = cesCanAccessTab_;
 
     function cesTabLabel_(tab){
-        var labels={portal:'Home',management_overview:'Management Overview',service:'Service CSI',report:'Report CSI',memo_workorder:'Memo & Work Order',pr_gr_dashboard:'PR & GR Dashboard',yearly:'Job Dashboard',revenue:'Revenue Dashboard',calendar:'Calendar',checkin:'Check-in',car_booking:'EV Car Booking',van_booking:'Van Booking',team_information:'Team Information',team_plan:'Team Plan',master_cal_pm_plan:'Master CAL/PM Plan',monthly_report:'Monthly Report',users:'User Management',ces_evaluation:'CES Hub Evaluation',ces_ai_knowledge:'CES AI Knowledge',setting:'Setting',user_log:'Log Summary',health:'System Health Check',ot:'OT Dashboard',weekly:'Weekly Report',report_manage:'OT Generate',te_generate:'TE Generate',kpi:'KPI Tracking',stock_dashboard:'Infusion Pump Dashboard',inventory:'Inventory',check_stock:'Check Stock'};
+        var labels={portal:'Home',management_overview:'Management Overview',service:'Service CSI',report:'Report CSI',memo_workorder:'Memo & Work Order',pr_gr_dashboard:'PR & GR Dashboard',yearly:'Job Dashboard',revenue:'Revenue Dashboard',calendar:'Calendar',checkin:'Check-in',car_booking:'EV Car Booking',van_booking:'Van Booking',team_information:'Team Information',team_plan:'Team Plan',master_cal_pm_plan:'Master CAL/PM Plan',monthly_report:'Monthly Report',users:'User Management',ces_evaluation:'CES Hub Evaluation',ces_ai_knowledge:'CES AI Knowledge',setting:'Setting',notification_config:'Notification Config',user_log:'Log Summary',health:'System Health Check',ot:'OT Dashboard',weekly:'Weekly Report',report_manage:'OT Generate',te_generate:'TE Generate',kpi:'KPI Tracking',stock_dashboard:'Infusion Pump Dashboard',inventory:'Inventory',check_stock:'Check Stock'};
         return labels[tab] || String(tab||'Dashboard').replace(/_/g,' ').replace(/\b\w/g,function(ch){return ch.toUpperCase();});
     }
     function cesRevealDeferredViewShell_(tab){

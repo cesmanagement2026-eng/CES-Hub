@@ -884,6 +884,7 @@ function renderKpiExecutiveSummary() {
             <span class="text-xl font-black">${kpiNum(s.value)}</span></button>`;
     }).join('');
     if (updated) updated.innerText = `Scope: ${scopeNote} • Records: ${rows.length}`;
+    if (typeof cesKpiRenderSlaV10==='function') cesKpiRenderSlaV10();
 }
 
 function getKpiFilteredRows() {
@@ -1225,3 +1226,12 @@ function renderKPITable() {
         </tr>`;
     }).join('');
 }
+
+function cesKpiRenderSlaV10(){
+ const k=globalKpiSummary?.slaV10,card=document.getElementById('cesKpiSlaCardsV10'),body=document.getElementById('cesKpiSlaMonthlyV10'),info=document.getElementById('cesKpiSlaSourceV10');if(!k||!card||!body)return;
+ const pct=v=>Number(v||0).toFixed(1)+'%',stat=k.total||{},entries=[['Total Jobs',stat.total||0,'#003DA5'],['On Time',pct(stat.onTimePct),'#059669'],['Late',pct(stat.latePct),'#dc2626'],['Report Corrections',k.reportCorrections||0,'#d97706']];
+ card.innerHTML=entries.map(x=>'<div class="rounded-xl border border-slate-200 bg-white p-3"><div class="text-[10px] font-bold text-slate-500">'+kpiEsc(x[0])+'</div><div class="text-xl font-black mt-1" style="color:'+x[2]+'">'+kpiEsc(x[1])+'</div></div>').join('');
+ body.innerHTML=(k.monthly||[]).map(m=>'<tr><td>'+kpiEsc(m.month)+'</td><td>'+Number(m.total||0)+'</td><td class="text-emerald-700 font-black">'+pct(m.onTimePct)+'</td><td class="text-rose-600 font-black">'+pct(m.latePct)+'</td><td>'+pct(m.stages?.Engineer?.onTimePct)+'</td><td>'+pct(m.stages?.Engineer?.latePct)+'</td><td>'+pct(m.stages?.SUP?.onTimePct)+'</td><td>'+pct(m.stages?.SUP?.latePct)+'</td><td>'+pct(m.stages?.Report?.onTimePct)+'</td><td>'+pct(m.stages?.Report?.latePct)+'</td><td>'+Number(m.dataError||0)+'</td></tr>').join('')||'<tr><td colspan="11">No EHS data in 2026</td></tr>';
+ if(info)info.textContent='EHS Run Cer · monthly by onsite date · date anomalies kept separate';
+}
+window.cesKpiRenderSlaV10=cesKpiRenderSlaV10;

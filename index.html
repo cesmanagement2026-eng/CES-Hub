@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="css/app.css?build=clean">
 
 <link rel="stylesheet" href="css/ai-local-assistant.css?build=clean">
-    <link rel="stylesheet" href="css/ces-hub-custom.css?v=9.0">
+    <link rel="stylesheet" href="css/ces-hub-custom.css?v=10.0">
 
     <!-- Essential JS: Must load before page interaction -->
 
@@ -284,6 +284,7 @@
           { target:'#app-main-content', url:'views/users.html', viewId:'view-users', optional:true },
           { target:'#app-main-content', url:'views/ces_evaluation.html', viewId:'view-ces_evaluation', optional:true },
           { target:'#app-main-content', url:'views/ces_ai_knowledge.html', viewId:'view-ces_ai_knowledge', optional:true },
+          { target:'#app-main-content', url:'views/notification_config.html', viewId:'view-notification_config', optional:true },
           { target:'#app-main-content', url:'views/setting.html', viewId:'view-setting', optional:true },
           { target:'#app-main-content', url:'views/user_log.html', viewId:'view-user_log', optional:true },
           { target:'#app-main-content', url:'views/kpi.html', viewId:'view-kpi', optional:true },
@@ -315,6 +316,7 @@
           { url:'js/modules/ot-dashboard.js', optional:true },
           { url:'js/modules/users-management.js', optional:true },
           { url:'js/modules/settings.js', optional:true },
+          { url:'js/modules/notification-config.js', optional:true },
           { url:'js/modules/kpi-dashboard.js', optional:true },
           { url:'js/modules/stock-dashboard.js', optional:true },
           { url:'js/modules/stock-inventory.js', optional:true },
@@ -384,6 +386,7 @@
         ces_evaluation:['js/modules/ces-hub-evaluation.js'],
         ces_ai_knowledge:['js/modules/ces-ai-knowledge.js'],
         setting:['js/modules/settings.js','js/modules/inventory-enhancements.js'],
+        notification_config:['js/modules/notification-config.js'],
         user_log:['js/modules/user-log-dashboard.js'],
         kpi:['js/modules/kpi-dashboard.js','js/modules/runtime-system.js','js/modules/frontend-links.js','js/modules/inventory-enhancements.js'],
         stock_dashboard:['js/modules/stock-dashboard.js','js/modules/stock-inventory.js','js/modules/inventory-runtime.js','js/modules/ui-interactions.js','js/modules/infusion-rental-current.js','js/modules/infusion-dashboard-current.js'],
