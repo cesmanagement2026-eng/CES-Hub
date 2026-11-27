@@ -342,7 +342,7 @@ window.cesHydrateLoginMemory = cesHydrateLoginMemory;
     //  REGISTER MODAL
     // ──────────────────────────────────────────────────────────────────
     function cesResetRegisterForm() {
-        const ids = ['reg-id','reg-name-th','reg-name-eng','reg-email','reg-position','reg-costCenter','reg-supervisor','reg-empType','reg-tel'];
+        const ids = ['reg-id','reg-name-th','reg-name-eng','reg-email','reg-position','reg-costCenter','reg-supervisor','reg-empType','reg-tel','reg-title-en','reg-title-th','reg-nickname','reg-service-date'];
         ids.forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
         const team=document.getElementById('reg-team'); if(team) team.value='';
         const level=document.getElementById('reg-role'); if(level) level.value='';
@@ -372,7 +372,9 @@ window.cesHydrateLoginMemory = cesHydrateLoginMemory;
             costCenter:  String(document.getElementById('reg-costCenter').value || '').trim(),
             supervisor:  String(document.getElementById('reg-supervisor').value || '').trim(),
             empType:     String(document.getElementById('reg-empType').value || '').trim(),
-            tel:         String(document.getElementById('reg-tel').value || '').trim()
+            tel:         String(document.getElementById('reg-tel').value || '').trim(),
+            titleEn: document.getElementById('reg-title-en').value, titleTh:document.getElementById('reg-title-th').value,
+            nickname:document.getElementById('reg-nickname').value, serviceDate:document.getElementById('reg-service-date').value
         };
 
         if (!form.id || !form.name_th || !form.name_eng || !form.email || !form.team || !form.position || !form.requestedRole) {

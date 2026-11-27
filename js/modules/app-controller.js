@@ -235,7 +235,7 @@
     const CES_AUTH_SESSION_TTL_V50 = 30 * 24 * 60 * 60 * 1000;
     const CES_LINE_FAST_SESSION_TTL_V48 = 24 * 60 * 60 * 1000;
     const CES_ACTIVE_TAB_KEY_V60 = 'CES_ACTIVE_TAB_V60';
-    const CES_VALID_TABS_V60 = ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log'];
+    const CES_VALID_TABS_V60 = ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','notification_config','user_log'];
     let cesUsageHeartbeatV50 = null;
     let cesUsageLastApiV50 = { module:'', action:'', at:0 };
 
@@ -580,7 +580,7 @@
     function cesForceAdminSystemMenu_() {
         var role = String((currentUser && currentUser.role) || (window.currentUser && window.currentUser.role) || currentRole || '').trim().toUpperCase();
         if (role !== 'ADMIN') return false;
-        ['setting','user_log','users','ces_evaluation','ces_ai_knowledge','team_information','master_cal_pm_plan','monthly_report'].forEach(function(id){
+        ['setting','notification_config','user_log','users','ces_evaluation','ces_ai_knowledge','team_information','master_cal_pm_plan','monthly_report'].forEach(function(id){
             var btn=document.getElementById('btn-'+id);
             if(btn){btn.classList.remove('hidden');btn.removeAttribute('hidden');btn.style.removeProperty('display');}
         });
@@ -761,7 +761,7 @@
             });
         });
 
-        const views = ['portal','management_overview','service','report','memo_workorder','pr_gr_dashboard','yearly','revenue','calendar','checkin','car_booking','van_booking','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log','ot','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock'];
+        const views = ['portal','management_overview','service','report','memo_workorder','pr_gr_dashboard','yearly','revenue','calendar','checkin','car_booking','van_booking','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','notification_config','user_log','ot','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock'];
         views.forEach(v => {
             const el = document.getElementById(`view-${v}`);
             if (el) { el.classList.add('hidden'); el.classList.remove('slide-up'); }
@@ -828,6 +828,7 @@
         document.getElementById('prof-name-eng').value = currentUser.name_eng || '';
         document.getElementById('prof-name-th').value  = currentUser.name_th  || '';
         document.getElementById('prof-email').value    = currentUser.email    || '';
+        ['title-en','title-th','nickname','service-date'].forEach(function(k){var el=document.getElementById('prof-'+k);if(el)el.value=currentUser[{'title-en':'titleEn','title-th':'titleTh','nickname':'nickname','service-date':'serviceDate'}[k]]||'';});
         document.getElementById('prof-team').value     = currentUser.team     || '';
         document.getElementById('prof-position').value = currentUser.position || '';
 
@@ -872,7 +873,9 @@
             costCenter: document.getElementById('prof-costCenter').value,
             tel: document.getElementById('prof-tel').value,
             empType: document.getElementById('prof-empType').value,
-            supervisor: document.getElementById('prof-supervisor').value
+            supervisor: document.getElementById('prof-supervisor').value,
+            titleEn: document.getElementById('prof-title-en').value, titleTh:document.getElementById('prof-title-th').value,
+            nickname:document.getElementById('prof-nickname').value
         };
         const btn = document.querySelector('#profileModal button:last-child');
         const originalBtnHtml = btn.innerHTML;
@@ -1002,7 +1005,7 @@
                 settings: 'setting',
             };
             tab = alias[tab] || tab;
-            const valid = ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','user_log'];
+            const valid = ['portal','management_overview','yearly','revenue','ot','service','report','memo_workorder','pr_gr_dashboard','calendar','checkin','car_booking','van_booking','weekly','report_manage','kpi','stock_dashboard','inventory','check_stock','team_information','master_cal_pm_plan','monthly_report','users','ces_evaluation','ces_ai_knowledge','setting','notification_config','user_log'];
             return valid.includes(tab) ? tab : '';
         } catch (e) {
             return '';

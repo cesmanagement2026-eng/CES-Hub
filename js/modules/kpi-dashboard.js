@@ -219,7 +219,8 @@ function switchKpiTab(team) {
 function kpiApplyDashboardResponse(res, keepOpenRowId, fromCache) {
     if (!res || !res.success) return false;
     globalKpiData = kpiApplyStrictWorkflowStatus(res.data || []);
-    globalKpiSummary = res.summary || null;
+    globalKpiSummary = res.summary || {};
+    if(!globalKpiSummary.slaV10) globalKpiSummary.slaV10=cesKpiLocalSla_(globalKpiData);
     KPI_TABLE_PAGE_V36 = 1;
     KPI_FILTER_SIGNATURE_V36 = '';
 
@@ -1227,11 +1228,34 @@ function renderKPITable() {
     }).join('');
 }
 
+function cesKpiLocalSla_(rows){
+ const parse=(raw)=>{if(!raw)return null;if(raw instanceof Date)return isNaN(raw)?null:raw;
+   const v=String(raw).trim(),m=v.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})/);
+   if(m){const d=new Date(+m[3],+m[2]-1,+m[1]);return d.getFullYear()===+m[3]&&d.getMonth()===+m[2]-1&&d.getDate()===+m[1]?d:null;}
+   const d=new Date(v);return isNaN(d)?null:d;};
+ const diff=(a,b)=>Math.round((new Date(b.getFullYear(),b.getMonth(),b.getDate())-new Date(a.getFullYear(),a.getMonth(),a.getDate()))/86400000);
+ const empty=()=>({total:0,onTime:0,late:0,pending:0,dataError:0,stages:Object.fromEntries(['Engineer','SUP','Report'].map(k=>[k,{onTime:0,late:0,pending:0,error:0}]))});
+ const months={},today=new Date();let corrections=0;
+ (rows||[]).forEach(r=>{if(!String(r.sourceSheet||'').toUpperCase().includes('EHS'))return;
+   const date=parse(r.calDate);if(!date||date.getFullYear()!==2026)return;
+   const key=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`,b=months[key]||(months[key]=empty()),raw=r.rawStatus||{};
+   const ed=parse(raw.engDate),sd=parse(raw.supDate),rd=parse(raw.repDate),invalid=!!((ed&&ed<date)||(sd&&ed&&sd<ed)||(rd&&sd&&rd<sd));b.total++;
+   if(r.reportFixChecked||raw.reportFixChecked)corrections++;
+   if(invalid)b.dataError++;else if(rd)(diff(date,rd)<=14?b.onTime++:b.late++);else (diff(date,today)>14?b.late++:b.pending++);
+   [[ed,6,'Engineer'],[sd,12,'SUP'],[rd,14,'Report']].forEach(([d,limit,stage])=>{const s=b.stages[stage];if(invalid){s.error++;return;}if(d)(diff(date,d)<=limit?s.onTime++:s.late++);else(diff(date,today)>limit?s.late++:s.pending++);});
+ });
+ const monthly=Object.keys(months).sort().map(month=>{const b=months[month];b.month=month;b.onTimePct=b.total?b.onTime/b.total*100:0;b.latePct=b.total?b.late/b.total*100:0;Object.values(b.stages).forEach(x=>{x.onTimePct=b.total?x.onTime/b.total*100:0;x.latePct=b.total?x.late/b.total*100:0;});return b;});
+ const total=empty();monthly.forEach(m=>{['total','onTime','late','pending','dataError'].forEach(k=>total[k]+=m[k]);});
+ total.onTimePct=total.total?total.onTime/total.total*100:0;total.latePct=total.total?total.late/total.total*100:0;
+ return {monthly,total,reportCorrections:corrections,source:'EHS Run Cer · 2026 (calculated from loaded EHS records)'};
+}
 function cesKpiRenderSlaV10(){
- const k=globalKpiSummary?.slaV10,card=document.getElementById('cesKpiSlaCardsV10'),body=document.getElementById('cesKpiSlaMonthlyV10'),info=document.getElementById('cesKpiSlaSourceV10');if(!k||!card||!body)return;
+ const card=document.getElementById('cesKpiSlaCardsV10'),body=document.getElementById('cesKpiSlaMonthlyV10'),info=document.getElementById('cesKpiSlaSourceV10');if(!card||!body)return;
+ let k=globalKpiSummary&&globalKpiSummary.slaV10;
+ if(!k||!Array.isArray(k.monthly)){k=cesKpiLocalSla_(globalKpiData||[]);if(globalKpiSummary)globalKpiSummary.slaV10=k;}
  const pct=v=>Number(v||0).toFixed(1)+'%',stat=k.total||{},entries=[['Total Jobs',stat.total||0,'#003DA5'],['On Time',pct(stat.onTimePct),'#059669'],['Late',pct(stat.latePct),'#dc2626'],['Report Corrections',k.reportCorrections||0,'#d97706']];
  card.innerHTML=entries.map(x=>'<div class="rounded-xl border border-slate-200 bg-white p-3"><div class="text-[10px] font-bold text-slate-500">'+kpiEsc(x[0])+'</div><div class="text-xl font-black mt-1" style="color:'+x[2]+'">'+kpiEsc(x[1])+'</div></div>').join('');
- body.innerHTML=(k.monthly||[]).map(m=>'<tr><td>'+kpiEsc(m.month)+'</td><td>'+Number(m.total||0)+'</td><td class="text-emerald-700 font-black">'+pct(m.onTimePct)+'</td><td class="text-rose-600 font-black">'+pct(m.latePct)+'</td><td>'+pct(m.stages?.Engineer?.onTimePct)+'</td><td>'+pct(m.stages?.Engineer?.latePct)+'</td><td>'+pct(m.stages?.SUP?.onTimePct)+'</td><td>'+pct(m.stages?.SUP?.latePct)+'</td><td>'+pct(m.stages?.Report?.onTimePct)+'</td><td>'+pct(m.stages?.Report?.latePct)+'</td><td>'+Number(m.dataError||0)+'</td></tr>').join('')||'<tr><td colspan="11">No EHS data in 2026</td></tr>';
- if(info)info.textContent='EHS Run Cer · monthly by onsite date · date anomalies kept separate';
+ body.innerHTML=(k.monthly||[]).map(m=>'<tr><td>'+kpiEsc(m.month)+'</td><td>'+Number(m.total||0)+'</td><td class="text-emerald-700 font-black">'+pct(m.onTimePct)+'</td><td class="text-rose-600 font-black">'+pct(m.latePct)+'</td><td>'+pct(m.stages?.Engineer?.onTimePct)+'</td><td>'+pct(m.stages?.Engineer?.latePct)+'</td><td>'+pct(m.stages?.SUP?.onTimePct)+'</td><td>'+pct(m.stages?.SUP?.latePct)+'</td><td>'+pct(m.stages?.Report?.onTimePct)+'</td><td>'+pct(m.stages?.Report?.latePct)+'</td><td>'+Number(m.dataError||0)+'</td></tr>').join('')||'<tr><td colspan="11">No EHS SLA records for 2026. Verify date fields and refresh.</td></tr>';
+ if(info)info.textContent=k.source||'EHS Run Cer · 2026';
 }
 window.cesKpiRenderSlaV10=cesKpiRenderSlaV10;

@@ -5,7 +5,7 @@
 
 let _userCache = null; 
     let _permConfig = {};
-    const CES_USER_CACHE_V3025='CES_USER_MANAGEMENT_CACHE_V3025';
+    const CES_USER_CACHE_V3025='CES_USER_MANAGEMENT_CACHE_CURRENT_SCHEMA';
     function userApi(fn,args,opt){
         if(!window.CES_API||typeof window.CES_API.callFunction!=='function')return Promise.reject(new Error('CES API bridge is not ready.'));
         const options=Object.assign({transport:'jsonp',timeoutMs:50000,dedupe:false,priority:'active',userAction:true,module:'users'},opt||{});
@@ -38,6 +38,7 @@ let _userCache = null;
         { id:'team_plan',name:'Team Plan',group:'Information',icon:'fa-calendar-days' },
         { id:'monthly_report',name:'Monthly Report',group:'Information',icon:'fa-file-circle-check' },
         { id:'setting',name:'Setting',group:'System',icon:'fa-cogs' },
+        { id:'notification_config',name:'Notification Config',group:'System',icon:'fa-bell' },
         { id:'user_log',name:'Log Summary',group:'System',icon:'fa-chart-line' },
         { id:'users',name:'User Management',group:'System',icon:'fa-users-cog' },
         { id:'ces_evaluation',name:'CES Hub Evaluation',group:'System',icon:'fa-star-half-stroke' },
@@ -216,7 +217,7 @@ let _userCache = null;
 
     function handleReject(id, row) {
         Swal.fire({
-            title: 'Reject User?', text: "They will be removed from the system.", icon: 'warning',
+            title: 'Reject User?', text: "Their account will be marked REJECTED; HR record remains in Staff_Data.", icon: 'warning',
             showCancelButton: true, confirmButtonColor: '#E4002B', confirmButtonText: 'Yes, Reject'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -241,6 +242,7 @@ let _userCache = null;
         
         document.getElementById('edit-team').value = ['MED','LAB','EHS','ENV','INNO','TES','QM','IT','MNG'].includes(String(user.team||'').toUpperCase()) ? String(user.team).toUpperCase() : 'MNG';
         document.getElementById('edit-position').value = user.position || '';
+        ['title-en','title-th','nickname','service-date'].forEach(k=>{const el=document.getElementById('edit-'+k);if(el)el.value=user[{'title-en':'titleEn','title-th':'titleTh','nickname':'nickname','service-date':'serviceDate'}[k]]||'';});
         document.getElementById('edit-role').value = user.role;
 
         document.getElementById('edit-costCenter').value = user.costCenter || '';
@@ -260,8 +262,13 @@ let _userCache = null;
             costCenter: document.getElementById('edit-costCenter').value,
             supervisor: document.getElementById('edit-supervisor').value,
             empType: document.getElementById('edit-empType').value,
-            tel: document.getElementById('edit-tel').value
+            tel: document.getElementById('edit-tel').value,
+            titleEn:document.getElementById('edit-title-en').value,titleTh:document.getElementById('edit-title-th').value,
+            nickname:document.getElementById('edit-nickname').value
         };
+        const target = (_userCache || []).find(u => Number(u.rowIndex) === Number(updates.rowIndex));
+        updates.id = target ? String(target.id || '') : '';
+        if (!updates.id) { if (window.Swal) Swal.fire('Error','User ID missing. Refresh the user list.','error'); return; }
         const btn = document.querySelector('#editUserModal button:last-child');
         const originalHtml = btn.innerHTML;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Saving...';
