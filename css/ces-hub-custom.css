@@ -400,3 +400,38 @@
 #view-inventory .ces-restock-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid #e0eaf6;padding:14px;background:#fafcff}.ces-restock-footer p{color:#5b7290;font-size:12px}
 @media(max-width:950px){#view-inventory .ces-restock-filterbar{grid-template-columns:1fr 1fr}#view-car_booking .ces-ev-availability-hint{width:100%}}
 @media(max-width:640px){#view-inventory .ces-restock-filterbar{grid-template-columns:1fr}#view-car_booking .ces-ev-select-field{min-width:100%}}
+
+/* Warehouse-first inventory: compact grouped rows, clear action and readable filters. */
+#view-inventory .ces-warehouse-help{display:flex;gap:10px;flex-wrap:wrap;padding:12px 14px;background:#f3f8ff;border-bottom:1px solid #dce8f6;color:#165092;font-size:12px;font-weight:750}
+#view-inventory .ces-warehouse-help span{display:inline-flex;align-items:center;gap:7px;border:1px solid #cfe1f6;background:#fff;border-radius:999px;padding:7px 12px}
+#view-inventory .ces-warehouse-table{width:100%;min-width:760px;table-layout:auto;font-size:13px}
+#view-inventory .ces-warehouse-table th,#view-inventory .ces-warehouse-table td{padding:14px 15px!important;vertical-align:middle}
+#view-inventory .ces-warehouse-table td.item{min-width:230px;width:32%}
+#view-inventory .ces-warehouse-table td.item strong{font-size:13px;font-weight:750}
+#view-inventory .ces-warehouse-table .ces-warehouse-balance{font-size:17px;color:#004aad;font-variant-numeric:tabular-nums}
+#view-inventory .ces-warehouse-teams{display:flex;gap:5px;flex-wrap:wrap;font-size:11px;color:#54708a;margin-top:5px}
+#view-inventory .ces-warehouse-teams span{background:#edf4fd;border-radius:6px;padding:3px 5px}
+#view-inventory .ces-warehouse-actions{display:flex;gap:6px;flex-wrap:wrap}
+#view-inventory .ces-warehouse-actions button{min-height:35px;padding:8px 11px;border-radius:9px;font-size:12px;font-weight:750;border:1px solid #b9d3f0;color:#004aad;background:#f4f9ff}
+#view-inventory .ces-warehouse-actions button.receive{background:#004aad;color:white;border-color:#004aad}
+#view-inventory .ces-warehouse-actions button.allocate{background:#e9faf3;color:#067648;border-color:#a8e6cc}
+#view-inventory .ces-warehouse-actions button:disabled{opacity:.35;cursor:not-allowed}
+#view-inventory .ces-restock-err{color:#b91c1c;font-weight:650}
+#view-inventory .ces-warehouse-wait{padding:16px;background:#fff8e7;border:1px solid #f4d797;color:#9b5b09;font-weight:700}
+.ces-warehouse-modal{display:grid;gap:12px;text-align:left}.ces-warehouse-modal>p{margin:0;padding:12px;background:#edf5ff;border-radius:12px;color:#073b7e}.ces-warehouse-modal>p small{display:block;font-size:12px;color:#587598;margin-top:5px}
+.ces-warehouse-modal label{display:flex;align-items:center;justify-content:space-between;gap:15px;color:#234363;font-weight:750;font-size:13px}.ces-warehouse-modal label input{width:min(230px,52%);border:1px solid #bfd0e8;border-radius:9px;padding:9px;font-size:14px}
+.ces-warehouse-modal label.ces-warehouse-team{padding:8px 11px;border:1px solid #e1eaf5;border-radius:10px}.ces-warehouse-team small{display:block;font-weight:500;color:#76879a}.ces-warehouse-note{font-size:12px;color:#127a53}
+#view-inventory .cesHub-access-table th:first-child,#view-inventory .cesHub-access-table td:first-child{width:28%;min-width:185px}
+#view-inventory .cesHub-access-table th:nth-child(2),#view-inventory .cesHub-access-table td:nth-child(2){width:18%;min-width:135px;padding-left:17px!important;padding-right:15px!important}
+#view-inventory .cesHub-access-table td .cesHub-team{max-width:100%;word-break:normal;white-space:normal}
+#view-inventory .cesHub-access-table td .cesHub-item{padding-right:10px}
+#view-car_booking .ces-ev-cost-note{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:#305578;margin-bottom:8px}
+#view-car_booking .ces-ev-cost-note b{color:#003da5;font-size:13px}
+#view-car_booking .ces-ev-cost-note small{display:block;flex-basis:100%;font-size:11px}
+#view-car_booking .ces-ev-cost-table-wrap{max-width:100%;overflow-x:auto}
+#view-car_booking .ces-v10-cost-table{min-width:1080px}
+#view-car_booking .ces-v10-cost-table td.loss{color:#c41e3a;font-weight:800}#view-car_booking .ces-v10-cost-table td.profit{color:#047857;font-weight:800}
+#view-car_booking .ces-ev-cost-loading{min-height:80px;display:grid;place-items:center;color:#526b8e}
+#view-car_booking .ces-ev-cost-error-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+#view-car_booking .ces-ev-cost-error-actions a{color:#004aad;text-decoration:underline;font-size:12px;font-weight:750}
+@media(max-width:720px){#view-inventory .ces-warehouse-table{min-width:700px}#view-inventory .ces-warehouse-help{gap:6px}.ces-warehouse-modal label{flex-direction:column;align-items:stretch}.ces-warehouse-modal label input{width:100%}}

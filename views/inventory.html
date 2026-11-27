@@ -33,7 +33,7 @@
     </div>
 
     <section class="stockpro-card hidden" id="siRestockSection" style="display:none">
-      <div class="ces-restock-head"><h3><i class="fas fa-boxes-stacked"></i> Restock & Team Allocation</h3><p class="text-xs text-slate-500 mt-1">Select a team item, choose new stock or transfer from the pending pool, then review and save.</p></div>
+      <div class="ces-restock-head"><h3><i class="fas fa-boxes-stacked"></i> Restock & Team Allocation</h3><p class="text-xs text-slate-500 mt-1">Receive one product in bulk into warehouse stock, then allocate quantities to teams when needed. All movements are logged.</p></div>
       <div class="ces-restock-filterbar"><input id="siRestockSearch" class="stockpro-control" placeholder="Search item / ID" aria-label="Search inventory" oninput="siLatestRestockRender()"><select id="siRestockTeam" class="stockpro-control" aria-label="Filter team" onchange="siLatestRestockRender()"><option value="all">All teams</option></select><select id="siRestockType" class="stockpro-control" aria-label="Filter type" onchange="siLatestRestockRender()"><option value="all">All types</option></select><button type="button" onclick="siRestockResetFilters()"><i class="fas fa-rotate-left"></i> Reset</button></div>
       <div id="siPendingAllocationV8" class="ces-restock-pending-panel" aria-live="polite"><span class="loading">Loading pending inventory…</span></div>
       <div id="siRestockTable" style="overflow:auto;max-height:68vh;border:1px solid #e1eaf5;border-radius:13px"></div>
